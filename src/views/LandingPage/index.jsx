@@ -6,6 +6,7 @@ import Toggle from '../../components/Toggle/index.jsx';
 import './LandingPage.scss';
 import ArticleCard from '../../components/ArticleCard/index.jsx';
 import FollowersTablist from '../../components/FollowersTablist/index.jsx';
+import ArticleTabList from '../../components/ArticleTabList/index.jsx';
 
 const followingCard = {
   lightTheme: false,
@@ -20,6 +21,27 @@ const notFollowingCard = {
   email: 'damilola.adekoya@andela.com',
   name: 'Damilola Adekoya'
 };
+
+const lightArticleCard = {
+  lightTheme: false,
+  articleTitle: 'Writing React test Like a pro',
+  articleDescription: 'writing e2e test for your app',
+  publishedAt: 'July 2',
+  readTime: '10 mins',
+  numberLikes: 220,
+  numberComment: 170
+};
+
+const darkArticleCard = {
+  lightTheme: true,
+  articleTitle: 'Understanding redux and react',
+  articleDescription: 'Redux the best storage system',
+  publishedAt: 'July 28',
+  readTime: '6 mins',
+  numberLikes: 120,
+  numberComment: 70
+};
+
 
 export class LandingPage extends React.Component {
   constructor() {
@@ -78,6 +100,12 @@ export class LandingPage extends React.Component {
         <br />
         <br />
         <FollowersTablist {...notFollowingCard} />
+        <br />
+        <br />
+        <ArticleTabList {...darkArticleCard} />
+        <br />
+        <br />
+        <ArticleTabList {...lightArticleCard} />
       </div>
     );
   }
