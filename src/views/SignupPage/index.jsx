@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -160,7 +161,7 @@ export class SignupPage extends Component {
             <h5 className={this.props.lightTheme ? '' : 'light-signup-hero'}>
               Have an account already?{' '}
               <span>
-                <Link to="/signin">Sign in</Link>
+                <Link to="/login">Login</Link>
               </span>
             </h5>
           </div>

@@ -26,13 +26,13 @@ export class HomePage extends Component {
   fetchArticles = async () => {
     this.setState({ isLoading: true });
     const responseTechnology = await axios.get(
-      'http://persephone-backend-staging.herokuapp.com/api/v1/search?tag=technology'
+      `${process.env.BASE_URL}search?tag=technology`
     );
     const responseStartup = await axios.get(
-      'http://persephone-backend-staging.herokuapp.com/api/v1/search?tag=startup'
+      `${process.env.BASE_URL}search?tag=startup`
     );
     const responseProductDesign = await axios.get(
-      'http://persephone-backend-staging.herokuapp.com/api/v1/search?tag=product'
+      `${process.env.BASE_URL}search?tag=product`
     );
     this.setState({
       technologyArticles: responseTechnology.data.data.searchResult
