@@ -26,6 +26,10 @@ export class LoginPage extends Component {
     await this.props.logInRequest(this.state, this.props.history);
     this.setState({ isLoading: false });
   };
+  handleAuth = async (e, id) => {
+    e.preventDefault();
+    window.location = `${process.env.SOCIAL_URL}auth/${id}`;
+  };
   render() {
     const { theme } = this.props.theme;
     const inputClass =
@@ -82,7 +86,10 @@ export class LoginPage extends Component {
             </span>
 
             <div className="social-auth">
-              <button className="login-button-twitter">
+              <button
+                className="login-button-twitter"
+                onClick={e => this.handleAuth(e, 'twitter')}
+              >
                 <span>
                   <IconComponent
                     src="./../src/assets/images/twitter-light.svg"
@@ -92,7 +99,10 @@ export class LoginPage extends Component {
                 </span>
                 <span>Sign In With Twitter</span>
               </button>
-              <button className="login-button-facebook">
+              <button
+                className="login-button-facebook"
+                onClick={e => this.handleAuth(e, 'facebook')}
+              >
                 <span>
                   <IconComponent
                     src="./../src/assets/images/facebook-light.svg"
@@ -102,7 +112,10 @@ export class LoginPage extends Component {
                 </span>
                 <span>Sign In With Facebook</span>
               </button>
-              <button className="login-button-google">
+              <button
+                className="login-button-google"
+                onClick={e => this.handleAuth(e, 'google')}
+              >
                 <span>
                   <IconComponent
                     src="./../src/assets/images/google-normal.svg"

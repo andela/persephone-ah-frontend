@@ -25,23 +25,29 @@ export class HomePage extends Component {
 
   fetchArticles = async () => {
     this.setState({ isLoading: true });
-    const responseTechnology = await axios.get(
-      `${process.env.BASE_URL}search?tag=technology`
-    );
-    const responseStartup = await axios.get(
-      `${process.env.BASE_URL}search?tag=startup`
-    );
-    const responseProductDesign = await axios.get(
-      `${process.env.BASE_URL}search?tag=product`
-    );
-    this.setState({
-      technologyArticles: responseTechnology.data.data.searchResult
-    });
-    this.setState({ startupArticles: responseStartup.data.data.searchResult });
-    this.setState({
-      productDesignArticles: responseProductDesign.data.data.searchResult
-    });
-    this.setState({ isLoading: false });
+    try {
+      const responseTechnology = await axios.get(
+        'http://persephone-backend-staging.herokuapp.com/api/v1/search?tag=technology'
+      );
+      const responseStartup = await axios.get(
+        'http://persephone-backend-staging.herokuapp.com/api/v1/search?tag=startup'
+      );
+      const responseProductDesign = await axios.get(
+        'http://persephone-backend-staging.herokuapp.com/api/v1/search?tag=product'
+      );
+      this.setState({
+        technologyArticles: responseTechnology.data.data.searchResult
+      });
+      this.setState({
+        startupArticles: responseStartup.data.data.searchResult
+      });
+      this.setState({
+        productDesignArticles: responseProductDesign.data.data.searchResult
+      });
+      this.setState({ isLoading: false });
+    } catch (error) {
+      return error.message;
+    }
   };
 
   render() {
