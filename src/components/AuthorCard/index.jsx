@@ -20,7 +20,8 @@ const AuthorCard = props => {
     bio,
     isFollowing,
     lightTheme,
-    articleUrl
+    articleUrl,
+    handleCreateBookmark
   } = props;
 
   const shareText = "Checkout this awesome article on author's haven below:";
@@ -53,7 +54,8 @@ const AuthorCard = props => {
               25 <Link to="/#">Likes</Link>
             </span>
             <span>
-              104 <Link to="/#">Bookmarks</Link>
+              <Link to="#" onClick={handleCreateBookmark}> Bookmark
+              </Link>
             </span>
           </div>
           <div className="container-fluid read-article-social">
@@ -102,7 +104,10 @@ AuthorCard.propTypes = {
   bio: PropTypes.string.isRequired,
   isFollowing: PropTypes.bool.isRequired,
   lightTheme: PropTypes.bool.isRequired,
-  articleUrl: PropTypes.string
+  articleUrl: PropTypes.string,
+  slug: PropTypes.string,
+  bookmark: PropTypes.bool,
+  handleCreateBookmark: PropTypes.func
 };
 
 export default AuthorCard;

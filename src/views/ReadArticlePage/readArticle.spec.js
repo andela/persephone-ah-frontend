@@ -12,12 +12,12 @@ import thunk from 'redux-thunk';
 import {
   getSingleArticle,
   getSingleArticleStart,
-  getSingleArticleSuccess
+  getSingleArticleSuccess,
 } from './readArticle.action';
 import { ReadArticle, mapDispatchToProps, mapStateToProps } from './index.jsx';
 import {
   GET_SINGLE_ARTICLE_SUCCESS,
-  GET_SINGLE_ARTICLE_START
+  GET_SINGLE_ARTICLE_START,
 } from '../../actionTypes/index';
 
 configure({ adapter: new Adapter() });
@@ -254,7 +254,9 @@ describe('Read Single Article Page', () => {
         fetchSingleArticle: jest.fn(),
         match: {
           params: 'product'
-        }
+        },
+        getAllUserBookmarks: jest.fn(),
+        createBookmark: jest.fn(),
       };
       const readArticle = mount(
         <BrowserRouter>
@@ -271,11 +273,22 @@ describe('Read Single Article Page', () => {
         lightTheme: false,
         article: response.data,
         fetchSingleArticle: jest.fn(),
+        getAllUserBookmarks: jest.fn(),
+        createBookmark: jest.fn(),
         match: {
           params: 'product'
         },
         loading: false,
-        token: 'some-token'
+        token: 'some-token',
+        bookmark: {
+          allUserBookmark: {
+            bookmarks: [
+              {
+                title: 'some title'
+              }
+            ]
+          }
+        }
       };
       let store = mockStore({
         theme: false,
@@ -315,6 +328,13 @@ describe('Read Single Article Page', () => {
     it('should dispatch action', done => {
       const dispatch = jest.fn();
       mapDispatchToProps(dispatch).fetchSingleArticle();
+      expect(typeof dispatch.mock.calls[0][0]).toEqual('function');
+      done();
+    });
+
+    it('should dispatch createBookmark action', done => {
+      const dispatch = jest.fn();
+      mapDispatchToProps(dispatch).createBookmark();
       expect(typeof dispatch.mock.calls[0][0]).toEqual('function');
       done();
     });

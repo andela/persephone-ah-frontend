@@ -52,7 +52,8 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.BASE_URL': JSON.stringify(
         'https://persephone-backend-staging.herokuapp.com/api/v1/'
-      )
+      ),
+      'process.env.API_URL': JSON.stringify('http://localhost:3000/api/v1')
     })
   ]
 };

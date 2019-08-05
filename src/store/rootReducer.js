@@ -7,6 +7,7 @@ import commentReducer from '../components/CreateComment/createComment.reducer';
 import articlesReducer from '../views/AllArticlesPage/index.reducer';
 import createArticle from '../views/CreateArticle/createArticle.reducer';
 import authReducer from '../views/Auth/auth.reducer';
+import bookmarkReducer from '../views/BookmarkPage/bookmark.reducer';
 
 const rootReducer = combineReducers({
   theme: themeToggler,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   readArticle: singleArticleReducer,
   articleComment: commentReducer,
   articles: articlesReducer,
-  createArticle
+  createArticle,
+  bookmark: bookmarkReducer
 });
 
 export default rootReducer;

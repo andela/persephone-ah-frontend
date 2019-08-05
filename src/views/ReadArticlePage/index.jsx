@@ -10,16 +10,28 @@ import Authorcard from '../../components/AuthorCard/index.jsx';
 import Loading from '../../components/LoadingIndicator/index.jsx';
 import moment from 'moment';
 import reactHtmlParser from 'react-html-parser';
+import { createBookmark } from '../../views/BookmarkPage/bookmark.action';
 
 export class ReadArticle extends Component {
+  state = {
+    user: {},
+    slug: ''
+  }
+
   componentDidMount() {
+    const user = JSON.parse(localStorage.getItem('user'));
     const { slug } = this.props.match.params;
+    this.setState({user, slug})
     this.props.fetchSingleArticle(slug);
   }
+
+  handleCreateBookmark = async () => {
+    await this.props.createBookmark(this.state.slug, this.props.auth.user.token);
+  };
   render() {
+
     let singleArticle = <Loading />;
     const articleUrl = window.location.href;
-    console.log(articleUrl);
     if (!this.props.loading && this.props.article) {
       const {
         body,
@@ -32,7 +44,6 @@ export class ReadArticle extends Component {
       const authorName = `${author.firstName} ${author.lastName}`;
       const imageObj = JSON.parse(image);
       const datePublished = moment(createdAt).format('MMMM Do, YYYY');
-
       singleArticle = singleArticle = (
         <div className="container">
           <div className="row read-article-section">
@@ -82,6 +93,8 @@ export class ReadArticle extends Component {
                   isFollowing={false}
                   lightTheme={this.props.lightTheme}
                   articleUrl={articleUrl}
+                  handleCreateBookmark={this.handleCreateBookmark}
+                  slug={this.slug}
                 />
               </div>
             </div>
@@ -107,19 +120,25 @@ ReadArticle.propTypes = {
   params: PropTypes.object,
   error: PropTypes.object,
   fetchSingleArticle: PropTypes.func,
-  article: PropTypes.object
+  article: PropTypes.object,
+  getAllUserBookmarks: PropTypes.func,
+  bookmark: PropTypes.any,
+  createBookmark: PropTypes.func,
+  auth: PropTypes.object
 };
 export const mapStateToProps = state => {
   return {
     lightTheme: state.theme.theme === 'light-theme',
     article: state.readArticle.article,
-    loading: state.readArticle.loading
+    loading: state.readArticle.loading,
+    auth: state.auth
   };
 };
 
 export const mapDispatchToProps = dispatch => {
   return {
-    fetchSingleArticle: slug => dispatch(getSingleArticle(slug))
+    fetchSingleArticle: slug => dispatch(getSingleArticle(slug)),
+    createBookmark: (slug, token) => dispatch(createBookmark(slug, token)),
   };
 };
 export default connect(
