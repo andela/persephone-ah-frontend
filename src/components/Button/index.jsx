@@ -4,7 +4,6 @@ import './index.scss';
 
 const Button = ({ customClassName, children, isInverse, handleclick }) => {
   const buttonTypeClassName = isInverse ? 'button-inverse' : 'button-normal';
-
   return (
     <button
       className={`button ${buttonTypeClassName} ${customClassName}`}
