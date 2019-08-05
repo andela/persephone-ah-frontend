@@ -58,6 +58,51 @@ describe('Login component Tests', () => {
     inputTag.simulate('change', event);
   });
 
+  it('should simulate an onclick event for facebook login button', () => {
+    const event = {
+      preventDefault() {},
+      target: window.location
+    };
+    const component = mount(
+      <BrowserRouter>
+        <LoginPage {...defaultProps} debug />
+      </BrowserRouter>
+    );
+
+    const socialButton = component.find('.login-button-facebook');
+    socialButton.simulate('click', event);
+  });
+
+  it('should simulate an onclick event for twitter login button', () => {
+    const event = {
+      preventDefault() {},
+      target: window.location
+    };
+    const component = mount(
+      <BrowserRouter>
+        <LoginPage {...defaultProps} debug />
+      </BrowserRouter>
+    );
+
+    const socialButton = component.find('.login-button-twitter');
+    socialButton.simulate('click', event);
+  });
+
+  it('should simulate an onclick event for google login buttom', () => {
+    const event = {
+      preventDefault() {},
+      target: window.location
+    };
+    const component = mount(
+      <BrowserRouter>
+        <LoginPage {...defaultProps} debug />
+      </BrowserRouter>
+    );
+
+    const socialButton = component.find('.login-button-google');
+    socialButton.simulate('click', event);
+  });
+
   it('should call Login request function on submit of the form', () => {
     const wrapper = shallow(<LoginPage {...defaultProps} />);
     wrapper.debug();

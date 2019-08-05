@@ -9,7 +9,36 @@ const defaultProps = {
   theme: {},
   fetchArticles: jest.fn()
 };
-
+const articleSearchResponse = {
+  data: {
+    data: {
+      message: '8 Article match(es) found',
+      searchResult: [
+        {
+          id: 1,
+          title: 'Article title',
+          slug: 'article-slug',
+          description: 'Article description',
+          body: 'Lorem iest dignissimn',
+          image: '{}',
+          viewsCount: 33,
+          readTime: '2 min read',
+          publishedAt: '2019-08-06T20:20:23.808Z',
+          author: {
+            firstName: 'John',
+            lastName: 'Doe',
+            userName: null,
+            email: 'johndoe@mail.com',
+            image: 'img.png'
+          },
+          tags: {
+            name: ['technology']
+          }
+        }
+      ]
+    }
+  }
+};
 describe('Render component', () => {
   it('should render component successfully', () => {
     const component = mount(
@@ -25,7 +54,6 @@ describe('Render component', () => {
       )
     ).toBeTruthy();
   });
-
   it('should toggle to light theme', () => {
     const component = mount(
       <BrowserRouter>
@@ -92,6 +120,17 @@ describe('Render component', () => {
 
       axios.get.mockClear(); // 7
       done(); // 8
+    });
+  });
+  describe('Render component', () => {
+    it('should mock response from network call ', async () => {
+      jest.spyOn(axios, 'get').mockResolvedValue(articleSearchResponse);
+      const component = mount(
+        <BrowserRouter>
+          <HomePage {...defaultProps} />
+        </BrowserRouter>
+      );
+      expect(component).toMatchSnapshot();
     });
   });
 });

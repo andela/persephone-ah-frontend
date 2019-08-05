@@ -110,6 +110,15 @@ describe('Render component', () => {
         />
       </BrowserRouter>
     );
+
+    global.window = Object.create(window);
+    Object.defineProperty(window, 'screen', {
+      value: {
+        width: 1500
+      }
+    });
+
+    global.dispatchEvent(new Event('resize'));
     expect(wrapper.exists()).toEqual(true);
     expect(wrapper.find('.carousel-control-next')).toBeTruthy();
 

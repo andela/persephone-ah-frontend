@@ -141,6 +141,24 @@ describe('Signup', () => {
         .simulate('submit', { preventDefault() {} });
       expect(props.signup.mock.calls.length).toBe(1);
     });
+
+    it('should simulate an onclick event for google login button', () => {
+      signupPage
+        .find('.button-google')
+        .simulate('click', { preventDefault() {} });
+    });
+
+    it('should simulate an onclick event for facebook login button', () => {
+      signupPage
+        .find('.button-facebook')
+        .simulate('click', { preventDefault() {} });
+    });
+
+    it('should simulate an onclick event for twitter login button', () => {
+      signupPage
+        .find('.button-twitter')
+        .simulate('click', { preventDefault() {} });
+    });
     it('should show initial state', () => {
       const initialState = {
         signup: {

@@ -18,6 +18,7 @@ import Footer from './components/Footer/index.jsx';
 import SignupPage from './views/SignupPage/index.jsx';
 import ReadArticle from './views/ReadArticlePage/index.jsx';
 import VerifyUser from './views/VerifyUserPage/index.jsx';
+import SocialLogin from './components/Social/index.jsx';
 
 const store = setupStore();
 class App extends Component {
@@ -62,6 +63,8 @@ class App extends Component {
                 <ReadArticle {...props} token={this.state.userToken} />
               )}
             />
+            <Route path="/articles/:slug" component={ReadArticle} />
+            <Route path="/social" component={SocialLogin} />
           </Switch>
           <Footer />
         </Router>
