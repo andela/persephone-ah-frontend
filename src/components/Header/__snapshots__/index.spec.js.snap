@@ -1,3 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render component should render correctly in "debug" mode 1`] = `ShallowWrapper {}`;
+exports[`Render component should toggle to dark theme 1`] = `ReactWrapper {}`;
+
+exports[`Render component should toggle to dark theme 2`] = `ReactWrapper {}`;
+
+exports[`Render component should toggle to light theme 1`] = `ReactWrapper {}`;

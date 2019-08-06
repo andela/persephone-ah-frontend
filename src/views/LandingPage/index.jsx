@@ -42,7 +42,6 @@ const darkArticleCard = {
   numberComment: 70
 };
 
-
 export class LandingPage extends React.Component {
   constructor() {
     super();

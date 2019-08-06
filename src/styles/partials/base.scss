@@ -11,10 +11,16 @@ h5 {
 }
 
 body {
-  background-color: #222222;
-  transition: background-color 0.6s ease;
+  background-color: #212121;
+  color: #ffffff;
   &.light-theme {
-    background-color: $light-bg;
+    background-color: $light-bg !important;
     transition: background-color 0.6s ease;
+    color: #222222 !important;
+  }
+  &.dark-theme {
+    background-color: #212121 !important;
+    transition: background-color 0.6s ease;
+    color: #ffffff !important;
   }
 }

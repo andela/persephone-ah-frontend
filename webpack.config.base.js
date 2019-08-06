@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
   entry: {
-    index: ['./src/index.jsx']
+    index: ['@babel/polyfill', './src/index.jsx']
   },
   module: {
     rules: [

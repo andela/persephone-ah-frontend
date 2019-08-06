@@ -1,6 +1,14 @@
 .footer {
   background: #f6f7f9;
   font-family: 'Roboto', sans-serif;
+  &.dark-theme {
+    background: #272727;
+    color: #ffffff;
+  }
+  &.light-theme {
+    background: #f6f7f9;
+    color: #272727;
+  }
 }
 
 .social_links {
@@ -19,16 +27,6 @@
 .address {
   font-size: 13px;
   line-height: 15px;
-}
-
-.dark-theme {
-  background: #272727;
-  color: #ffffff;
-}
-
-.light-theme {
-  background: #ffffff;
-  color: #272727;
 }
 
 @media (max-width: 576px) {

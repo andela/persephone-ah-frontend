@@ -5,7 +5,6 @@ import Button from '../../components/Button/index.jsx';
 
 import './FollowersTablist.scss';
 
-
 /**
  *  Sample Usage
  *  const props = {
