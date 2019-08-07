@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-
+const webpack = require('webpack');
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
   entry: {
@@ -16,32 +16,28 @@ module.exports = {
         }
       },
       {
-        test: /\.(png|jpe?g|gif|svg)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {}
-          }
-        ]
-      },
-      {
-        // look for .css or .scss files
         test: /\.(css|scss)$/,
-        include: path.resolve(__dirname, './src'),
+        include: [path.resolve(__dirname, './src'), /node_modules/],
         use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader'
-          },
-          {
-            loader: 'postcss-loader'
-          },
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
           {
             loader: 'sass-loader',
             options: {
               sourceMap: true
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/'
             }
           }
         ]
@@ -51,6 +47,11 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html'
+    }),
+    new webpack.DefinePlugin({
+      'process.env.BASE_URL': JSON.stringify(
+        'https://persephone-backend-staging.herokuapp.com/api/v1/'
+      )
     })
   ]
 };
