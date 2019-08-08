@@ -19,19 +19,22 @@ export class Header extends Component {
   }
 
   componentWillMount() {
-    // dispatch an action
-    this.props.themeToggler(this.app_theme);
-    document.body.classList.toggle(
-      this.app_theme 
-    );
-    // update state
-    this.app_theme === 'light-theme'
-      ? this.setState({ toggle: '', theme: 'dark-theme' })
-      : '';
+    if (this.app_theme !== null) {
+      // dispatch an action
+      this.props.themeToggler(this.app_theme);
+      document.body.classList.toggle(this.app_theme);
+      // update state
+      this.app_theme === 'light-theme'
+        ? this.setState({ toggle: '', theme: 'dark-theme' })
+        : '';
+    }
   }
 
   handleClick() {
-    document.body.classList.toggle('dark-theme');
+    if (this.app_theme !== null && this.app_theme === 'dark-theme') {
+      document.body.classList.remove('dark-theme');
+    }
+    document.body.classList.toggle('light-theme');
     this.state.toggle === 'switch'
       ? this.setState({ toggle: '', theme: 'dark-theme' })
       : this.setState({ toggle: 'switch', theme: 'light-theme' });
