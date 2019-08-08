@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { themeToggler } from './index.action';
 import Toggle from '../../components/Toggle/index.jsx';
-import './header.scss';
+import './Header.scss';
 import IconComponent from '../IconComponent/index.jsx';
 
 export class Header extends Component {
@@ -19,6 +19,10 @@ export class Header extends Component {
   }
 
   componentWillMount() {
+    if (this.app_theme === null) {
+      // dispatch an action
+      this.props.themeToggler('dark-theme');
+    }
     if (this.app_theme !== null) {
       // dispatch an action
       this.props.themeToggler(this.app_theme);

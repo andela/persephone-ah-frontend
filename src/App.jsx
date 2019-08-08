@@ -8,12 +8,18 @@ import ArticlePage from './views/ArticlePage/index.jsx';
 import { Provider } from 'react-redux';
 import setupStore from './store';
 import './styles/main.scss';
+import 'react-toastify/dist/ReactToastify.css';
 import Header from './components/Header/index.jsx';
 import Footer from './components/Footer/index.jsx';
 import SignupPage from './views/SignupPage/index.jsx';
 
 const store = setupStore();
 class App extends Component {
+  state = {
+    show: false,
+    lightTheme: true
+  };
+
   render() {
     return (
       <Provider store={store}>

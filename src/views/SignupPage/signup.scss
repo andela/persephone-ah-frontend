@@ -128,6 +128,7 @@ h1 {
 form .signup-auth {
   button span {
     display: grid;
+    width: 100%;
     grid-template-columns: 40% 60%;
     img {
       align-self: center;
