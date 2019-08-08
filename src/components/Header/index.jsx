@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { themeToggler } from './index.action';
 import Toggle from '../../components/Toggle/index.jsx';
-import './header.scss';
+import './Header.scss';
 import IconComponent from '../IconComponent/index.jsx';
 
 export class Header extends Component {
