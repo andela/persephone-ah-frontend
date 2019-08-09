@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './TablistContainer.scss';
 
-
 /**
  *  Sample Usage
  *  const props = {
@@ -11,10 +10,10 @@ import './TablistContainer.scss';
  *  <TablistContainer {...props}>Hello</TablistContainer>
  */
 const tablistContainer = props => {
-  let themeType = ['container', 'dark-theme'] 
+  let themeType = ['dark-theme'];
   if (props.lightTheme) {
-    themeType.pop()
-    themeType.push('light-theme')
+    themeType.pop();
+    themeType.push('light-theme');
   }
   return (
     <div className="tablist-container">
