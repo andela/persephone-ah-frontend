@@ -8,35 +8,33 @@ import './ArticleCard.scss';
 }
 
 const articleCard = props => {
-  let cardBodyClass = ['card-body', 'dark-theme'];
-
-  if (props.light) {
-    cardBodyClass.pop();
-    cardBodyClass.push('light-theme');
-  }
+  const articleImage = Object.values(JSON.parse(props.image));
   return (
-    <div className="card articleCard">
-      <img className="card-img-top" src={props.articleImage} alt="article" />
-      <div className={cardBodyClass.join(' ')}>
-        <h5 className="card-title">{props.articleTitle}</h5>
+    <div className={`card articleCard ${props.theme}`}>
+      <img className="card-img-top" src={articleImage[0]} alt="article" />
+      <div className={`card-body ${props.theme}`}>
+        <h5 className="card-title">{props.title}</h5>
         <div className="card-text flex">
           <div className="avatar">
             <img
-              src={props.authorImage}
+              src={props.author.image}
               className="float-left avatarImage"
               alt="author"
             />
 
             <span>
-              {props.author}
-              <br />
-              <small>{props.email}</small>
+              <div>{`${props.author.firstName} ${props.author.lastName}`}</div>
+
+              <div>
+                {' '}
+                <small>{props.author.email}</small>
+              </div>
             </span>
           </div>
 
           <div className="flex mins-read">
-            <small>{props.readTime} read</small>
-            <small>ade</small>
+            <small>{props.readTime} </small>
+            <small> </small>
           </div>
         </div>
       </div>
@@ -46,12 +44,14 @@ const articleCard = props => {
 
 articleCard.propTypes = {
   articleImage: PropTypes.any,
-  light: PropTypes.bool,
+  theme: PropTypes.any,
   articleTitle: PropTypes.any,
   authorImage: PropTypes.any,
-  author: PropTypes.string,
+  author: PropTypes.object,
   email: PropTypes.any,
-  readTime: PropTypes.any
+  readTime: PropTypes.any,
+  image: PropTypes.any,
+  title: PropTypes.string
 };
 
 export default articleCard;

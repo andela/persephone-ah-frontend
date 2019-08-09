@@ -6,18 +6,21 @@ import ArticleCard from './index.jsx';
 configure({ adapter: new Adapter() });
 
 describe('<ArticleCard />', () => {
-  const props = {
-    light: true
-  };
-
-  const prop = {
-    light: false
+  const articleDetails = {
+    image: '{"0":"../../src/assets/images/profileImage.jpg"}',
+    light: false,
+    articleTitle: 'Understanding React and redux',
+    authorImage: '../../src/assets/images/react.png',
+    author: { author: 'Damilola Adekoya' },
+    email: 'damilola.adekoya@andela.com',
+    readTime: '6 mins',
+    theme: false
   };
   it('should render light theme ArticleCard', () => {
-    shallow(<ArticleCard {...props} />);
+    shallow(<ArticleCard {...articleDetails} />);
   });
 
   it('should render dark theme ArticleCard', () => {
-    shallow(<ArticleCard {...prop} />);
+    shallow(<ArticleCard {...articleDetails} />);
   });
 });

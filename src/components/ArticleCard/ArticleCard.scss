@@ -1,13 +1,28 @@
 @import '../../styles/partials/variables.scss';
 
+.card {
+  &.dark-theme {
+    background-color: #222222 !important;
+    background-clip: border-box;
+    border: none !important;
+  }
+  &.light-theme {
+    border: none !important;
+  }
+}
+
+.card-title {
+  min-height: 38px;
+}
 .articleCard {
   width: 322px;
   border-radius: 10px;
-  box-shadow: 0px 0px 26px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 13px rgba(0, 0, 0, 0.25);
+  margin: 10px 15px;
 
   .card-img-top {
-    width: 320px;
-    height: 182px;
+    max-width: 100%;
+    max-height: 182px;
     border-radius: 4px 4px 0px 0px;
   }
 
@@ -33,6 +48,8 @@
     margin: 0px 5px;
     border-radius: 50%;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.42);
+    position: relative;
+    bottom: 6px;
   }
 
   .flex {
@@ -40,13 +57,13 @@
     justify-content: space-between;
   }
 
-  .avatar p {
+  .avatar span {
     font-size: 10px;
     margin-top: 7px;
     line-height: 12px;
   }
 
-  .avatar p small {
+  .avatar span small {
     font-weight: 300;
     font-size: 6px;
     line-height: 7px;
@@ -64,6 +81,10 @@
 .dark-theme {
   color: white;
   background: rgba(22, 22, 22, 0.89);
+
+  .avatar span small {
+    color: #c4c4c4;
+  }
 }
 
 .light-theme {

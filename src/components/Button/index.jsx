@@ -6,7 +6,10 @@ const Button = ({ customClassName, buttonText, isInverse, handleclick }) => {
   const buttonTypeClassName = isInverse ? 'button-inverse' : 'button-normal';
 
   return (
-    <button className={`button ${buttonTypeClassName} ${customClassName}`} onClick={handleclick}>
+    <button
+      className={`button ${buttonTypeClassName} ${customClassName}`}
+      onClick={handleclick}
+    >
       <span>{buttonText}</span>
     </button>
   );

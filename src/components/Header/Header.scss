@@ -1,11 +1,46 @@
 .nav-shadow {
-  background: #ffffff;
   box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.04);
 }
 
 .navbar {
-  padding: 0.8rem 1rem;
+  padding: 0.9rem 1rem;
+  &.dark-theme a {
+    color: #ffffff;
+  }
+  &.dark-theme {
+    background-color: #212121;
+    transition: background-color 0.6s ease;
+    color: #ffffff;
+  }
 }
+.navbtn_login {
+  padding-top: 3px;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  &:hover {
+    text-decoration: none;
+    cursor: pointer;
+    color: #219653;
+  }
+}
+
+.navbtn_signup {
+  padding-top: 3px;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  &:hover {
+    text-decoration: none;
+    cursor: pointer;
+    color: #ffffff;
+  }
+}
+
+.button-inverse {
+  background: none;
+  border: thin solid #219653;
+  color: #219653;
+}
+
 .navbar-logo a {
   text-decoration: none;
   font-family: 'Poppins', sans-serif;
@@ -15,6 +50,6 @@
     cursor: pointer;
   }
 }
-button {
-  line-height: 22px;
+.display-flex {
+  display: flex;
 }

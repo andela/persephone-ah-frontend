@@ -3,9 +3,6 @@ import { shallow } from 'enzyme';
 import ArticleTabList from './index.jsx';
 
 describe('Render light component TablistContainer', () => {
-  
-  
-  
   it('should render light theme container', () => {
     const lightArticleCard = {
       lightTheme: false,
