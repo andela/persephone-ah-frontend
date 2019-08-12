@@ -1,15 +1,17 @@
+/* eslint-disable react/display-name */
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
 
-const Textarea = ({
-  customClassName,
-  lightTheme,
-  placeholder,
-  handleChange,
-  handleBlur,
-  ...customProps
-}) => {
+const Textarea = React.forwardRef((props, ref) => {
+  const {
+    customClassName,
+    lightTheme,
+    placeholder,
+    handleChange,
+    handleBlur,
+    ...customProps
+  } = props;
   const themeColorClass = lightTheme
     ? 'form-textarea-light-theme'
     : 'form-textarea-dark-theme';
@@ -20,9 +22,10 @@ const Textarea = ({
       onChange={handleChange}
       onBlur={handleBlur}
       className={`textarea ${themeColorClass} ${customClassName}`}
+      ref={ref}
     />
   );
-};
+});
 
 Textarea.propTypes = {
   lightTheme: PropTypes.bool,
