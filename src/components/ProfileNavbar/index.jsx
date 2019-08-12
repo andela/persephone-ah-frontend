@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './index.scss';
 import Button from '../../components/Button/index.jsx';
 import PropTypes from 'prop-types';
@@ -11,20 +12,26 @@ const ProfileNavbar = props => {
     btnClass.pop();
     profileNavbarClass.push('light-theme');
   }
+
+  const name = `${props.firstName} ${props.lastName}`;
   return (
     <div className={profileNavbarClass.join(' ')}>
       <div className="row profile-navbar flex">
         <div className="profile">
           <img
-            src={props.authorImage}
+            src={
+              props.image
+                ? props.image
+                : 'https://res.cloudinary.com/fxola/image/upload/v1562711912/ezkc4mj7pktwzqhmrbpt.png'
+            }
             className="float-left profileImage"
             alt="author"
           />
 
           <p>
-            {props.authorName}
+            {name}
             <br />
-            <small>{props.username}</small>
+            <small>@{props.firstName.toLowerCase()}</small>
           </p>
         </div>
 
@@ -34,12 +41,21 @@ const ProfileNavbar = props => {
       </div>
       <div className="tabs-container">
         <ul className="row tabs">
-          <li className="tab-focus">Publications</li>
-          <li>Drafts</li>
-          <li>Bookmarks</li>
-          <li>Publications</li>
-          <li>Followers</li>
-          <li>Following</li>
+          <li className={props.active === 'published' ? 'tab-focus' : ''}>
+            <Link to="/publication">Publications</Link>
+          </li>
+          <li className={props.active === 'draft' ? 'tab-focus' : ''}>
+            <Link to="/draft">Drafts</Link>
+          </li>
+          <li className={props.active === 'bookmark' ? 'tab-focus' : ''}>
+            <Link to="/bookmark">Bookmarks</Link>
+          </li>
+          <li className={props.active === 'followers' ? 'tab-focus' : ''}>
+            <Link to="/followers">Followers</Link>
+          </li>
+          <li className={props.active === 'following' ? 'tab-focus' : ''}>
+            <Link to="/following">Following</Link>
+          </li>
         </ul>
       </div>
     </div>
@@ -48,9 +64,12 @@ const ProfileNavbar = props => {
 
 ProfileNavbar.propTypes = {
   lightTheme: PropTypes.bool,
-  authorImage: PropTypes.any,
-  authorName: PropTypes.string,
-  username: PropTypes.string
+  userDetails: PropTypes.object,
+  image: PropTypes.any,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  username: PropTypes.string,
+  active: PropTypes.string
 };
 
 export default ProfileNavbar;

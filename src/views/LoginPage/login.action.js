@@ -22,9 +22,10 @@ export const logInRequest = (user, history) => {
 
         setTimeout(() => {
           /* istanbul ignore next */
-          history.push('/article');
-          // dispatch auth
           dispatch(setCurrentUser(data));
+          // history.push('/article');
+          history.push('/publication');
+          // dispatch auth
         }, 3000);
         dispatch(logInUser(data));
       }

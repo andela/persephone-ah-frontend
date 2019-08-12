@@ -144,7 +144,11 @@ describe('Create Comment Page', () => {
       const props = {
         lightTheme: false,
         article: null,
-        token: 'some-token'
+        token: 'some',
+        params: {
+          slug: 'some-slug'
+        },
+        fetchArticleComment: jest.fn()
       };
       const createComment = mount(
         <Provider store={store}>
@@ -162,7 +166,11 @@ describe('Create Comment Page', () => {
       const props = {
         lightTheme: false,
         article: null,
-        token: ''
+        token: '',
+        params: {
+          slug: 'some-slug'
+        },
+        fetchArticleComment: jest.fn()
       };
       const createComment = mount(
         <Provider store={store}>
@@ -184,7 +192,11 @@ describe('Create Comment Page', () => {
           slug: 'some-slug'
         },
         token: 'some-token',
-        postComment: jest.fn()
+        postComment: jest.fn(),
+        fetchArticleComment: jest.fn(),
+        params: {
+          slug: 'some-slug'
+        }
       };
       const createComment = mount(
         <Provider store={store}>

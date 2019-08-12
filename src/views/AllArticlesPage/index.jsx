@@ -53,7 +53,7 @@ export class ArticlesPage extends Component {
     });
 
     return (
-      <div className="container">
+      <div className="container all-articles-page-container">
         <div className="top-panel">
           <p className="catch-phrase text-center">
             Find the best resources on tech related articles{' '}

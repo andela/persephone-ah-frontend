@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { themeToggler } from './index.action';
 import { logout } from '../../views/Auth/auth.action';
 import Toggle from '../../components/Toggle/index.jsx';
-import './header.scss';
+import './Header.scss';
 import IconComponent from '../IconComponent/index.jsx';
 
 export class Header extends Component {
@@ -39,7 +39,6 @@ export class Header extends Component {
 
   handleLogOut(e) {
     e.preventDefault();
-    console.log(this.props);
     this.props.logout(this.props.history);
   }
 
@@ -143,6 +142,12 @@ export class Header extends Component {
                   </React.Fragment>
                 ) : (
                   <React.Fragment>
+                    <Link
+                      to="/compose"
+                      className="button  navbtn_signup button-normal border-0 pr-3 pl-3  pb-1 mr-4"
+                    >
+                      Compose
+                    </Link>
                     <div className="dropdown">
                       <div className="dropdown_btn">
                         {' '}
@@ -159,6 +164,9 @@ export class Header extends Component {
                       </div>
 
                       <div className={`${theme} dropdown-fill`}>
+                        <Link to="/publication" className="logout">
+                          Publications
+                        </Link>
                         <Link
                           onClick={this.handleLogOut.bind(this)}
                           to="/"

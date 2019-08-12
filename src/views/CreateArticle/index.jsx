@@ -131,6 +131,7 @@ export class CreateArticle extends Component {
         /* istanbul ignore next */
         this.setState({ selectedImage: e.target.result });
       };
+
       /* istanbul ignore next */
       reader.readAsDataURL(files[0]);
     }

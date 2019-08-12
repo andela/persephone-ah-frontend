@@ -70,6 +70,98 @@ const response = {
     }
   }
 };
+
+const result = {
+  status: 'success',
+  data: {
+    article: {
+      id: 12,
+      title: 'how-to-build-high-performance-teams',
+      description: null,
+      body:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo nisl eget neque aliquam, vitae interdum justo volutpat. Mauris rhoncus ante et est dignissim, at mollis est ullamcorper. Donec sapien ipsum, facilisis a leo in, bibendum feugiat sapien. Nullam non augue ut leo lobortis consectetur at a elit. Quisque pretium mauris luctus mi lacinia auctor. Mauris sodales ultricies dolor, id gravida nibh scelerisque sed. Sed elementum, diam nec mattis maximus, massa massa mattis ipsum, quis venenatis elit massa eget velit. Nam finibus fermentum mauris, nec tristique sem. Aenean ac feugiat nisi. Nulla pellentesque velit nec rutrum lobortis.\nmolestie nisl et, maximus accumsan dolor. Integer sodales, erat et varius gravida, magna eros hendrerit telluonsectetur at a elit. Quisque pretium mauris luctus mi lacinia auctor. Mauris sodales ultricies dolor, id gravida nibh scelerisque sed. Sed elementum, diam nec mattis maximus, massa massa mattis ipsum, quis venenatis elit massa eget velit. Nam finibus fermentum mauris, nec tristique sem. Aenean ac feugiat nisi. Nulla pellentesque velit nec rutrum lobortis.\nmolestie nisl et, maximus accumsan dolor. Integer sodales, erat et varius gravida, magna eros hendrerit tellus, porta lacinia eros nisl et mauris. Quisque fermentum, nonsectetur at a elit. Quisque pretium mauris luctus mi lacinia auctor. Mauris sodales ultricies dolor, id gravida nibh scelerisque sed. Sed elementum, diam nec mattis maximus, massa massa mattis ipsum, quis venenatis elit massa eget velit. Nam finibus fermentum mauris, nec tristique sem. Aenean ac feugiat nisi. Nulla pellentesque velit nec rutrum lobortis.\nmolestie nisl et, maximus accumsan dolor. Integer sodales, erat et varius gravida, magna eros hendrerit tellus, porta lacinia eros nisl et mauris. Quisque fermentum, ns, porta lacinia eros nisl et mauris. Quisque fermentum, n',
+      image:
+        '{"0":"https://res.cloudinary.com/fxola/image/upload/v1565123296/post/bump-collaboration-colleagues-1068523.jpg.jpg"}',
+      readTime: '1 min read',
+      viewsCount: 254,
+      slug: 'how-to-build-high-performance-teams-9',
+      isPublished: true,
+      publishedAt: '2019-08-18T21:21:58.898Z',
+      isDeleted: false,
+      createdAt: '2019-08-06T20:39:13.934Z',
+      deletedAt: null
+    },
+    comments: [
+      {
+        id: 1,
+        body: {
+          'Thu Aug 22 2019 00:16:52 GMT+0000': 'this article is awesome'
+        },
+        highlightedText: null,
+        slug: 'how-to-build-high-performance-teams-9',
+        createdAt: '2019-08-22T00:16:52.678Z',
+        userComment: {
+          firstName: 'some',
+          lastName: 'user',
+          userName: null,
+          email: 'user@fola.com'
+        },
+        commentLikes: [
+          {
+            id: 48,
+            userId: 28,
+            email: 'user@fola.com',
+            commentId: 1,
+            createdAt: '2019-08-22T13:35:17.757Z',
+            updatedAt: '2019-08-22T13:35:17.757Z'
+          }
+        ]
+      },
+      {
+        id: 2,
+        body: {
+          'Thu Aug 22 2019 00:17:29 GMT+0000':
+            'Thank you for writing the article'
+        },
+        highlightedText: null,
+        slug: 'how-to-build-high-performance-teams-9',
+        createdAt: '2019-08-22T00:17:29.778Z',
+        userComment: {
+          firstName: 'some',
+          lastName: 'user',
+          userName: null,
+          email: 'user@fola.com'
+        },
+        commentLikes: []
+      },
+      {
+        id: 5,
+        body: {
+          'Thu Aug 22 2019 00:41:58 GMT+0000': 'Okay o'
+        },
+        highlightedText: null,
+        slug: 'how-to-build-high-performance-teams-9',
+        createdAt: '2019-08-22T00:41:58.006Z',
+        userComment: {
+          firstName: 'some',
+          lastName: 'user',
+          userName: null,
+          email: 'user@fola.com'
+        },
+        commentLikes: [
+          {
+            id: 55,
+            userId: 28,
+            email: 'user@fola.com',
+            commentId: 5,
+            createdAt: '2019-08-22T13:50:21.981Z',
+            updatedAt: '2019-08-22T13:50:21.981Z'
+          }
+        ]
+      }
+    ]
+  }
+};
 describe('Read Single Article Page', () => {
   describe('ReadArticle Actions', () => {
     beforeEach(() => moxios.install());
@@ -272,7 +364,9 @@ describe('Read Single Article Page', () => {
         article: response.data,
         fetchSingleArticle: jest.fn(),
         match: {
-          params: 'product'
+          params: {
+            slug: 'some-slug'
+          }
         },
         loading: false,
         token: 'some-token'
@@ -282,7 +376,10 @@ describe('Read Single Article Page', () => {
         article: response.data,
         readArticle: response.data,
         articleComment: true,
-        signup: { token: 'some-token' }
+        signup: { token: 'some-token' },
+        commentOnArticle: {
+          allComment: result.data
+        }
       });
       const readArticle = mount(
         <Provider store={store}>
@@ -304,6 +401,9 @@ describe('Read Single Article Page', () => {
         },
         theme: {
           theme: 'dark-theme'
+        },
+        commentOnArticle: {
+          allComment: null
         }
       };
 

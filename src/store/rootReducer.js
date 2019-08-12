@@ -7,6 +7,9 @@ import commentReducer from '../components/CreateComment/createComment.reducer';
 import articlesReducer from '../views/AllArticlesPage/index.reducer';
 import createArticle from '../views/CreateArticle/createArticle.reducer';
 import authReducer from '../views/Auth/auth.reducer';
+import allCommentsOnArticle from '../components/SingleComment/singleComment.reducer'
+import publishedReducer from '../views/PublishedArticle/publishedArticle.reducer';
+import draftReducer from '../views/DraftArticle/DraftArticle.reducer';
 
 const rootReducer = combineReducers({
   theme: themeToggler,
@@ -16,7 +19,10 @@ const rootReducer = combineReducers({
   readArticle: singleArticleReducer,
   articleComment: commentReducer,
   articles: articlesReducer,
-  createArticle
+  createArticle,
+  commentOnArticle: allCommentsOnArticle,
+  publications: publishedReducer,
+  draftArticles: draftReducer
 });
 
 export default rootReducer;

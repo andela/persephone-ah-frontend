@@ -21,8 +21,16 @@ import SocialLogin from './components/Social/index.jsx';
 import CreateArticle from './views/CreateArticle/index.jsx';
 import PrivateRoute from './views/AppRouter/PrivateRoute.js';
 import { setCurrentUser, logout } from './views/Auth/auth.action.js';
+import DraftArticle from './views/DraftArticle/index.jsx';
+import PublishedArticle from './views/PublishedArticle/index.jsx';
 
 const store = setupStore();
+if (localStorage.user) {
+  // get user object
+  const user = JSON.parse(localStorage.user);
+  // set current user
+  store.dispatch(setCurrentUser(user));
+}
 
 class App extends Component {
   state = {
@@ -35,7 +43,7 @@ class App extends Component {
       const user = JSON.parse(localStorage.user);
       // set current user
       store.dispatch(setCurrentUser(user));
-      this.setState({ user });
+      // this.setState({ user });
       // for expired token
       const currentTime = Date.now() / 1000;
       //decode the token
@@ -48,7 +56,6 @@ class App extends Component {
     }
   }
   render() {
-    console.log(this.state.user);
     return (
       <Provider store={store}>
         <Router>
@@ -59,6 +66,7 @@ class App extends Component {
             transition={Slide}
             position="top-center"
           />
+
           <Switch>
             <PrivateRoute path="/verify" component={VerifyUser} />
             <PrivateRoute path="/compose" component={CreateArticle} />
@@ -76,6 +84,9 @@ class App extends Component {
             />
             <Route path="/articles" component={AllArticlesPage} />
             <Route path="/social" component={SocialLogin} />
+            <Route path="/articles/:slug" component={ReadArticle} />
+            <PrivateRoute path="/publication" component={PublishedArticle} />
+            <PrivateRoute path="/draft" component={DraftArticle} />
           </Switch>
           <Footer />
         </Router>

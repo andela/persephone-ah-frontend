@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import {
@@ -13,7 +14,6 @@ import StarRatingComponent from 'react-star-rating-component';
 import CreateComment from '../../components/CreateComment/index.jsx';
 import Authorcard from '../../components/AuthorCard/index.jsx';
 import Loading from '../../components/LoadingIndicator/index.jsx';
-import moment from 'moment';
 import reactHtmlParser from 'react-html-parser';
 
 export class ReadArticle extends Component {
@@ -22,7 +22,7 @@ export class ReadArticle extends Component {
     this.props.fetchSingleArticle(slug);
   }
 
-  onStarClick = (nextValue, prevValue, name) => {    
+  onStarClick = (nextValue, prevValue, name) => {
     const { rateArticleRequest } = this.props;
     const payload = {
       rating: nextValue,
@@ -48,7 +48,6 @@ export class ReadArticle extends Component {
   render() {
     let singleArticle = <Loading />;
     const articleUrl = window.location.href;
-    console.log(articleUrl);
     if (!this.props.loading && this.props.article) {
       const {
         id,
@@ -69,7 +68,14 @@ export class ReadArticle extends Component {
           <div className="row read-article-section">
             <div className="col-sm-12 col-md-9 article-details">
               <div className="article-image">
-                <IconComponent src={imageObj[0]} alt={'image asset'} />
+                <IconComponent
+                  src={
+                    imageObj[0]
+                      ? imageObj[0]
+                      : 'http://www.wi65.org/wp-content/themes/joyn/images/default-thumb.png'
+                  }
+                  alt={'image asset'}
+                />
               </div>
               <div className="col-sm-12 article-title">
                 <div className="row">
@@ -100,17 +106,20 @@ export class ReadArticle extends Component {
                   </div>
                 </div>
               </div>
-              <div className="article-body">{reactHtmlParser(body)}</div>
               <div className="article-body">
-                {body}
-                <div className="rating">
-                  <span>Rate this post</span>
-                  <StarRatingComponent
-                    name={id.toString()}
-                    onStarClick={this.onStarClick}
-                    editing={!Object.keys(rating).includes('ratingResponse')}
-                  />
-                </div>
+                {reactHtmlParser(body)}
+                {this.props.auth.user.token ? (
+                  <div className="rating">
+                    <span>Rate this post</span>
+                    <StarRatingComponent
+                      name={id.toString()}
+                      onStarClick={this.onStarClick}
+                      editing={!Object.keys(rating).includes('ratingResponse')}
+                    />
+                  </div>
+                ) : (
+                  ''
+                )}
               </div>
             </div>
             <div className="col-sm-12 col-md-3 article-details-second">
@@ -130,7 +139,7 @@ export class ReadArticle extends Component {
           </div>
           <div className="row create-comment-section">
             <div className="col-sm-12 col-md-12 create-comment-container">
-              <CreateComment token={this.props.token} />
+              <CreateComment {...this.props.match} />
             </div>
           </div>
         </div>
@@ -148,16 +157,20 @@ ReadArticle.propTypes = {
   match: PropTypes.object,
   params: PropTypes.object,
   error: PropTypes.object,
+  auth: PropTypes.object,
   fetchSingleArticle: PropTypes.func,
   article: PropTypes.object,
   rateArticleRequest: PropTypes.func,
-  cleanUpRating: PropTypes.func
+  cleanUpRating: PropTypes.func,
+  fetchArticleComment: PropTypes.func
 };
 export const mapStateToProps = state => {
   return {
     lightTheme: state.theme.theme === 'light-theme',
     article: state.readArticle.article,
-    loading: state.readArticle.loading
+    loading: state.readArticle.loading,
+    allComment: state.commentOnArticle.allComment,
+    auth: state.auth
   };
 };
 

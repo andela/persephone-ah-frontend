@@ -100,7 +100,7 @@ export class HomePage extends Component {
               <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
                   <Input
-                    customClassName="mx-auto w-60 pt-2 pb-2 bg-white  "
+                    customClassName="mx-auto w-60 pt-2 pb-2 bg-white input-dark-color"
                     placeholder="Search e.g Getting started with Reactjs and Redux"
                     name="search"
                     required
