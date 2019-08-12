@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom';
 import './ArticleCard.scss';
 
 // how to make use of the image tag
@@ -9,11 +10,16 @@ import './ArticleCard.scss';
 
 const articleCard = props => {
   const articleImage = Object.values(JSON.parse(props.image));
+  const URL = `articles/${props.slug}`;
   return (
     <div className={`card articleCard ${props.theme}`}>
       <img className="card-img-top" src={articleImage[0]} alt="article" />
       <div className={`card-body ${props.theme}`}>
-        <h5 className="card-title">{props.title}</h5>
+        <h5 className="card-title">
+          <Link to={URL} className="stretched-link">
+            {props.title}
+          </Link>
+        </h5>
         <div className="card-text flex">
           <div className="avatar">
             <img
@@ -51,7 +57,8 @@ articleCard.propTypes = {
   email: PropTypes.any,
   readTime: PropTypes.any,
   image: PropTypes.any,
-  title: PropTypes.string
+  title: PropTypes.string,
+  slug: PropTypes.string
 };
 
-export default articleCard;
+export default withRouter(articleCard);

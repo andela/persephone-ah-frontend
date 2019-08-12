@@ -19,8 +19,7 @@
   @include RobotoFontProperties(17px, 500);
 }
 .author-card-dark {
-  position: absolute;
-  width: 307px;
+  max-width: 297px;
   height: 330px;
   left: 71vw;
   top: 5vh;
@@ -34,19 +33,13 @@
     text-align: center;
     color: #ffffff;
   }
-  .author-bio {
-    position: absolute;
-    height: 20px;
-    top: 15vh;
-    width: 82%;
-    left: 8%;
-  }
   .follow-author {
-    position: absolute;
     width: 218.84px;
     height: 47px;
     left: 14%;
+    display: block;
     top: 27vh;
+    margin: 50px auto 0px auto;
     background: #219653;
     border: none;
     border-radius: 5px;

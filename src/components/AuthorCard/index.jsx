@@ -28,6 +28,7 @@ const AuthorCard = props => {
         </div>
       </div>
       <p className="author-bio small-text">{bio}</p>
+
       <button className={followButtonClass}>
         <span className="follow-text">{followText}</span>
       </button>

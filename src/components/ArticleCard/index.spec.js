@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow, configure } from 'enzyme';
+import { BrowserRouter } from 'react-router-dom';
 import Adapter from 'enzyme-adapter-react-16';
 import ArticleCard from './index.jsx';
 
@@ -17,10 +18,18 @@ describe('<ArticleCard />', () => {
     theme: false
   };
   it('should render light theme ArticleCard', () => {
-    shallow(<ArticleCard {...articleDetails} />);
+    shallow(
+      <BrowserRouter>
+        <ArticleCard {...articleDetails} />
+      </BrowserRouter>
+    );
   });
 
   it('should render dark theme ArticleCard', () => {
-    shallow(<ArticleCard {...articleDetails} />);
+    shallow(
+      <BrowserRouter>
+        <ArticleCard {...articleDetails} />
+      </BrowserRouter>
+    );
   });
 });
