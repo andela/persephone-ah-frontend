@@ -1,5 +1,4 @@
 import {
-  GET_SINGLE_ARTICLE_FAIL,
   GET_SINGLE_ARTICLE_SUCCESS,
   GET_SINGLE_ARTICLE_START
 } from '../../actionTypes/index';
