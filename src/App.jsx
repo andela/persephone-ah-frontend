@@ -12,22 +12,10 @@ import './styles/main.scss';
 import Header from './components/Header/index.jsx';
 import Footer from './components/Footer/index.jsx';
 import SignupPage from './views/SignupPage/index.jsx';
-
-import ProfileNavBar from './components/ProfileNavbar/index.jsx';
+import AllArticles from './views/AllArticlesPage/index.jsx';
 
 const store = setupStore();
 class App extends Component {
-  state = {
-    show: false,
-    lightTheme: true,
-    authorName: 'Halimah Oladosu',
-    username: '@halimah',
-    authorImage: '../src/assets/images/img.jpg'
-  };
-
-  handleClose = () => this.setState({ show: false });
-  handleShow = () => this.setState({ show: true });
-
   render() {
     return (
       <Provider store={store}>
@@ -42,15 +30,9 @@ class App extends Component {
             <Route path="/" exact component={HomePage} />
             <Route path="/login" component={LoginPage} />
             <Route path="/article" component={ArticlePage} />
+            <Route path="/articles" component={AllArticles} />
             <Route path="/signup" component={SignupPage} />
           </Switch>
-          <ProfileNavBar
-            lightTheme={this.state.lightTheme}
-            authorName={this.state.authorName}
-            username={this.state.username}
-            authorImage={this.state.authorImage}
-          />
-          <br />
           <Footer />
         </Router>
       </Provider>

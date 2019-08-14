@@ -55,6 +55,7 @@
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.10",
     "react-dom": "^16.8.6",
+    "react-infinite-scroll-component": "^4.5.3",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "react-select": "^3.0.4",

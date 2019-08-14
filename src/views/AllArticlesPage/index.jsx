@@ -7,34 +7,44 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './style.scss';
-// import IconComponent from '../../components/IconComponent/index.jsx';
-
+import InfiniteScroll from 'react-infinite-scroll-component';
 export class ArticlesPage extends Component {
   state = {
     allArticles: [],
     allTags: [],
-    isLoading: false
+    isLoading: true,
+    nextPage: ''
   };
 
-  componentDidMount() {
-    this.fetchArticles();
+  async componentDidMount() {
+    const responseArticles = await axios.get(
+      `${process.env.BASE_URL}articles?limit=9`
+    );
+    this.setState({
+      allArticles: responseArticles.data.data.allArticles,
+      nextPage: responseArticles.data.data.pageResponse.nextPage,
+      isLoading: false
+    });
   }
 
-  fetchArticles = async () => {
-    this.setState({ isLoading: true });
-    const responseArticles = await axios.get(`${process.env.BASE_URL}articles`);
-    console.log(responseArticles);
+  fetchMoreArticles = async () => {
+    const limit = this.state.allArticles.length + 9;
+    const responsePromise = await axios.get(
+      `${process.env.BASE_URL}articles?limit=${limit}`
+    );
+    const response = await responsePromise;
     this.setState({
-      allArticles: responseArticles.data.data.allArticles
+      allArticles: response.data.data.allArticles,
+      nextPage: response.data.data.pageResponse.nextPage,
+      isLoading: false
     });
-    this.setState({ isLoading: false });
   };
 
   render() {
-    const { isLoading, allArticles } = this.state;
+    const { isLoading, allArticles, nextPage } = this.state;
     const { theme } = this.props.theme;
     return (
-      <div>
+      <>
         <div className="top-panel">
           <p className="catch-phrase text-center">
             Find the best resources on tech related articles{' '}
@@ -61,23 +71,36 @@ export class ArticlesPage extends Component {
         {isLoading ? (
           <div className="container mx-auto">
             <div className="col-md-12 center pt-4 pb-5">
-              <LoadingIndicator />{' '}
+              <LoadingIndicator customClassName="text-center" />{' '}
             </div>
           </div>
         ) : (
-          <div className="articles-main">
-            {allArticles.map(articleDetails => {
-              return (
-                <ArticleCards
-                  theme={theme}
-                  key={articleDetails.id}
-                  {...articleDetails}
-                />
-              );
-            })}
+          <div className="container">
+            <InfiniteScroll
+              dataLength={this.state.allArticles.length}
+              className="row"
+              next={this.fetchMoreArticles}
+              hasMore={nextPage}
+              loader={<LoadingIndicator customClassName="text-center" />}
+              endMessage={
+                <p className="end-messsage">Yay! You have seen it all</p>
+              }
+            >
+              {allArticles.map(articleDetails => {
+                return (
+                  <div className="col-md-4" key={articleDetails.id}>
+                    <ArticleCards
+                      theme={theme}
+                      key={articleDetails.id}
+                      {...articleDetails}
+                    />
+                  </div>
+                );
+              })}
+            </InfiniteScroll>
           </div>
         )}
-      </div>
+      </>
     );
   }
 }
