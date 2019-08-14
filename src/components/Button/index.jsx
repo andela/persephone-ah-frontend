@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './index.scss';
 
-const Button = ({ customClassName, buttonText, isInverse, handleclick }) => {
+const Button = ({ customClassName, children, isInverse, handleclick }) => {
   const buttonTypeClassName = isInverse ? 'button-inverse' : 'button-normal';
 
   return (
@@ -10,14 +10,14 @@ const Button = ({ customClassName, buttonText, isInverse, handleclick }) => {
       className={`button ${buttonTypeClassName} ${customClassName}`}
       onClick={handleclick}
     >
-      <span>{buttonText}</span>
+      <span>{children}</span>
     </button>
   );
 };
 
 Button.propTypes = {
   customClassName: PropTypes.string,
-  buttonText: PropTypes.string.isRequired,
+  children: PropTypes.any,
   isInverse: PropTypes.bool,
   handleclick: PropTypes.func
 };
