@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import themeToggler from '../views/LandingPage/index.reducer';
+import themeToggler from '../components/Header/index.reducer';
 import authReducer from '../views/SignupPage/signup.reducer';
 import loginReducer from '../views/LoginPage/login.reducer';
 import singleArticleReducer from '../views/ReadArticlePage/readArticle.reducer';

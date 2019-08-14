@@ -37,7 +37,7 @@ export class ReadArticle extends Component {
       singleArticle = singleArticle = (
         <div className="container">
           <div className="row read-article-section">
-            <div className="col-sm-12 col-md-8 article-details">
+            <div className="col-sm-12 col-md-9 article-details">
               <div className="article-image">
                 <IconComponent src={imageObj[0]} alt={'image asset'} />
               </div>
@@ -48,11 +48,17 @@ export class ReadArticle extends Component {
                   </h3>
                 </div>
                 <div className="row read-article-stat">
-                  <div className="read-article-read-time">
-                    {datePublished} - {readTime}
-                  </div>
-                  <div className="read-article-ratings">
-                    <StarRatingComponent name="rate1" starCount={5} value={4} />
+                  <div className="row read-article-read-time-container">
+                    <div className="read-article-read-time">
+                      {datePublished} - {readTime}
+                    </div>
+                    <div className="read-article-ratings">
+                      <StarRatingComponent
+                        name="rate1"
+                        starCount={5}
+                        value={4}
+                      />
+                    </div>
                   </div>
                   <div className="read-article-bookmark">
                     {' '}
@@ -77,30 +83,6 @@ export class ReadArticle extends Component {
                   isFollowing={false}
                   lightTheme={this.props.lightTheme}
                 />
-              </div>
-              <div className="row read-artile-like-stat-container">
-                <div className="read-artile-like-stat">
-                  <span>
-                    <Link to="/#">Likes</Link> {likesCount}
-                  </span>
-                  <span>
-                    <Link to="/#">Bookmarks</Link> 104
-                  </span>
-                </div>
-                <div className="read-article-social">
-                  <span>
-                    <IconComponent
-                      src={'../../src/assets/images/twitter-read-article.svg'}
-                      alt={'twitter asset'}
-                    />
-                  </span>
-                  <span>
-                    <IconComponent
-                      src={'../../src/assets/images/facebook-read-article.svg'}
-                      alt={'facebook asset'}
-                    />
-                  </span>
-                </div>
               </div>
             </div>
           </div>

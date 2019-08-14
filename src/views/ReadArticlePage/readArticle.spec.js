@@ -1,3 +1,4 @@
+jest.unmock('axios');
 import React from 'react';
 import '@babel/polyfill';
 import moxios from 'moxios';
