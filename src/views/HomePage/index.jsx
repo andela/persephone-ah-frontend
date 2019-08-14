@@ -97,10 +97,9 @@ export class HomePage extends Component {
                     placeholder="Search e.g Getting with Reactjs and Redux"
                     name="search"
                   />
-                  <Button
-                    buttonText="Search"
-                    customClassName="search_btn pr-5 pl-5 mb-1"
-                  />
+                  <Button customClassName="search_btn pr-5 pl-5 mb-1">
+                    Search
+                  </Button>
                 </div>
               </form>
             </div>
