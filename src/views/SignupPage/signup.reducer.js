@@ -14,9 +14,9 @@ const initialState = {
 };
 
 const userSignupStart = state => {
-  return updateObject (state, {
+  return updateObject(state, {
     loading: true
-  })
+  });
 };
 
 const userSignupSuccess = (state, action) => {
