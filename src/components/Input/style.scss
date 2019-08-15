@@ -16,11 +16,14 @@
 
 .form-input-dark-theme {
   border: 1px solid #eeeeee;
-  color: white;
+  color: inherit;
 }
 
 .input-search {
   border: 1px solid #219653 !important;
   border-radius: 5px 0px 0px 5px !important;
-  width: 500px;
+  width: 70%;
+  background-color: #ffffff;
+  height: 46px;
+  color: initial;
 }

@@ -40,6 +40,20 @@
   border-top: 10px solid #181818;
 }
 
+.loader-small {
+  height: 30px;
+  width: 30px;
+  @extend .loader-sector;
+  border-radius: 10%;
+  border-top: 4px;
+  @extend .loader-sector-green;
+  border-top: 4px;
+  @extend .loader-sector-grey;
+  border-top: 4px;
+  @extend .loader-sector-dark-grey;
+  border-top: 4px;
+  margin: 0 auto;
+}
 @keyframes rotate {
   from {
     transform: rotate(0);
