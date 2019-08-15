@@ -28,6 +28,7 @@ $desktop: 11px;
   background-color: #219653;
   color: #ffffff;
   border: none;
+  outline: none;
   font-size: 1rem;
   height: 45px;
   padding-left: 10px;
@@ -38,34 +39,21 @@ $desktop: 11px;
 }
 
 .top-panel {
-  background: #262626;
+  background: inherit;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 20px 40px;
   display: grid;
   grid-column: auto;
   grid-gap: 10px;
-
+  color: inherit;
   @include biggerTablet {
-    width: 90%;
-    margin: 20px auto;
+    margin: 3em auto;
   }
 
-  .catch-Phrase {
-    font-size: 16px;
+  p.catch-phrase {
+    font-size: 2em !important;
     text-align: center;
     margin: auto;
-
-    @include biggerTablet {
-      font-size: 35px;
-      width: 70%;
-      margin: auto;
-    }
-    @include desktop {
-      font-style: normal;
-      font-weight: normal;
-      font-size: 35px;
-      line-height: 112.4%;
-    }
   }
 
   .action-fields {
@@ -91,6 +79,13 @@ p.end-messsage {
   font-size: 1.5em;
   color: inherit;
   box-shadow: 6px 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.center-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .articles-main {
