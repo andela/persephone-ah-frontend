@@ -14,7 +14,10 @@ describe('Login component Tests', () => {
     logInRequest: jest.fn(),
     history: {},
     match: {},
-    isLoading: false
+    isLoading: false,
+    theme: {
+      theme: 'light-theme'
+    }
   };
 
   it('renders the Login component correctly', () => {
@@ -29,6 +32,15 @@ describe('Login component Tests', () => {
       </BrowserRouter>
     );
     component.find('form').simulate('submit');
+  });
+
+  it(`should ensure submit button text on sign in is rendered appropriately`, () => {
+    const component = mount(
+      <BrowserRouter>
+        <LoginPage {...defaultProps} />
+      </BrowserRouter>
+    );
+    expect(component.find('.login-button').text()).toBe('Sign In');
   });
 
   it('should simulate an onchange event on form input', () => {

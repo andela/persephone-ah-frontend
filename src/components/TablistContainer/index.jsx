@@ -10,7 +10,7 @@ import './TablistContainer.scss';
  *  <TablistContainer {...props}>Hello</TablistContainer>
  */
 const tablistContainer = props => {
-  let themeType = ['container', 'dark-theme'];
+  let themeType = ['dark-theme'];
   if (props.lightTheme) {
     themeType.pop();
     themeType.push('light-theme');

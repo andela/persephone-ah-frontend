@@ -19,6 +19,10 @@ export class Header extends Component {
   }
 
   componentWillMount() {
+    if (this.app_theme === null) {
+      // dispatch an action
+      this.props.themeToggler('dark-theme');
+    }
     if (this.app_theme !== null) {
       // dispatch an action
       this.props.themeToggler(this.app_theme);

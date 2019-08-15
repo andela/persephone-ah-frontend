@@ -1,5 +1,4 @@
 @import '../../styles/main.scss';
-
 h1 {
   font-family: $primary-font;
   color: white;
@@ -16,7 +15,7 @@ h1 {
 }
 .hero-panel {
   width: 40%;
-  height: 60vh;
+  padding: 1.5em;
   background: rgba(128, 128, 128, 0.05);
   border-radius: 0px 10px 10px 0px;
   display: flex;
@@ -36,7 +35,6 @@ h1 {
   height: auto;
   padding: 2em 0 0 0;
 }
-
 .login-input {
   display: block;
   width: 34vw;
@@ -49,10 +47,9 @@ form > .login-light {
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.07);
   color: black;
 }
-
 .login-button {
-  width: 35vw;
-  height: 41px;
+  width: 34vw;
+  height: 2.2em;
   left: 757px;
   top: 541px;
   border: none;
@@ -65,11 +62,9 @@ form > .login-light {
   color: #ffffff;
   border-radius: 5px;
 }
-
 .login-button-twitter {
   @extend .login-button;
   background: #1da1f2 !important;
-
   span {
     color: white;
     display: inline-block;
@@ -77,7 +72,6 @@ form > .login-light {
   flex-direction: row;
   justify-content: space-evenly;
 }
-
 .login-button-facebook {
   @extend .login-button;
   background: #3a559f !important;
@@ -119,14 +113,12 @@ form > .login-light {
   height: 0px;
   border: 1px solid #c4c4c4;
 }
-
 .social-auth {
   margin-top: 2em;
   height: 160px;
   left: 758px;
   top: 673px;
 }
-
 @media (max-width: 769px) {
   .main-section {
     margin-top: 1em;
@@ -136,7 +128,7 @@ form > .login-light {
     justify-content: center;
   }
   .login-button {
-    width: 80vw;
+    width: 80vw !important;
   }
   .hero-panel {
     display: none;
@@ -152,10 +144,9 @@ form > .login-light {
   .login-input {
     width: 80vw;
   }
-  h1 {
-    font-size: 1.2em;
+  .container > h1 {
+    font-size: 1.2em !important;
   }
-
   .horizontal-line {
     width: 80vw;
   }

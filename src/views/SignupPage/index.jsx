@@ -143,7 +143,7 @@ export class SignupPage extends Component {
       });
     });
 
-    let signUpButton = <Button customClassName="login-button">Sign Up</Button>;
+    let signUpButton = <Button customClassName="signup-button">Sign Up</Button>;
 
     if (this.props.loading) {
       signUpButton = <Loading />;
@@ -152,8 +152,8 @@ export class SignupPage extends Component {
     return (
       <div className="container signup">
         <h1>Create an Account</h1>
-        <div className="main-section-signup row ">
-          <div className="hero-panel-signup col-md-6">
+        <div className="row main-section-signup">
+          <div className="col-md-6 hero-panel-signup">
             <IconComponent
               src={'./../src/assets/images/authhero.svg'}
               alt={'image asset'}
@@ -166,14 +166,14 @@ export class SignupPage extends Component {
             </h5>
           </div>
           <form
-            className="login input-panel-signup col-md-6"
+            className="input-panel-signup col-md-6"
             onSubmit={this.handleSubmit}
           >
             <div>
               {this.state.userData.firstName.valid && !this.props.error ? (
                 ''
               ) : (
-                <span className="input-validation-error">
+                <span className="input-validation-error first-name-error">
                   <p className="input-error-message-front-end">
                     {this.state.userData.firstName.valid
                       ? ''
@@ -198,7 +198,7 @@ export class SignupPage extends Component {
               {this.state.userData.lastName.valid && !this.props.error ? (
                 ''
               ) : (
-                <span className="input-validation-error">
+                <span className="input-validation-error last-name-error">
                   <p className="input-error-message-front-end">
                     {this.state.userData.lastName.valid
                       ? ''
@@ -221,7 +221,7 @@ export class SignupPage extends Component {
               {this.state.userData.email.valid && !this.props.error ? (
                 ''
               ) : (
-                <span className="input-validation-error">
+                <span className="input-validation-error email-error">
                   <p className="input-error-message-front-end">
                     {this.state.userData.email.valid
                       ? ''
@@ -244,11 +244,11 @@ export class SignupPage extends Component {
               {this.state.userData.password.valid && !this.props.error ? (
                 ''
               ) : (
-                <span className="input-validation-error">
+                <span className="input-validation-error password-error">
                   <p className="input-error-message-front-end">
                     {this.state.userData.password.valid
                       ? ''
-                      : 'password must contain one capital letter, number and min of 6'}
+                      : 'password must contain one capital letter, number and min of 8'}
                   </p>
                   {this.props.error ? `${this.props.error.password || ''}` : ''}
                 </span>
@@ -264,31 +264,33 @@ export class SignupPage extends Component {
               />
             </div>
             {signUpButton}
-            <span className="horizontal-line">
-              <hr className="line" /> <p>Or</p> <hr className="line" />
-            </span>
+            <div className="row signup-line-container">
+              <hr className="signup-line first-line" />
+              <p>Or</p>
+              <hr className="signup-line second-line" />
+            </div>
 
-            <div className="social-auth signup-auth">
-              <Button customClassName="login-button-twitter">
+            <div className="signup-auth">
+              <Button customClassName="signup-auth-button signup-button-twitter">
                 <IconComponent
                   src={'../../src/assets/images/twitter-signup.svg'}
                   alt={'twitter asset'}
                 />
-                <h5>Sign In With Twitter</h5>
+                <h5>Sign Up With Twitter</h5>
               </Button>
-              <Button customClassName="login-button-facebook">
+              <Button customClassName="signup-auth-button signup-button-facebook">
                 <IconComponent
                   src={'../../src/assets/images/facebook-signup.svg'}
                   alt={'facebook asset'}
                 />
-                <h5>Sign In With Facebook</h5>
+                <h5>Sign Up With Facebook</h5>
               </Button>
-              <Button customClassName="login-button-google">
+              <Button customClassName="signup-auth-button signup-button-google">
                 <IconComponent
                   src={'../../src/assets/images/google-signup.svg'}
                   alt={'twitter asset'}
                 />{' '}
-                <h5>Sign In With Google</h5>
+                <h5>Sign Up With Google</h5>
               </Button>
             </div>
           </form>

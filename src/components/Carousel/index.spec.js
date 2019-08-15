@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 import { CarouselContainer } from './index.jsx';
 
@@ -28,23 +29,28 @@ const articles = [
 describe('Render component', () => {
   it('should render the carousel component', () => {
     const wrapper = shallow(
-      <CarouselContainer
-        articles={articles}
-        category="Technology"
-        theme="light-theme"
-      />
+      <BrowserRouter>
+        <CarouselContainer
+          articles={articles}
+          category="Technology"
+          theme="light-theme"
+        />
+      </BrowserRouter>
     );
     expect(wrapper.exists()).toEqual(true);
-    expect(wrapper.hasClass('carousel-container')).toEqual(true);
+
+    expect(wrapper.hasClass('carousel-container')).toEqual(false);
   });
 
   it('should confirm the carousel prev click', () => {
     const wrapper = mount(
-      <CarouselContainer
-        articles={articles}
-        category="Technology"
-        theme="light-theme"
-      />
+      <BrowserRouter>
+        <CarouselContainer
+          articles={articles}
+          category="Technology"
+          theme="light-theme"
+        />
+      </BrowserRouter>
     );
     expect(wrapper.exists()).toEqual(true);
     expect(wrapper.find('.carousel-control-prev')).toBeTruthy();
@@ -58,11 +64,13 @@ describe('Render component', () => {
 
   it('should successfully simulate the carousel prev button click', () => {
     const wrapper = mount(
-      <CarouselContainer
-        articles={articles}
-        category="Technology"
-        theme="light-theme"
-      />
+      <BrowserRouter>
+        <CarouselContainer
+          articles={articles}
+          category="Technology"
+          theme="light-theme"
+        />
+      </BrowserRouter>
     );
     expect(wrapper.exists()).toEqual(true);
     expect(wrapper.find('.carousel-control-prev')).toBeTruthy();
@@ -74,11 +82,13 @@ describe('Render component', () => {
 
   it('should confirm the carousel next click', () => {
     const wrapper = mount(
-      <CarouselContainer
-        articles={articles}
-        category="Technology"
-        theme="light-theme"
-      />
+      <BrowserRouter>
+        <CarouselContainer
+          articles={articles}
+          category="Technology"
+          theme="light-theme"
+        />
+      </BrowserRouter>
     );
     expect(wrapper.exists()).toEqual(true);
     expect(wrapper.find('.carousel-control-next')).toBeTruthy();
@@ -92,11 +102,13 @@ describe('Render component', () => {
 
   it('should successfully simulate the carousel next button click', () => {
     const wrapper = mount(
-      <CarouselContainer
-        articles={articles}
-        category="Technology"
-        theme="light-theme"
-      />
+      <BrowserRouter>
+        <CarouselContainer
+          articles={articles}
+          category="Technology"
+          theme="light-theme"
+        />
+      </BrowserRouter>
     );
     expect(wrapper.exists()).toEqual(true);
     expect(wrapper.find('.carousel-control-next')).toBeTruthy();

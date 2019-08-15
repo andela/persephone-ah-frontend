@@ -74,7 +74,7 @@ export class LoginPage extends Component {
               {this.state.isLoading ? (
                 <Loader className="loader-small" />
               ) : (
-                'Signin'
+                'Sign In'
               )}
             </button>
             <span className="horizontal-line">

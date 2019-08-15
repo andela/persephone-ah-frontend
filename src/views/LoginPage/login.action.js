@@ -16,7 +16,7 @@ export const logInRequest = (user, history) => {
       const response = await axios.post('users/login', user);
       if (response.status === 200) {
         const { data } = response.data;
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data));
         toast.success('Log In Successful');
         setTimeout(() => {
           /* istanbul ignore next */

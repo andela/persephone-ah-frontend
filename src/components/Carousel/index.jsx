@@ -80,9 +80,9 @@ export class CarouselContainer extends Component {
     return (
       <div className="carousel-container mb-5 ">
         <div className="carousel-top-Label">
-          <h1 className="carousel-label">
+          <p className="carousel-label">
             {category} <span className="explore-all">> explore all</span>
-          </h1>
+          </p>
           <hr className="carousel-line" />
         </div>
         <Carousel
