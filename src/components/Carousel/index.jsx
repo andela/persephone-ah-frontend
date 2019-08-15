@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import paginator from '../../utils/paginator';
 import './style.scss';
 import Carousel from 'react-bootstrap/Carousel';
+import { Link } from 'react-router-dom';
 
 const CarouselSections = ({ sectionItems, theme }) => {
   return sectionItems.map((articleDetails, id) => {
@@ -80,9 +81,9 @@ export class CarouselContainer extends Component {
     return (
       <div className="carousel-container mb-5 ">
         <div className="carousel-top-Label">
-          <p className="carousel-label">
+          <Link to="/articles" className="carousel-label">
             {category} <span className="explore-all">> explore all</span>
-          </p>
+          </Link>
           <hr className="carousel-line" />
         </div>
         <Carousel
