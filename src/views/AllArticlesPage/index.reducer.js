@@ -1,30 +1,32 @@
-import * as type from '../../actionTypes';
+import * as types from '../../actionTypes';
+import initialState from '../../store/initialState';
 
-const initialSate = {
-  allArticles: [],
-  allTags: []
-};
-
-export default (state = initialSate, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
-    case type.ADD_ALL_ARTICLES:
+    case types.ADD_ALL_ARTICLES:
       return {
         ...state,
         allArticles: action.payload,
         isLoading: false
       };
-    case type.UPDATE_ARTICLES_LOADING:
+    case types.UPDATE_ARTICLES_LOADING:
       return {
         ...state,
         articlesLoading: action.payload,
         isLoading: true
       };
-    case type.ADD_ALL_TAGS:
+    case types.ADD_ALL_TAGS:
       return {
         ...state,
         allTags: action.payload,
         isLoading: false
       };
+    case types.FETCH_ALL_ARTICLES:
+      return { ...state, articles: action.payload, isLoading: false };
+    case types.FETCH_MORE_ARTICLES:
+      return { ...state, articles: action.payload, isLoading: false };
+    case types.FETCH_ALL_ARTICLES_START:
+      return { ...state, isLoading: true };
     default:
       return state;
   }

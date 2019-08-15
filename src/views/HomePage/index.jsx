@@ -66,7 +66,7 @@ export class HomePage extends Component {
                   your career in technology
                 </p>
                 <Link
-                  to="/explore"
+                  to="/articles"
                   className="btn-hero border-0 pr-5 pl-5 pt-2 pb-2"
                 >
                   Explore
@@ -136,10 +136,10 @@ export class HomePage extends Component {
           <div className="row ">
             <div className="col-md-12 text-center mb-5 pb-4 mt-3">
               <Link
-                to="/explore"
+                to="/articles"
                 className="font-weight-light more_btn btn-hero border-0 pt-3 pb-3 pl-5 pr-5"
               >
-                Do you want more?
+                Explore
               </Link>
             </div>
           </div>

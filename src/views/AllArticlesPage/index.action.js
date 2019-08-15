@@ -1,24 +1,36 @@
-import * as type from '../../actionTypes';
+import * as types from '../../actionTypes';
 import axios from '../../utils/axiosConfig';
 
 export const addAllArticles = articles => {
   return {
-    type: type.ADD_ALL_ARTICLES,
+    type: types.ADD_ALL_ARTICLES,
     payload: articles
   };
 };
 
 export const updateArticlesLoading = () => {
   return {
-    type: type.UPDATE_ARTICLES_LOADING
+    type: types.UPDATE_ARTICLES_LOADING
   };
 };
 
 export const addAllTags = tags => {
   return {
-    type: type.ADD_ALL_TAGS,
+    type: types.ADD_ALL_TAGS,
     payload: tags
   };
+};
+
+export const fetchArticlesStart = () => {
+  return { type: types.FETCH_ALL_ARTICLES_START };
+};
+
+export const fetchArticles = articles => {
+  return { type: types.FETCH_ALL_ARTICLES, payload: articles };
+};
+
+export const fetchMoreArticles = articles => {
+  return { type: types.FETCH_MORE_ARTICLES, payload: articles };
 };
 
 export const fetchAllTagsRequest = () => {
@@ -30,7 +42,7 @@ export const fetchAllTagsRequest = () => {
 
 export const searchByTitleRequest = async keyWord => {
   return async dispatch => {
-    // dispatch(updateArticlesLoading());
+    dispatch(updateArticlesLoading());
     const responseArticles = await axios.get(`search?title=${keyWord}`);
     dispatch(addAllArticles(responseArticles.data.data.searchResult));
   };
@@ -38,8 +50,40 @@ export const searchByTitleRequest = async keyWord => {
 
 export const filterByTagsRequest = async keyWord => {
   return async dispatch => {
-    // dispatch(updateArticlesLoading());
+    dispatch(updateArticlesLoading());
     const responseArticles = await axios.get(`search?tag=${keyWord}`);
     dispatch(addAllArticles(responseArticles.data.data.searchResult));
+  };
+};
+
+
+
+export const fetchArticlesRequest = () => {
+  return async dispatch => {
+    try {
+      dispatch(fetchArticlesStart());
+      const response = await axios.get('articles?limit=9');
+      if (response.status === 200) {
+        const { data } = response.data;
+        dispatch(fetchArticles(data));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const fetchMoreArticlesRequest = () => {
+  return async (dispatch, getState) => {
+    try {
+      const limit = getState().articles.articles.allArticles.length + 9;
+      const response = await axios.get(`articles?limit=${limit}`);
+      if (response.status === 200) {
+        const { data } = response.data;
+        dispatch(fetchMoreArticles(data));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
