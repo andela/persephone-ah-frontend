@@ -15,22 +15,26 @@ const articleCard = props => {
       <div className={`card-body ${props.theme}`}>
         <h5 className="card-title">{props.title}</h5>
         <div className="card-text flex">
-          <div className="avatar">
-            <img
-              src={props.author.image}
-              className="float-left avatarImage"
-              alt="author"
-            />
+          {props.author ? (
+            <div className="avatar">
+              <img
+                src={props.author.image}
+                className="float-left avatarImage"
+                alt="author"
+              />
 
-            <span>
-              <div>{`${props.author.firstName} ${props.author.lastName}`}</div>
+              <span>
+                <div>{`${props.author.firstName} ${props.author.lastName}`}</div>
 
-              <div>
-                {' '}
-                <small>{props.author.email}</small>
-              </div>
-            </span>
-          </div>
+                <div>
+                  {' '}
+                  <small>{props.author.email}</small>
+                </div>
+              </span>
+            </div>
+          ) : (
+            undefined
+          )}
 
           <div className="flex mins-read">
             <small>{props.readTime} </small>

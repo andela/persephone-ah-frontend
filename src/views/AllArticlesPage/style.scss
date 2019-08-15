@@ -12,11 +12,11 @@ $desktop: 11px;
     @content;
   }
 }
-// @mixin desktop {
-//   @media (min-width: #{$desktop}) {
-//     @content;
-//   }
-// }
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
 
 .form-search {
   box-sizing: border-box;
@@ -34,6 +34,7 @@ $desktop: 11px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  text-transform: capitalize;
 }
 
 .top-panel {
@@ -45,7 +46,6 @@ $desktop: 11px;
   grid-gap: 10px;
 
   @include biggerTablet {
-    font-size: 24px;
     width: 90%;
     margin: 20px auto;
   }
@@ -56,8 +56,15 @@ $desktop: 11px;
     margin: auto;
 
     @include biggerTablet {
+      font-size: 35px;
       width: 70%;
       margin: auto;
+    }
+    @include desktop {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 35px;
+      line-height: 112.4%;
     }
   }
 
@@ -66,7 +73,7 @@ $desktop: 11px;
     grid-template-columns: auto;
     grid-gap: 10px;
 
-    @include biggerTablet {
+    @include tablet {
       grid-template-columns: 30% auto;
     }
   }

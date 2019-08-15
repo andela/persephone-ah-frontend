@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Header from './components/Header/index.jsx';
 import Footer from './components/Footer/index.jsx';
 import SignupPage from './views/SignupPage/index.jsx';
+import AllArticlesPage from './views/AllArticlesPage/index.jsx';
 
 const store = setupStore();
 class App extends Component {
@@ -38,6 +39,7 @@ class App extends Component {
             <Route path="/login" component={LoginPage} />
             <Route path="/article" component={ArticlePage} />
             <Route path="/signup" component={SignupPage} />
+            <Route path="/articles" component={AllArticlesPage} />
           </Switch>
           <Footer />
         </Router>
