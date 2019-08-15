@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A Social platform for the creative at heart",
   "main": "index.js",
+  "engines": {
+    "node": "12.4.0"
+  },
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.dev.js --open --hot ",
     "build": "webpack --config webpack.config.prod.js",
@@ -12,6 +15,7 @@
     "cypress:open": "cypress open",
     "format": "pretty-quick",
     "lint": "eslint ./",
+    "heroku-postbuild": "npm run build",
     "test:coverage": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
   "husky": {

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { themeToggler } from './index.action';
 import Toggle from '../../components/Toggle/index.jsx';
-import './header.scss';
+import './Header.scss';
 import IconComponent from '../IconComponent/index.jsx';
 
 export class Header extends Component {
@@ -109,14 +109,14 @@ export class Header extends Component {
 
                 <Link
                   to="/signup"
-                  className="button  navbtn_signup button-normal border-0 pr-3 pl-3  pb-1 mr-4"
+                  className="button  navbtn_signup button-normal border-0 pr-3 pl-3 mr-4"
                 >
                   Sign Up
                 </Link>
 
                 <Link
                   to="/login"
-                  className="button  navbtn_login button-inverse pr-3 pl-3   pb-1  mr-4"
+                  className="button  navbtn_login button-inverse pr-3 pl-3  mr-4"
                 >
                   Login
                 </Link>
