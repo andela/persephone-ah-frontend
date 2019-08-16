@@ -48,7 +48,9 @@ export class ArticlesPage extends Component {
               className="tagFilter"
               name="Tag filter"
             >
-              <option value="">filter by tags</option>
+              <option selected="true" disabled="disabled">
+                filter by tags
+              </option>
               {allTags.map(tag => (
                 <option key={tag.id} value={tag.name}>
                   {tag.name}
