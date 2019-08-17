@@ -58,22 +58,21 @@ export class CreateComment extends Component {
   render() {
     let comment;
     if (this.props.allComment) {
-      comment = this.props.allComment.comments
-        .reverse()
-        .map((comment, index) => {
-          const datePublished = moment(comment.createdAt).format(
-            'MMMM Do, YYYY, h:mm:ss a'
-          );
-          return (
-            <SingleComment
-              key={index + 1}
-              theme={this.props.lightTheme ? 'light-theme' : 'dark-theme'}
-              {...comment}
-              datePublished={datePublished}
-              handleLike={this.handleLike}
-            />
-          );
-        });
+      const reversedComments = this.props.allComment.comments;
+      comment = reversedComments.map((comment, index) => {
+        const datePublished = moment(comment.createdAt).format(
+          'MMMM Do, YYYY, h:mm:ss a'
+        );
+        return (
+          <SingleComment
+            key={index + 1}
+            theme={this.props.lightTheme ? 'light-theme' : 'dark-theme'}
+            {...comment}
+            datePublished={datePublished}
+            handleLike={this.handleLike}
+          />
+        );
+      });
     }
 
     return (
@@ -91,7 +90,7 @@ export class CreateComment extends Component {
                 ref={this.ref}
               />
             </div>
-            <div>
+            <div className="text-center">
               <Button customClassName="create-comment-button">comment</Button>
             </div>
           </form>
