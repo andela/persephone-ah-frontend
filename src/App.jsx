@@ -12,17 +12,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import Header from './components/Header/index.jsx';
 import Footer from './components/Footer/index.jsx';
 import SignupPage from './views/SignupPage/index.jsx';
+import AllArticles from './views/AllArticlesPage/index.jsx';
 
 const store = setupStore();
 class App extends Component {
-  state = {
-    show: false,
-    lightTheme: true,
-    authorName: 'Halimah Oladosu',
-    username: '@halimah',
-    authorImage: '../src/assets/images/img.jpg'
-  };
-
   render() {
     return (
       <Provider store={store}>
@@ -37,7 +30,9 @@ class App extends Component {
             <Route path="/" exact component={HomePage} />
             <Route path="/login" component={LoginPage} />
             <Route path="/article" component={ArticlePage} />
+            <Route path="/articles" component={AllArticles} />
             <Route path="/signup" component={SignupPage} />
+            <Route path="/articles" component={AllArticles} />
           </Switch>
           <Footer />
         </Router>
