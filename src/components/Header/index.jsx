@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { themeToggler } from './index.action';
 import { logout } from '../../views/Auth/auth.action';
 import Toggle from '../../components/Toggle/index.jsx';
-import './header.scss';
+import './Header.scss';
 import IconComponent from '../IconComponent/index.jsx';
 
 export class Header extends Component {
@@ -160,6 +160,9 @@ export class Header extends Component {
                       </div>
 
                       <div className={`${theme} dropdown-fill`}>
+                        <Link to="/publication" className="logout">
+                          Publications
+                        </Link>
                         <Link
                           onClick={this.handleLogOut.bind(this)}
                           to="/"

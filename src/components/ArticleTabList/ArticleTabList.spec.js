@@ -11,7 +11,8 @@ describe('Render light component TablistContainer', () => {
       publishedAt: 'July 2',
       readTime: '10 mins',
       numberLikes: 220,
-      numberComment: 170
+      numberComment: 170,
+      imageObj: { 0: 'some-image' }
     };
     shallow(<ArticleTabList {...lightArticleCard} />);
   });
@@ -24,7 +25,8 @@ describe('Render light component TablistContainer', () => {
       publishedAt: 'July 28',
       readTime: '6 mins',
       numberLikes: 120,
-      numberComment: 70
+      numberComment: 70,
+      imageObj: { 0: 'some-image' }
     };
     shallow(<ArticleTabList {...darkArticleCard} />);
   });
