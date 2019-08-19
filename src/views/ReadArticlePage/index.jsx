@@ -9,6 +9,7 @@ import CreateComment from '../../components/CreateComment/index.jsx';
 import Authorcard from '../../components/AuthorCard/index.jsx';
 import Loading from '../../components/LoadingIndicator/index.jsx';
 import moment from 'moment';
+import reactHtmlParser from 'react-html-parser';
 
 export class ReadArticle extends Component {
   componentDidMount() {
@@ -21,11 +22,8 @@ export class ReadArticle extends Component {
       const {
         body,
         author,
-        likesCount,
-        rating,
         readTime,
         title,
-        slug,
         image,
         createdAt
       } = this.props.article;
@@ -69,7 +67,7 @@ export class ReadArticle extends Component {
                   </div>
                 </div>
               </div>
-              <div className="article-body">{body}</div>
+              <div className="article-body">{reactHtmlParser(body)}</div>
             </div>
             <div className="col-sm-12 col-md-3 article-details-second">
               <div className="read-article-author-card">
