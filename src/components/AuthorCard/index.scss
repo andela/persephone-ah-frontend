@@ -90,9 +90,9 @@
 
 .read-article-social {
   margin-top: 10px;
-  span {
-    padding: 10px 10px 10px 0;
-  }
+  display: grid;
+  grid-gap: 5px;
+  grid-template-rows: repeat(3, auto);
 }
 .author-card-light {
   @extend .author-card-dark;
@@ -106,4 +106,8 @@
   .small-text {
     color: black;
   }
+}
+
+.share-icon {
+  outline: none;
 }
