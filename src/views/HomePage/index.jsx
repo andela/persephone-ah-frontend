@@ -101,7 +101,7 @@ export class HomePage extends Component {
                 <div className="form-group">
                   <Input
                     customClassName="mx-auto w-60 pt-2 pb-2 bg-white  "
-                    placeholder="Search e.g Getting with Reactjs and Redux"
+                    placeholder="Search e.g Getting started with Reactjs and Redux"
                     name="search"
                     required
                   />
@@ -145,9 +145,9 @@ export class HomePage extends Component {
             <div className="col-md-12 text-center mb-5 pb-4 mt-3">
               <Link
                 to="/articles"
-                className="font-weight-light more_btn btn-hero border-0 pt-3 pb-3 pl-5 pr-5"
+                className="font-weight-light more_btn btn-hero border-0 btn-hero border-0 pr-4 pl-4 pt-3 pb-3"
               >
-                Explore
+                Do you want more?
               </Link>
             </div>
           </div>

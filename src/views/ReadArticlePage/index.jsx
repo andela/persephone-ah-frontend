@@ -23,21 +23,12 @@ export class ReadArticle extends Component {
   }
 
   onStarClick = (nextValue, prevValue, name) => {
-<<<<<<< HEAD
-    const user = JSON.parse(localStorage.getItem('user'));
-=======
-    
->>>>>>> 4d3e464d145663001797cccbd88e83f2c05eafb1
     const { rateArticleRequest } = this.props;
     const payload = {
       rating: nextValue,
       articleId: name
     };
-<<<<<<< HEAD
-    rateArticleRequest(payload, user.token);
-=======
     rateArticleRequest(payload);
->>>>>>> 4d3e464d145663001797cccbd88e83f2c05eafb1
   };
 
   componentDidUpdate() {
@@ -56,6 +47,8 @@ export class ReadArticle extends Component {
   componentWillUnmount;
   render() {
     let singleArticle = <Loading />;
+    const articleUrl = window.location.href;
+    console.log(articleUrl);
     if (!this.props.loading && this.props.article) {
       const {
         id,
@@ -130,6 +123,7 @@ export class ReadArticle extends Component {
     display for readers"
                   isFollowing={false}
                   lightTheme={this.props.lightTheme}
+                  articleUrl={articleUrl}
                 />
               </div>
             </div>
@@ -170,7 +164,7 @@ export const mapStateToProps = state => {
 export const mapDispatchToProps = dispatch => {
   return {
     fetchSingleArticle: slug => dispatch(getSingleArticle(slug)),
-    rateArticleRequest: (payload) => {
+    rateArticleRequest: payload => {
       dispatch(rateArticleRequest(payload));
     },
     cleanUpRating: () => dispatch(cleanUpRating())
