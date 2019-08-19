@@ -1,3 +1,11 @@
+$wideScreen: 1790px;
+
+@mixin wideScreen {
+  @media (min-width: #{$tablet}) {
+    @content;
+  }
+}
+
 .button {
   border-radius: 5px;
   height: 35px;
@@ -20,6 +28,7 @@
 .button-search {
   width: 30%;
   position: relative;
+  top: 0.1px;
   height: 46px;
   border-radius: 0px 5px 5px 0px !important;
 }

@@ -40,7 +40,7 @@ export const fetchAllTagsRequest = () => {
   };
 };
 
-export const searchByTitleRequest = async keyWord => {
+export const searchByTitleRequest = keyWord => {
   return async dispatch => {
     dispatch(updateArticlesLoading());
     const responseArticles = await axios.get(`search?title=${keyWord}`);
@@ -48,7 +48,7 @@ export const searchByTitleRequest = async keyWord => {
   };
 };
 
-export const filterByTagsRequest = async keyWord => {
+export const filterByTagsRequest = keyWord => {
   return async dispatch => {
     dispatch(updateArticlesLoading());
     const responseArticles = await axios.get(`search?tag=${keyWord}`);
@@ -56,34 +56,20 @@ export const filterByTagsRequest = async keyWord => {
   };
 };
 
-
-
 export const fetchArticlesRequest = () => {
   return async dispatch => {
-    try {
-      dispatch(fetchArticlesStart());
-      const response = await axios.get('articles?limit=9');
-      if (response.status === 200) {
-        const { data } = response.data;
-        dispatch(fetchArticles(data));
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(fetchArticlesStart());
+    const response = await axios.get('articles?limit=9');
+    const { data } = response.data;
+    dispatch(fetchArticles(data));
   };
 };
 
 export const fetchMoreArticlesRequest = () => {
   return async (dispatch, getState) => {
-    try {
-      const limit = getState().articles.articles.allArticles.length + 9;
-      const response = await axios.get(`articles?limit=${limit}`);
-      if (response.status === 200) {
-        const { data } = response.data;
-        dispatch(fetchMoreArticles(data));
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    const limit = getState().articles.articles.allArticles.length + 9;
+    const response = await axios.get(`articles?limit=${limit}`);
+    const { data } = response.data;
+    dispatch(fetchMoreArticles(data));
   };
 };

@@ -31,7 +31,6 @@ export class ArticlesPage extends Component {
   };
 
   handleSelectChange = async event => {
-    console.log(event.value);
     await this.props.filterByTagsRequest(event.value);
   };
 
@@ -40,6 +39,7 @@ export class ArticlesPage extends Component {
     const { theme } = this.props.theme;
 
     const tagLabel = allTags.map(tag => {
+      /* istanbul ignore next */
       return { label: tag.name, value: tag.name };
     });
 
@@ -56,6 +56,8 @@ export class ArticlesPage extends Component {
               styles={selectStyle}
               onChange={this.handleSelectChange}
               placeholder="Filter by tags"
+              className="select-component"
+              name="filter"
             />
 
             <form className="form-search" onSubmit={this.handleSubmit}>

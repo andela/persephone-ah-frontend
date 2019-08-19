@@ -58,7 +58,7 @@ export class HomePage extends Component {
           <div className="container pt-2 pt-lg-5 pb-lg-5">
             <div className="row pt-2">
               <div className="col-md-6 pt-2 pt-lg-5 pr-4 pl-md-0 pl-3">
-                <h1 className="font-weight-bolder">
+                <h1 className="font-weight-bolder text-left">
                   A platform for all best tech articles and resources
                 </h1>
                 <p className="lead font-weight-lighter pt-2 pt-md-4 pb-2 pb-md-4 pr-md-5">
