@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 import { BrowserRouter } from 'react-router-dom';
 import { CarouselContainer } from './index.jsx';
@@ -29,14 +30,17 @@ const articles = [
 describe('Render component', () => {
   it('should render the carousel component', () => {
     const wrapper = shallow(
-      <CarouselContainer
-        articles={articles}
-        category="Technology"
-        theme="light-theme"
-      />
+      <BrowserRouter>
+        <CarouselContainer
+          articles={articles}
+          category="Technology"
+          theme="light-theme"
+        />
+      </BrowserRouter>
     );
     expect(wrapper.exists()).toEqual(true);
-    expect(wrapper.hasClass('carousel-container')).toEqual(true);
+
+    expect(wrapper.hasClass('carousel-container')).toEqual(false);
   });
 
   it('should confirm the carousel prev click', () => {
@@ -107,6 +111,15 @@ describe('Render component', () => {
         />
       </BrowserRouter>
     );
+
+    global.window = Object.create(window);
+    Object.defineProperty(window, 'screen', {
+      value: {
+        width: 1500
+      }
+    });
+
+    global.dispatchEvent(new Event('resize'));
     expect(wrapper.exists()).toEqual(true);
     expect(wrapper.find('.carousel-control-next')).toBeTruthy();
 

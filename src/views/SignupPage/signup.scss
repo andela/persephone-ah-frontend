@@ -93,6 +93,7 @@
 .signup-auth-button {
   width: 100%;
   margin: 10px auto;
+  height: 2.2rem;
 }
 
 .input-validation-error {
@@ -109,7 +110,18 @@
   margin: 0px;
   .signup-line {
     border: 1px solid #c4c4c4;
-    width: 50%;
+    width: 40%;
+    &.first-line {
+      margin-right: 16px;
+      margin-left: 0px;
+    }
+    &.second-line {
+      margin-right: 0px;
+    }
+  }
+  p {
+    margin: 0px auto;
+    padding-top: 2px;
   }
 }
 

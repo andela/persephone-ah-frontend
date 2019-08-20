@@ -25,23 +25,29 @@ export class HomePage extends Component {
 
   fetchArticles = async () => {
     this.setState({ isLoading: true });
-    const responseTechnology = await axios.get(
-      'http://persephone-backend-staging.herokuapp.com/api/v1/search?tag=technology'
-    );
-    const responseStartup = await axios.get(
-      'http://persephone-backend-staging.herokuapp.com/api/v1/search?tag=startup'
-    );
-    const responseProductDesign = await axios.get(
-      'http://persephone-backend-staging.herokuapp.com/api/v1/search?tag=product'
-    );
-    this.setState({
-      technologyArticles: responseTechnology.data.data.searchResult
-    });
-    this.setState({ startupArticles: responseStartup.data.data.searchResult });
-    this.setState({
-      productDesignArticles: responseProductDesign.data.data.searchResult
-    });
-    this.setState({ isLoading: false });
+    try {
+      const responseTechnology = await axios.get(
+        'http://persephone-backend-staging.herokuapp.com/api/v1/search?tag=technology'
+      );
+      const responseStartup = await axios.get(
+        'http://persephone-backend-staging.herokuapp.com/api/v1/search?tag=startup'
+      );
+      const responseProductDesign = await axios.get(
+        'http://persephone-backend-staging.herokuapp.com/api/v1/search?tag=product'
+      );
+      this.setState({
+        technologyArticles: responseTechnology.data.data.searchResult
+      });
+      this.setState({
+        startupArticles: responseStartup.data.data.searchResult
+      });
+      this.setState({
+        productDesignArticles: responseProductDesign.data.data.searchResult
+      });
+      this.setState({ isLoading: false });
+    } catch (error) {
+      return error.message;
+    }
   };
 
   render() {
@@ -94,7 +100,7 @@ export class HomePage extends Component {
                 <div className="form-group">
                   <Input
                     customClassName="mx-auto w-60 pt-2 pb-2 bg-white  "
-                    placeholder="Search e.g Getting with Reactjs and Redux"
+                    placeholder="Search e.g Getting started with Reactjs and Redux"
                     name="search"
                   />
                   <Button customClassName="search_btn pr-5 pl-5 mb-1">

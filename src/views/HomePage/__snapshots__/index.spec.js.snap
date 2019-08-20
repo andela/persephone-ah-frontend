@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Render component should set aricle search result to state  1`] = `ReactWrapper {}`;
+
 exports[`Render component should toggle to light theme 1`] = `ReactWrapper {}`;
