@@ -1,10 +1,9 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import axios from 'axios';
-import moxios from 'moxios';
 import { BrowserRouter } from 'react-router-dom';
 import { HomePage } from './index.jsx';
-
+jest.unmock('axios');
 const defaultProps = {
   themeToggler: jest.fn(),
   theme: {},
@@ -74,10 +73,6 @@ describe('Render component', () => {
     const wrapper = shallow(<HomePage {...state} />); // 5
 
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(
-      'http://persephone-backend-staging.herokuapp.com/api/v1/search?tag=technology'
-    );
-
     process.nextTick(() => {
       // 6
       expect(wrapper.state()).toEqual({

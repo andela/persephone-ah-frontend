@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import AuthorCard from './';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 describe('Render component', () => {
   it('renders The Author card component in dark mode when user is not following author', () => {
@@ -50,7 +50,6 @@ describe('Render component', () => {
         lightTheme={false}
       />
     );
-    console.log(34, component.debug());
 
     expect(
       component.contains(
@@ -83,8 +82,6 @@ describe('Render component', () => {
         lightTheme={true}
       />
     );
-
-    console.log(34, component.debug());
     expect(
       component.contains(
         <p className="container-fluid author-bio small-text">
