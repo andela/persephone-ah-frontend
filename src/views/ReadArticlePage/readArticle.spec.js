@@ -12,12 +12,12 @@ import thunk from 'redux-thunk';
 import {
   getSingleArticle,
   getSingleArticleStart,
-  getSingleArticleSuccess,
+  getSingleArticleSuccess
 } from './readArticle.action';
 import { ReadArticle, mapDispatchToProps, mapStateToProps } from './index.jsx';
 import {
   GET_SINGLE_ARTICLE_SUCCESS,
-  GET_SINGLE_ARTICLE_START,
+  GET_SINGLE_ARTICLE_START
 } from '../../actionTypes/index';
 
 configure({ adapter: new Adapter() });
@@ -255,8 +255,13 @@ describe('Read Single Article Page', () => {
         match: {
           params: 'product'
         },
+        auth: {
+          user: {
+            token: 'kdnfm'
+          }
+        },
         getAllUserBookmarks: jest.fn(),
-        createBookmark: jest.fn(),
+        createBookmark: jest.fn()
       };
       const readArticle = mount(
         <BrowserRouter>
@@ -277,6 +282,11 @@ describe('Read Single Article Page', () => {
         createBookmark: jest.fn(),
         match: {
           params: 'product'
+        },
+        auth: {
+          user: {
+            token: 'kdnfm'
+          }
         },
         loading: false,
         token: 'some-token',
