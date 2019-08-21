@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getSingleArticle } from './readArticle.action';
 import PropTypes from 'prop-types';
 import IconComponent from '../../components/IconComponent/index.jsx';
 import './ReadArticlePage.scss';
 import StarRatingComponent from 'react-star-rating-component';
-import CommentBox from '../../components/TextArea/index.jsx';
+import CreateComment from '../../components/CreateComment/index.jsx';
 import Authorcard from '../../components/AuthorCard/index.jsx';
 import Loading from '../../components/LoadingIndicator/index.jsx';
 import moment from 'moment';
@@ -86,7 +85,11 @@ export class ReadArticle extends Component {
               </div>
             </div>
           </div>
-          <div className="row">comments section goes here</div>
+          <div className="row create-comment-section">
+            <div className="col-sm-12 col-md-12 create-comment-container">
+              <CreateComment token={this.props.token} />
+            </div>
+          </div>
         </div>
       );
     }
@@ -96,6 +99,7 @@ export class ReadArticle extends Component {
 
 ReadArticle.propTypes = {
   slug: PropTypes.string,
+  token: PropTypes.string,
   lightTheme: PropTypes.bool,
   loading: PropTypes.bool,
   match: PropTypes.object,

@@ -1,6 +1,6 @@
 .textarea {
   box-sizing: border-box;
-  width: 750px;
+  // max-width: 760px;
   height: 147.5px;
   resize: none;
   padding-left: 10px;
@@ -13,8 +13,7 @@
 }
 
 .form-textarea-light-theme {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.07);
+  border: 1px solid rgba(0, 0, 0, 0.29);
 }
 
 .form-textarea-dark-theme {

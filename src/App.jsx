@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
 import { ToastContainer, Slide } from 'react-toastify';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from 'react-router-dom';
 import HomePage from './views/HomePage/index.jsx';
 import LoginPage from './views/LoginPage/index.jsx';
 import { Provider } from 'react-redux';
@@ -17,14 +22,30 @@ import VerifyUser from './views/VerifyUserPage/index.jsx';
 const store = setupStore();
 class App extends Component {
   state = {
-    show: false
+    show: false,
+    userToken: null,
+    redirect: null
   };
-
+  componentWillMount() {
+    const user = localStorage.getItem('user');
+    if (user) {
+      const { token } = JSON.parse(user);
+      this.setState({ userToken: token });
+    }
+    if (!user) {
+      this.setState({ redirect: '/login' });
+    }
+  }
   render() {
+    let authRedirect;
+    if (this.state.redirect !== null) {
+      authRedirect = <Redirect to="/login" />;
+    }
     return (
       <Provider store={store}>
         <Router>
           <Header />
+          {authRedirect}
           <ToastContainer
             autoClose={3000}
             transition={Slide}
@@ -35,7 +56,12 @@ class App extends Component {
             <Route path="/login" component={LoginPage} />
             <Route path="/verify" component={VerifyUser} />
             <Route path="/signup" component={SignupPage} />
-            <Route path="/articles/:slug" component={ReadArticle} />
+            <Route
+              path="/articles/:slug"
+              render={props => (
+                <ReadArticle {...props} token={this.state.userToken} />
+              )}
+            />
           </Switch>
           <Footer />
         </Router>

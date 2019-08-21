@@ -3,6 +3,7 @@ import React from 'react';
 import '@babel/polyfill';
 import moxios from 'moxios';
 import { mount, configure } from 'enzyme';
+import { Provider } from 'react-redux';
 import readArticleReducer from './readArticle.reducer';
 import Adapter from 'enzyme-adapter-react-16';
 import configureStore from 'redux-mock-store';
@@ -273,12 +274,22 @@ describe('Read Single Article Page', () => {
         match: {
           params: 'product'
         },
-        loading: false
+        loading: false,
+        token: 'some-token'
       };
+      let store = mockStore({
+        theme: false,
+        article: response.data,
+        readArticle: response.data,
+        articleComment: true,
+        signup: { token: 'some-token' }
+      });
       const readArticle = mount(
-        <BrowserRouter>
-          <ReadArticle {...props} />
-        </BrowserRouter>
+        <Provider store={store}>
+          <BrowserRouter>
+            <ReadArticle {...props} />
+          </BrowserRouter>
+        </Provider>
       );
       const readArticlePage = readArticle.find('.article-title');
       expect(readArticlePage).toBeTruthy();
