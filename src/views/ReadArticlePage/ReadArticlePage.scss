@@ -80,6 +80,22 @@ p > img {
   margin: 0px auto;
   padding: 0px;
 }
+
+.rating {
+  font-size: 1.5em;
+  margin-top: 1em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  span {
+    display: inline-block;
+    position: relative;
+    top: -4px;
+    margin-right: 3em;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .read-article-author-card {
     display: none;

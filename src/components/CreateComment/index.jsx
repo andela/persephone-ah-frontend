@@ -33,7 +33,7 @@ export class CreateComment extends Component {
   render() {
     return (
       <div className="create-comment">
-        {this.props.token ? (
+        {this.props.token !== null ? (
           <form onSubmit={this.submitComment}>
             <div>
               <TextArea

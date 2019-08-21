@@ -3,6 +3,7 @@ import { hot } from 'react-hot-loader';
 import { ToastContainer, Slide } from 'react-toastify';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import HomePage from './views/HomePage/index.jsx';
+import PropTypes from 'prop-types';
 import 'react-toastify/dist/ReactToastify.css';
 import LoginPage from './views/LoginPage/index.jsx';
 import { Provider } from 'react-redux';
@@ -22,23 +23,30 @@ import PrivateRoute from './views/AppRouter/PrivateRoute.js';
 import { setCurrentUser, logout } from './views/Auth/auth.action.js';
 
 const store = setupStore();
-if (localStorage.user) {
-  // get user object
-  const user = JSON.parse(localStorage.user);
-  // set current user
-  store.dispatch(setCurrentUser(user));
-  // for expired token
-  const currentTime = Date.now() / 1000;
-  //decode the token
-  const decoded = jwt_decode(user.token);
-  if (decoded.exp < currentTime) {
-    // logout current user
-    store.dispatch(logout(this.props.history));
-    window.location.href = '/login';
-  }
-}
 
 class App extends Component {
+  state = {
+    user: null
+  };
+
+  componentDidMount() {
+    if (localStorage.user) {
+      // get user object
+      const user = JSON.parse(localStorage.user);
+      // set current user
+      store.dispatch(setCurrentUser(user));
+      this.setState({ user });
+      // for expired token
+      const currentTime = Date.now() / 1000;
+      //decode the token
+      const decoded = jwt_decode(user.token);
+      if (decoded.exp < currentTime) {
+        // logout current user
+        store.dispatch(logout(this.props.history));
+        window.location.href = '/login';
+      }
+    }
+  }
   render() {
     return (
       <Provider store={store}>
@@ -59,7 +67,10 @@ class App extends Component {
             <Route
               path="/articles/:slug"
               render={props => (
-                <ReadArticle {...props} token={this.state.userToken} />
+                <ReadArticle
+                  {...props}
+                  token={this.state.user && this.state.user.token}
+                />
               )}
             />
             <Route path="/articles" component={AllArticlesPage} />
@@ -71,4 +82,8 @@ class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  history: PropTypes.object
+};
 export default hot(module)(App);
