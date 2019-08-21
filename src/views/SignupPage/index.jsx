@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable no-useless-escape */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -103,6 +105,10 @@ export class SignupPage extends Component {
     });
 
     this.props.signup(loginDetails, this.props.history);
+  };
+  handleAuth = async (e, id) => {
+    e.preventDefault();
+    window.location = `${process.env.BASE_URL}auth/${id}`;
   };
 
   checkValidity = (value, rules) => {
@@ -271,27 +277,42 @@ export class SignupPage extends Component {
             </div>
 
             <div className="signup-auth">
-              <Button customClassName="signup-auth-button signup-button-twitter">
-                <IconComponent
-                  src={'../../src/assets/images/twitter-signup.svg'}
-                  alt={'twitter asset'}
-                />
-                <h5>Sign Up With Twitter</h5>
-              </Button>
-              <Button customClassName="signup-auth-button signup-button-facebook">
-                <IconComponent
-                  src={'../../src/assets/images/facebook-signup.svg'}
-                  alt={'facebook asset'}
-                />
-                <h5>Sign Up With Facebook</h5>
-              </Button>
-              <Button customClassName="signup-auth-button signup-button-google">
-                <IconComponent
-                  src={'../../src/assets/images/google-signup.svg'}
-                  alt={'twitter asset'}
-                />{' '}
-                <h5>Sign Up With Google</h5>
-              </Button>
+              <div
+                className="button-twitter"
+                onClick={e => this.handleAuth(e, 'twitter')}
+              >
+                <Button customClassName="signup-auth-button signup-button-twitter">
+                  <IconComponent
+                    src={'../../src/assets/images/twitter-signup.svg'}
+                    alt={'twitter asset'}
+                  />
+                  <h5>Sign Up With Twitter</h5>
+                </Button>
+              </div>
+              <div
+                className="button-facebook"
+                onClick={e => this.handleAuth(e, 'facebook')}
+              >
+                <Button customClassName="signup-auth-button signup-button-facebook">
+                  <IconComponent
+                    src={'../../src/assets/images/facebook-signup.svg'}
+                    alt={'facebook asset'}
+                  />
+                  <h5>Sign Up With Facebook</h5>
+                </Button>
+              </div>
+              <div
+                className="button-google"
+                onClick={e => this.handleAuth(e, 'google')}
+              >
+                <Button customClassName="signup-auth-button signup-button-google">
+                  <IconComponent
+                    src={'../../src/assets/images/google-signup.svg'}
+                    alt={'google asset'}
+                  />{' '}
+                  <h5>Sign Up With Google</h5>
+                </Button>
+              </div>
             </div>
           </form>
         </div>
