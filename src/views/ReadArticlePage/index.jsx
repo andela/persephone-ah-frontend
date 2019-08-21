@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getSingleArticle } from './readArticle.action';
+import { toast } from 'react-toastify';
+import {
+  getSingleArticle,
+  rateArticleRequest,
+  cleanUpRating
+} from './readArticle.action';
 import PropTypes from 'prop-types';
 import IconComponent from '../../components/IconComponent/index.jsx';
 import './ReadArticlePage.scss';
@@ -16,13 +21,40 @@ export class ReadArticle extends Component {
     const { slug } = this.props.match.params;
     this.props.fetchSingleArticle(slug);
   }
+
+  onStarClick = (nextValue, prevValue, name) => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const { rateArticleRequest } = this.props;
+    const payload = {
+      rating: nextValue,
+      articleId: name
+    };
+    rateArticleRequest(payload, user.token);
+  };
+
+  componentDidUpdate() {
+    if (
+      this.props.article &&
+      Object.keys(this.props.article.rating).includes('ratingResponse')
+    ) {
+      if (this.props.article.rating.ratingResponse.status === 'fail')
+        toast.error(this.props.article.rating.ratingResponse.data);
+      if (this.props.article.rating.ratingResponse.status === 'success')
+        toast.success(
+          `You rated this article ${this.props.article.rating.ratingResponse.data.rating} stars`
+        );
+    }
+  }
+  componentWillUnmount;
   render() {
     let singleArticle = <Loading />;
     if (!this.props.loading && this.props.article) {
       const {
+        id,
         body,
         author,
         readTime,
+        rating,
         title,
         image,
         createdAt
@@ -53,7 +85,7 @@ export class ReadArticle extends Component {
                       <StarRatingComponent
                         name="rate1"
                         starCount={5}
-                        value={4}
+                        value={rating.averageRating}
                       />
                     </div>
                   </div>
@@ -68,6 +100,17 @@ export class ReadArticle extends Component {
                 </div>
               </div>
               <div className="article-body">{reactHtmlParser(body)}</div>
+              <div className="article-body">
+                {body}
+                <div className="rating">
+                  <span>Rate this post</span>
+                  <StarRatingComponent
+                    name={id.toString()}
+                    onStarClick={this.onStarClick}
+                    editing={!Object.keys(rating).includes('ratingResponse')}
+                  />
+                </div>
+              </div>
             </div>
             <div className="col-sm-12 col-md-3 article-details-second">
               <div className="read-article-author-card">
@@ -104,7 +147,9 @@ ReadArticle.propTypes = {
   params: PropTypes.object,
   error: PropTypes.object,
   fetchSingleArticle: PropTypes.func,
-  article: PropTypes.object
+  article: PropTypes.object,
+  rateArticleRequest: PropTypes.func,
+  cleanUpRating: PropTypes.func
 };
 export const mapStateToProps = state => {
   return {
@@ -116,7 +161,11 @@ export const mapStateToProps = state => {
 
 export const mapDispatchToProps = dispatch => {
   return {
-    fetchSingleArticle: slug => dispatch(getSingleArticle(slug))
+    fetchSingleArticle: slug => dispatch(getSingleArticle(slug)),
+    rateArticleRequest: (payload, token) => {
+      dispatch(rateArticleRequest(payload, token));
+    },
+    cleanUpRating: () => dispatch(cleanUpRating())
   };
 };
 export default connect(

@@ -1,5 +1,7 @@
+import axiosUtil from '../../utils/axiosConfig';
 import axios from 'axios';
 import * as actionTypes from '../../actionTypes/index';
+import { checkAuth } from '../../utils/checkAuth';
 
 export const getSingleArticleStart = () => {
   return {
@@ -14,6 +16,18 @@ export const getSingleArticleSuccess = article => {
   };
 };
 
+export const rateArticle = payload => {
+  return { type: actionTypes.RATE_ARTICLE, payload };
+};
+
+export const rateArticleError = payload => {
+  return { type: actionTypes.RATE_ARTICLE_ERROR, payload };
+};
+
+export const cleanUpRating = () => {
+  return { type: actionTypes.CLEAN_UP_RATING, payload: {} };
+};
+
 export const getSingleArticle = slug => {
   return dispatch => {
     dispatch(getSingleArticleStart());
@@ -25,5 +39,30 @@ export const getSingleArticle = slug => {
         const { data } = response.data;
         dispatch(getSingleArticleSuccess(data));
       });
+  };
+};
+
+export const rateArticleRequest = (payload, token) => {
+  return async dispatch => {
+    try {
+      if (!checkAuth()) {
+        throw {
+          response: {
+            data: {
+              status: 'fail',
+              data: `You need to sign in to rate this article`
+            }
+          }
+        };
+      }
+      const response = await axiosUtil.post(`articles/ratings`, payload, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      dispatch(rateArticle(response.data));
+      dispatch(cleanUpRating());
+    } catch (error) {
+      dispatch(rateArticleError(error.response.data));
+      dispatch(cleanUpRating());
+    }
   };
 };

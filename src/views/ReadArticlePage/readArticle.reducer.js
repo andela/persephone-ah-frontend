@@ -1,6 +1,9 @@
 import {
   GET_SINGLE_ARTICLE_SUCCESS,
-  GET_SINGLE_ARTICLE_START
+  GET_SINGLE_ARTICLE_START,
+  RATE_ARTICLE,
+  RATE_ARTICLE_ERROR,
+  CLEAN_UP_RATING
 } from '../../actionTypes/index';
 
 import { updateObject } from '../../utils/helper';
@@ -29,7 +32,39 @@ export default (state = initialState, action) => {
       return getSingleArticleStart(state, action);
     case GET_SINGLE_ARTICLE_SUCCESS:
       return getSingleArticleSuccess(state, action);
+    case RATE_ARTICLE:
+      return {
+        ...state,
+        article: {
+          ...state.article,
+          rating: {
+            ...state.article.rating,
+            ratingResponse: action.payload
+          }
+        }
+      };
+    case RATE_ARTICLE_ERROR:
+      return {
+        ...state,
+        article: {
+          ...state.article,
+          rating: {
+            ...state.article.rating,
+            ratingResponse: action.payload
+          }
+        }
+      };
 
+    case CLEAN_UP_RATING:
+      return {
+        ...state,
+        article: {
+          ...state.article,
+          rating: {
+            ratingResponse: action.payload
+          }
+        }
+      };
     default:
       return state;
   }

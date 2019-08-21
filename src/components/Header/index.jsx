@@ -154,6 +154,7 @@ export class Header extends Component {
                               : 'https://res.cloudinary.com/fxola/image/upload/v1562711912/ezkc4mj7pktwzqhmrbpt.png'
                           }
                           className="user icon-medium rounded-circle"
+                          alt="profile-image"
                         />
                       </div>
 
