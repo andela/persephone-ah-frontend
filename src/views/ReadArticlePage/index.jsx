@@ -23,13 +23,13 @@ export class ReadArticle extends Component {
   }
 
   onStarClick = (nextValue, prevValue, name) => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    
     const { rateArticleRequest } = this.props;
     const payload = {
       rating: nextValue,
       articleId: name
     };
-    rateArticleRequest(payload, user.token);
+    rateArticleRequest(payload);
   };
 
   componentDidUpdate() {
@@ -162,8 +162,8 @@ export const mapStateToProps = state => {
 export const mapDispatchToProps = dispatch => {
   return {
     fetchSingleArticle: slug => dispatch(getSingleArticle(slug)),
-    rateArticleRequest: (payload, token) => {
-      dispatch(rateArticleRequest(payload, token));
+    rateArticleRequest: (payload) => {
+      dispatch(rateArticleRequest(payload));
     },
     cleanUpRating: () => dispatch(cleanUpRating())
   };
