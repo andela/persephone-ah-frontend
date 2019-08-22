@@ -64,6 +64,16 @@ describe('Render component', () => {
     expect(component).toMatchSnapshot();
   });
 
+  it('should trigger the search form', () => {
+    const component = mount(
+      <BrowserRouter>
+        <HomePage {...defaultProps} />
+      </BrowserRouter>
+    );
+
+    component.find('form').simulate('submit');
+  });
+
   it('calls `fetchArticles` when mounted', () => {
     const state = {
       technologyArticles: [],
