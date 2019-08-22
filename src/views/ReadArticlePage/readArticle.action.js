@@ -42,7 +42,7 @@ export const getSingleArticle = slug => {
   };
 };
 
-export const rateArticleRequest = (payload, token) => {
+export const rateArticleRequest = payload => {
   return async dispatch => {
     try {
       if (!checkAuth()) {
@@ -55,8 +55,9 @@ export const rateArticleRequest = (payload, token) => {
           }
         };
       }
+      const user = JSON.parse(localStorage.getItem('user'));
       const response = await axiosUtil.post(`articles/ratings`, payload, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${user.token}` }
       });
       dispatch(rateArticle(response.data));
       dispatch(cleanUpRating());

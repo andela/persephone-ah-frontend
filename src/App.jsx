@@ -68,7 +68,10 @@ class App extends Component {
             <Route
               path="/articles/:slug"
               render={props => (
-                <ReadArticle {...props} token={this.state.user.token} />
+                <ReadArticle
+                  {...props}
+                  token={this.state.user && this.state.user.token}
+                />
               )}
             />
             <Route path="/articles" component={AllArticlesPage} />

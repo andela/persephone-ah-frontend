@@ -50,12 +50,7 @@ describe('Article Ratings actions tests', () => {
       { type: 'CLEAN_UP_RATING', payload: {} }
     ];
 
-    await store.dispatch(
-      rateArticleRequest(
-        { rating: 4, articleId: 1 },
-        'dkvjndfkvbndfnkvdfnvdmdkvndfkmvdk'
-      )
-    );
+    await store.dispatch(rateArticleRequest({ rating: 4, articleId: 1 }));
     expect(store.getActions()).toEqual(expectedActions);
   });
 
@@ -77,12 +72,7 @@ describe('Article Ratings actions tests', () => {
       { type: 'CLEAN_UP_RATING', payload: {} }
     ];
     localStorage.setItem('user', JSON.stringify({ id: 1 }));
-    await store.dispatch(
-      rateArticleRequest(
-        { rating: 4, articleId: 1 },
-        'klrgkfmjdfdjbfdnjfdnvbdnvbndgnmf'
-      )
-    );
+    await store.dispatch(rateArticleRequest({ rating: 4, articleId: 1 }));
     expect(store.getActions()).toEqual(expectedActions);
   });
 });
