@@ -21,11 +21,8 @@ export class ReadArticle extends Component {
       const {
         body,
         author,
-        likesCount,
-        rating,
         readTime,
         title,
-        slug,
         image,
         createdAt
       } = this.props.article;

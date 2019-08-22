@@ -9,6 +9,13 @@ const defaultProps = {
   themeToggler: jest.fn(),
   theme: {
     theme: 'light-theme'
+  },
+  auth: {
+    isAuthenticated: false,
+    user: {
+      image: '',
+      firstName: ''
+    }
   }
 };
 
@@ -70,6 +77,13 @@ describe('Render component', () => {
             themeToggler: jest.fn(),
             theme: {
               theme: 'dark-theme'
+            },
+            auth: {
+              isAuthenticated: false,
+              user: {
+                image: '',
+                firstName: ''
+              }
             }
           }}
         />
@@ -77,6 +91,89 @@ describe('Render component', () => {
     );
     component.find('.toggle').simulate('click');
     expect(component.find('.toggle .switch')).toBeTruthy();
+    expect(component).toMatchSnapshot();
+  });
+
+  it('should check if user is authenticated', () => {
+    const component = mount(
+      <BrowserRouter>
+        <Header
+          {...{
+            themeToggler: jest.fn(),
+            theme: {
+              theme: 'dark-theme'
+            },
+            auth: {
+              isAuthenticated: true,
+              user: {
+                image: '',
+                firstName: ''
+              }
+            }
+          }}
+        />
+      </BrowserRouter>
+    );
+    component
+      .find('.compose-btn')
+      .at(0)
+      .simulate('click');
+    expect(component).toMatchSnapshot();
+  });
+
+  it('should logout user successfully', () => {
+    const component = mount(
+      <BrowserRouter>
+        <Header
+          {...{
+            themeToggler: jest.fn(),
+            logout: jest.fn(),
+            theme: {
+              theme: 'dark-theme'
+            },
+            auth: {
+              isAuthenticated: true,
+              user: {
+                image: 'sam.jpg',
+                firstName: ''
+              }
+            }
+          }}
+        />
+      </BrowserRouter>
+    );
+    component
+      .find('.logout')
+      .at(0)
+      .simulate('click');
+    expect(component).toMatchSnapshot();
+  });
+
+  it('should toggle navbar correctly', () => {
+    const component = mount(
+      <BrowserRouter>
+        <Header
+          {...{
+            themeToggler: jest.fn(),
+            logout: jest.fn(),
+            theme: {
+              theme: 'dark-theme'
+            },
+            auth: {
+              isAuthenticated: true,
+              user: {
+                image: 'sam.jpg',
+                firstName: ''
+              }
+            }
+          }}
+        />
+      </BrowserRouter>
+    );
+    component
+      .find('button')
+      .at(0)
+      .simulate('click');
     expect(component).toMatchSnapshot();
   });
 });

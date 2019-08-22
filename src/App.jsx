@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
 import { ToastContainer, Slide } from 'react-toastify';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import HomePage from './views/HomePage/index.jsx';
 import LoginPage from './views/LoginPage/index.jsx';
 import { Provider } from 'react-redux';
+import jwt_decode from 'jwt-decode';
 import setupStore from './store';
 import './styles/main.scss';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,44 +14,45 @@ import Footer from './components/Footer/index.jsx';
 import SignupPage from './views/SignupPage/index.jsx';
 import ReadArticle from './views/ReadArticlePage/index.jsx';
 import VerifyUser from './views/VerifyUserPage/index.jsx';
+import AllArticlesPage from './views/AllArticlesPage/index.jsx';
 import SocialLogin from './components/Social/index.jsx';
+import PrivateRoute from './views/AppRouter/PrivateRoute.js';
+import { setCurrentUser, logout } from './views/Auth/auth.action.js';
 
 const store = setupStore();
-class App extends Component {
-  state = {
-    show: false,
-    userToken: null,
-    redirect: null
-  };
-  componentWillMount() {
-    const user = localStorage.getItem('user');
-    if (user) {
-      const { token } = JSON.parse(user);
-      this.setState({ userToken: token });
-    }
-    if (!user) {
-      this.setState({ redirect: '/login' });
-    }
+if (localStorage.user) {
+  // get user object
+  const user = JSON.parse(localStorage.user);
+  console.log(user);
+  // set current user
+  store.dispatch(setCurrentUser(user));
+  // for expired token
+  const currentTime = Date.now() / 1000;
+  //decode the token
+  const decoded = jwt_decode(user.token);
+  if (decoded.exp < currentTime) {
+    // logout current user
+    store.dispatch(logout(this.props.history));
+    window.location.href = '/login';
   }
+}
+
+class App extends Component {
   render() {
-    let authRedirect;
-    if (this.state.redirect !== null) {
-      authRedirect = <Redirect to="/login" />;
-    }
     return (
       <Provider store={store}>
         <Router>
-          <Header />
-          {authRedirect}
+          <Route component={Header} />
+
           <ToastContainer
             autoClose={3000}
             transition={Slide}
             position="top-center"
           />
           <Switch>
+            <PrivateRoute path="/verify" component={VerifyUser} />
             <Route path="/" exact component={HomePage} />
             <Route path="/login" component={LoginPage} />
-            <Route path="/verify" component={VerifyUser} />
             <Route path="/signup" component={SignupPage} />
             <Route
               path="/articles/:slug"
@@ -63,7 +60,7 @@ class App extends Component {
                 <ReadArticle {...props} token={this.state.userToken} />
               )}
             />
-            <Route path="/articles/:slug" component={ReadArticle} />
+            <Route path="/articles" component={AllArticlesPage} />
             <Route path="/social" component={SocialLogin} />
           </Switch>
           <Footer />
