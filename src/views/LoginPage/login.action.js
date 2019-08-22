@@ -1,6 +1,7 @@
 import * as types from '../../actionTypes';
 import axios from '../../utils/axiosConfig';
 import { toast } from 'react-toastify';
+import { setCurrentUser } from '../Auth/auth.action';
 
 export const logInUser = user => {
   return { type: types.LOG_IN_USER, payload: user };
@@ -18,9 +19,12 @@ export const logInRequest = (user, history) => {
         const { data } = response.data;
         localStorage.setItem('user', JSON.stringify(data));
         toast.success('Log In Successful');
+
         setTimeout(() => {
           /* istanbul ignore next */
           history.push('/article');
+          // dispatch auth
+          dispatch(setCurrentUser(data));
         }, 3000);
         dispatch(logInUser(data));
       }
