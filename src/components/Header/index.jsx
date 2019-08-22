@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { themeToggler } from './index.action';
+import { logout } from '../../views/Auth/auth.action';
 import Toggle from '../../components/Toggle/index.jsx';
 import './header.scss';
 import IconComponent from '../IconComponent/index.jsx';
@@ -13,7 +14,8 @@ export class Header extends Component {
     this.state = {
       toggle: 'switch',
       theme: 'light-theme',
-      auth: {}
+      auth: {},
+      openNav: 'hidden'
     };
     this.handleClick = this.handleClick.bind(this);
     this.app_theme = localStorage.getItem('app_theme');
@@ -35,6 +37,12 @@ export class Header extends Component {
     }
   }
 
+  handleLogOut(e) {
+    e.preventDefault();
+    console.log(this.props);
+    this.props.logout(this.props.history);
+  }
+
   handleClick() {
     if (this.app_theme !== null && this.app_theme === 'dark-theme') {
       document.body.classList.remove('dark-theme');
@@ -47,9 +55,13 @@ export class Header extends Component {
     // store user preference
     localStorage.setItem('app_theme', this.state.theme);
   }
+
   render() {
     const { toggle } = this.state;
     const { theme } = this.props.theme;
+    const { isAuthenticated, user } = this.props.auth;
+    const { image } = user;
+    const { openNav } = this.state;
     return (
       <React.Fragment>
         <nav
@@ -69,12 +81,17 @@ export class Header extends Component {
               aria-controls="navbarSupportedContent"
               aria-expanded="false"
               aria-label="Toggle navigation"
+              onClick={() => this.setState({ openNav: 'show' })}
             >
-              <span className="navbar-toggler-icon"></span>
+              <span className={`${theme} navbar-toggler`}>
+                <div className={`${theme}`}></div>
+                <div className={`${theme}`}></div>
+                <div className={`${theme}`}></div>
+              </span>
             </button>
 
             <div
-              className="collapse navbar-collapse"
+              className={`${openNav} collapse navbar-collapse`}
               id="navbarSupportedContent"
             >
               <div className="navbar-nav ml-auto">
@@ -107,20 +124,52 @@ export class Header extends Component {
                     )}
                   </div>
                 </div>
+                <hr className="border-1" />
+                {isAuthenticated === false ? (
+                  <React.Fragment>
+                    <Link
+                      to="/signup"
+                      className="button  navbtn_signup button-normal border-0 pr-3 pl-3  pb-1 mr-4"
+                    >
+                      Sign Up
+                    </Link>
 
-                <Link
-                  to="/signup"
-                  className="button  navbtn_signup button-normal border-0 pr-3 pl-3  pb-1 mr-4"
-                >
-                  Sign Up
-                </Link>
+                    <Link
+                      to="/login"
+                      className="button  navbtn_login button-inverse pr-3 pl-3   pb-1  mr-4"
+                    >
+                      Login
+                    </Link>
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <div className="dropdown">
+                      <div className="dropdown_btn">
+                        {' '}
+                        <IconComponent
+                          id="userProfile"
+                          src={
+                            image
+                              ? image
+                              : 'https://res.cloudinary.com/fxola/image/upload/v1562711912/ezkc4mj7pktwzqhmrbpt.png'
+                          }
+                          className="user icon-medium rounded-circle"
+                        />
+                      </div>
 
-                <Link
-                  to="/login"
-                  className="button  navbtn_login button-inverse pr-3 pl-3   pb-1  mr-4"
-                >
-                  Login
-                </Link>
+                      <div className={`${theme} dropdown-fill`}>
+                        <Link
+                          onClick={this.handleLogOut.bind(this)}
+                          to="/"
+                          className="logout"
+                        >
+                          <i className="ion-log-out dropdown_icon pr-2"></i>Log
+                          Out
+                        </Link>
+                      </div>
+                    </div>
+                  </React.Fragment>
+                )}
               </div>
             </div>
           </div>
@@ -132,7 +181,10 @@ export class Header extends Component {
 
 Header.propTypes = {
   themeToggler: PropTypes.func.isRequired,
-  theme: PropTypes.object
+  theme: PropTypes.object,
+  auth: PropTypes.object,
+  logout: PropTypes.func,
+  history: PropTypes.object
 };
 
 const mapStateToProps = state => ({
@@ -142,5 +194,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { themeToggler }
+  { themeToggler, logout }
 )(Header);

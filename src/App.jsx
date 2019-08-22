@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
 import { ToastContainer, Slide } from 'react-toastify';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import HomePage from './views/HomePage/index.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 import LoginPage from './views/LoginPage/index.jsx';
@@ -27,10 +22,9 @@ import PrivateRoute from './views/AppRouter/PrivateRoute.js';
 import { setCurrentUser, logout } from './views/Auth/auth.action.js';
 
 const store = setupStore();
-if(localStorage.user) {
+if (localStorage.user) {
   // get user object
-  const user = JSON.parse(localStorage.user)
-  console.log(user); 
+  const user = JSON.parse(localStorage.user);
   // set current user
   store.dispatch(setCurrentUser(user));
   // for expired token
@@ -40,26 +34,25 @@ if(localStorage.user) {
   if (decoded.exp < currentTime) {
     // logout current user
     store.dispatch(logout(this.props.history));
-    window.location.href = "/login";
+    window.location.href = '/login';
   }
 }
 
 class App extends Component {
- 
   render() {
-   
     return (
       <Provider store={store}>
         <Router>
-          <Header />
-      
+          <Route component={Header} />
+
           <ToastContainer
             autoClose={3000}
             transition={Slide}
             position="top-center"
           />
           <Switch>
-            <PrivateRoute path="/verify" component={VerifyUser} ></PrivateRoute>
+            <PrivateRoute path="/verify" component={VerifyUser} />
+            <PrivateRoute path="/compose" component={CreateArticle} />
             <Route path="/" exact component={HomePage} />
             <Route path="/login" component={LoginPage} />
             <Route path="/signup" component={SignupPage} />
@@ -71,7 +64,6 @@ class App extends Component {
             />
             <Route path="/articles" component={AllArticlesPage} />
             <Route path="/social" component={SocialLogin} />
-            <Route path="/compose" component={CreateArticle} />
           </Switch>
           <Footer />
         </Router>

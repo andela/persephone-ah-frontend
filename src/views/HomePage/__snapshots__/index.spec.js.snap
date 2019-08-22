@@ -2,4 +2,6 @@
 
 exports[`Render component Render component should mock response from network call  1`] = `ReactWrapper {}`;
 
+exports[`Render component Render component should set aricle search result to state  1`] = `ReactWrapper {}`;
+
 exports[`Render component should toggle to light theme 1`] = `ReactWrapper {}`;

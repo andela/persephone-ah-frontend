@@ -1,5 +1,5 @@
-import { SET_CURRENT_USER } from "../../actionTypes";
-import { isEmpty } from "../../utils/helper";
+import { SET_CURRENT_USER } from '../../actionTypes';
+import { isEmpty } from '../../utils/helper';
 
 const initialState = {
   isAuthenticated: false,
