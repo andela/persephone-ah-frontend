@@ -42,7 +42,7 @@ export const getSingleArticle = slug => {
   };
 };
 
-export const rateArticleRequest = (payload) => {
+export const rateArticleRequest = payload => {
   return async dispatch => {
     try {
       if (!checkAuth()) {

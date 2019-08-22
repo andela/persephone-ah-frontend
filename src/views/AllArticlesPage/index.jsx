@@ -72,7 +72,7 @@ export class ArticlesPage extends Component {
             <form className="form-search" onSubmit={this.handleSubmit}>
               <Input
                 customClassName="input-search"
-                placeholder="Search e.g Getting with Reactjs and Redux"
+                placeholder="Search e.g Getting started with Reactjs and Redux"
                 name="search"
                 required
               />

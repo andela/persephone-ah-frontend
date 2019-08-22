@@ -90,8 +90,13 @@
 
 .read-article-social {
   margin-top: 10px;
-  span {
-    padding: 10px 10px 10px 0;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: repeat(3, auto);
+
+  .share-icon:hover {
+    opacity: 0.9;
+    transform: scale(1.2);
   }
 }
 .author-card-light {
@@ -106,4 +111,8 @@
   .small-text {
     color: black;
   }
+}
+
+.share-icon {
+  outline: none;
 }

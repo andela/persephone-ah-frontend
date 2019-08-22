@@ -22,8 +22,7 @@ export class ReadArticle extends Component {
     this.props.fetchSingleArticle(slug);
   }
 
-  onStarClick = (nextValue, prevValue, name) => {
-    
+  onStarClick = (nextValue, prevValue, name) => {    
     const { rateArticleRequest } = this.props;
     const payload = {
       rating: nextValue,
@@ -48,6 +47,8 @@ export class ReadArticle extends Component {
   componentWillUnmount;
   render() {
     let singleArticle = <Loading />;
+    const articleUrl = window.location.href;
+    console.log(articleUrl);
     if (!this.props.loading && this.props.article) {
       const {
         id,
@@ -122,6 +123,7 @@ export class ReadArticle extends Component {
     display for readers"
                   isFollowing={false}
                   lightTheme={this.props.lightTheme}
+                  articleUrl={articleUrl}
                 />
               </div>
             </div>
@@ -162,7 +164,7 @@ export const mapStateToProps = state => {
 export const mapDispatchToProps = dispatch => {
   return {
     fetchSingleArticle: slug => dispatch(getSingleArticle(slug)),
-    rateArticleRequest: (payload) => {
+    rateArticleRequest: payload => {
       dispatch(rateArticleRequest(payload));
     },
     cleanUpRating: () => dispatch(cleanUpRating())

@@ -3,9 +3,25 @@ import './index.scss';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import IconComponent from '../IconComponent/index.jsx';
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  EmailShareButton,
+  TwitterIcon,
+  FacebookIcon,
+  EmailIcon
+} from 'react-share';
 
 const AuthorCard = props => {
-  const { image, fullname, handle, bio, isFollowing, lightTheme } = props;
+  const {
+    image,
+    fullname,
+    handle,
+    bio,
+    isFollowing,
+    lightTheme,
+    articleUrl
+  } = props;
 
   const followText = isFollowing ? 'Following' : 'Follow';
   const followButtonClass = isFollowing
@@ -39,18 +55,17 @@ const AuthorCard = props => {
             </span>
           </div>
           <div className="container-fluid read-article-social">
-            <span>
-              <IconComponent
-                src={'../../src/assets/images/twitter-read-article.svg'}
-                alt={'twitter asset'}
-              />
-            </span>
-            <span>
-              <IconComponent
-                src={'../../src/assets/images/facebook-read-article.svg'}
-                alt={'facebook asset'}
-              />
-            </span>
+            <FacebookShareButton className="share-icon" url={articleUrl}>
+              <FacebookIcon size={24} />
+            </FacebookShareButton>
+
+            <TwitterShareButton className="share-icon" url={articleUrl}>
+              <TwitterIcon size={24} />
+            </TwitterShareButton>
+
+            <EmailShareButton className="share-icon" url={articleUrl}>
+              <EmailIcon size={24} />
+            </EmailShareButton>
           </div>
         </div>
       </div>
@@ -72,7 +87,8 @@ AuthorCard.propTypes = {
   handle: PropTypes.string.isRequired,
   bio: PropTypes.string.isRequired,
   isFollowing: PropTypes.bool.isRequired,
-  lightTheme: PropTypes.bool.isRequired
+  lightTheme: PropTypes.bool.isRequired,
+  articleUrl: PropTypes.string.isRequired
 };
 
 export default AuthorCard;
