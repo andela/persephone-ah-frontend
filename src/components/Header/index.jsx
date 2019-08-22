@@ -12,7 +12,8 @@ export class Header extends Component {
     super();
     this.state = {
       toggle: 'switch',
-      theme: 'light-theme'
+      theme: 'light-theme',
+      auth: {}
     };
     this.handleClick = this.handleClick.bind(this);
     this.app_theme = localStorage.getItem('app_theme');
@@ -135,7 +136,8 @@ Header.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  theme: state.theme
+  theme: state.theme,
+  auth: state.auth
 });
 
 export default connect(

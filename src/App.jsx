@@ -11,6 +11,7 @@ import HomePage from './views/HomePage/index.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 import LoginPage from './views/LoginPage/index.jsx';
 import { Provider } from 'react-redux';
+import jwt_decode from 'jwt-decode';
 import setupStore from './store';
 import './styles/main.scss';
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,43 +23,45 @@ import VerifyUser from './views/VerifyUserPage/index.jsx';
 import AllArticlesPage from './views/AllArticlesPage/index.jsx';
 import SocialLogin from './components/Social/index.jsx';
 import CreateArticle from './views/CreateArticle/index.jsx';
+import PrivateRoute from './views/AppRouter/PrivateRoute.js';
+import { setCurrentUser, logout } from './views/Auth/auth.action.js';
 
 const store = setupStore();
-class App extends Component {
-  state = {
-    show: false,
-    userToken: null,
-    redirect: null
-  };
-  componentWillMount() {
-    const user = localStorage.getItem('user');
-    if (user) {
-      const { token } = JSON.parse(user);
-      this.setState({ userToken: token });
-    }
-    if (!user) {
-      this.setState({ redirect: '/login' });
-    }
+if(localStorage.user) {
+  // get user object
+  const user = JSON.parse(localStorage.user)
+  console.log(user); 
+  // set current user
+  store.dispatch(setCurrentUser(user));
+  // for expired token
+  const currentTime = Date.now() / 1000;
+  //decode the token
+  const decoded = jwt_decode(user.token);
+  if (decoded.exp < currentTime) {
+    // logout current user
+    store.dispatch(logout(this.props.history));
+    window.location.href = "/login";
   }
+}
+
+class App extends Component {
+ 
   render() {
-    let authRedirect;
-    if (this.state.redirect !== null) {
-      authRedirect = <Redirect to="/login" />;
-    }
+   
     return (
       <Provider store={store}>
         <Router>
           <Header />
-          {authRedirect}
+      
           <ToastContainer
             autoClose={3000}
             transition={Slide}
             position="top-center"
           />
           <Switch>
+            <PrivateRoute path="/verify" component={VerifyUser} ></PrivateRoute>
             <Route path="/" exact component={HomePage} />
             <Route path="/login" component={LoginPage} />
-            <Route path="/verify" component={VerifyUser} />
             <Route path="/signup" component={SignupPage} />
             <Route
               path="/articles/:slug"
