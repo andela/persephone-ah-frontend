@@ -13,8 +13,7 @@ import {
   getCommentOnArticleStart,
   getCommentOnArticleSuccess,
   getCommentOnArticles,
-  likeComment,
-  likeCommentSuccess
+  likeComment
 } from './singleComment.action';
 import SingleComment from './index.jsx';
 import {
@@ -29,19 +28,6 @@ const middlewares = [thunk]; // add your middlewares like `redux-thunk`
 const mockStore = configureStore(middlewares);
 
 let store = mockStore({});
-
-const unLikeResponse = {
-  status: 'success',
-  data: {
-    likeCount: {
-      count: 0,
-      rows: []
-    },
-    message: 'you have successfully unliked this comment',
-    commentId: '17',
-    userId: 7
-  }
-};
 
 const likeRespone = {
   status: 'success',

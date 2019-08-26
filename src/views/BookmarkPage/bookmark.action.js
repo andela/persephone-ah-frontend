@@ -2,7 +2,6 @@ import axios from 'axios';
 import * as types from '../../actionTypes';
 import { toast } from 'react-toastify';
 
-
 export const createBookmarkSuccess = bookmark => {
   return {
     type: types.CREATE_BOOKMARK_SUCCESS,
@@ -17,13 +16,11 @@ export const createBookmarkFail = error => {
 };
 
 export const createBookmark = (slug, token) => {
-
-  if (!token){
-        toast.error('Please sign in to bookmark this article');
-      }
-   return async dispatch => {
+  if (!token) {
+    toast.error('Please sign in to bookmark this article');
+  }
+  return async dispatch => {
     try {
-      
       const response = await axios.post(
         `https://persephone-backend-staging.herokuapp.com/api/v1/articles/${slug}/bookmarks`,
         null,
@@ -37,8 +34,8 @@ export const createBookmark = (slug, token) => {
         dispatch(createBookmarkSuccess(response.data.data.message));
       }
     } catch (error) {
-        toast.error(error.response.data.data.message);
-        dispatch(createBookmarkFail(error.response.data.data.message));
-      }
+      toast.error(error.response.data.data.message);
+      dispatch(createBookmarkFail(error.response.data.data.message));
+    }
   };
 };
