@@ -26,7 +26,7 @@ const articleCardList = props => {
           <div className="row body-cover">
             <div className="col-md-12 col-sm-12 article-tab-list-body">
               <h3>
-                <Link to={URL}>{props.title}</Link>
+                <Link to={props.draft ? '#' : URL}>{props.title}</Link>
               </h3>
               <h5>{props.description}</h5>
               <small>
@@ -86,7 +86,8 @@ articleCardList.propTypes = {
   actionButton: PropTypes.string,
   unpublishArticle: PropTypes.func,
   toggleModal: PropTypes.func,
-  handleShow: PropTypes.func
+  handleShow: PropTypes.func,
+  draft: PropTypes.bool
 };
 
 export default articleCardList;

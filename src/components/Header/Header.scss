@@ -78,15 +78,11 @@
     text-decoration: none;
     color: #222222;
   }
-  &.dark-theme a {
-    transition: background-color 0.6s ease;
-    color: #212121 !important;
-    background: #ffffff;
-  }
+}
 
-  &a:hover {
-    background-color: #fbfbfb;
-  }
+.logout:hover {
+  background-color: #bbbbbb;
+  color: #ffffff;
 }
 
 .dropdown:hover .dropdown-fill {

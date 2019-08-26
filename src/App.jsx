@@ -24,6 +24,8 @@ import DraftArticle from './views/DraftArticle/index.jsx';
 import PublishedArticle from './views/PublishedArticle/index.jsx';
 import BookmarkArticle from './views/BookmarkPage/index.jsx';
 import FollowersPage from './views/FollowersPage/index.jsx';
+import ForgotPasswordPage from './views/ForgotPasswordPage/index.jsx';
+import PasswordResetPage from './views/PasswordResetPage/index.jsx';
 
 const store = setupStore();
 if (localStorage.user) {
@@ -61,14 +63,12 @@ class App extends Component {
             <PrivateRoute path="/compose" component={CreateArticle} />
             <Route path="/" exact component={HomePage} />
             <Route path="/login" component={LoginPage} />
+            <Route path="/forgot-password" component={ForgotPasswordPage} />
+            <Route path="/password_reset" component={PasswordResetPage} />
             <Route path="/signup" component={SignupPage} />
-            <Route
-              path="/articles/:slug"
-              render={props => <ReadArticle {...props} />}
-            />
-            <Route path="/articles" component={AllArticlesPage} />
             <Route path="/social" component={SocialLogin} />
             <Route path="/articles/:slug" component={ReadArticle} />
+            <Route path="/articles" component={AllArticlesPage} />
             <PrivateRoute path="/publication" component={PublishedArticle} />
             <PrivateRoute path="/draft" component={DraftArticle} />
             <PrivateRoute path="/bookmark" component={BookmarkArticle} />

@@ -171,8 +171,14 @@ export class Header extends Component {
                         <Link to="/publication" className="logout">
                           Publications
                         </Link>
+                        <Link to="/draft" className="logout">
+                          Draft
+                        </Link>
                         <Link to="/bookmark" className="logout">
                           Bookmarks
+                        </Link>
+                        <Link to="/followers" className="logout">
+                          Followers
                         </Link>
                         <Link
                           onClick={this.handleLogOut.bind(this)}

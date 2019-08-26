@@ -53,6 +53,7 @@ export class DraftArticle extends Component {
           <ArticleTabList
             key={articleDetails.id}
             {...articleDetails}
+            draft={true}
             lightTheme={this.props.lightTheme}
             datePublished={datePublished}
             actionButton="Publish"
