@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { toast } from 'react-toastify';
 import * as actionTypes from '../../actionTypes/index';
+import { setCurrentUser } from '../Auth/auth.action';
 
 export const userSignupStart = () => {
   return {
@@ -38,8 +39,11 @@ export const authSignup = (userDetails, history) => {
         localStorage.setItem('token', token);
 
         toast.success('Registration Successful');
+
         setTimeout(() => {
           history.push('/article');
+          // dispatch set auth
+          dispatch(setCurrentUser(data));
         }, 3000);
 
         dispatch(userSignupSuccess(token, data));

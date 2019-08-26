@@ -102,7 +102,7 @@ AuthorCard.propTypes = {
   bio: PropTypes.string.isRequired,
   isFollowing: PropTypes.bool.isRequired,
   lightTheme: PropTypes.bool.isRequired,
-  articleUrl: PropTypes.string.isRequired
+  articleUrl: PropTypes.string
 };
 
 export default AuthorCard;
