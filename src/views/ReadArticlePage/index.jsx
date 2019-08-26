@@ -18,6 +18,8 @@ export class ReadArticle extends Component {
   }
   render() {
     let singleArticle = <Loading />;
+    const articleUrl = window.location.href;
+    console.log(articleUrl);
     if (!this.props.loading && this.props.article) {
       const {
         body,
@@ -79,6 +81,7 @@ export class ReadArticle extends Component {
     display for readers"
                   isFollowing={false}
                   lightTheme={this.props.lightTheme}
+                  articleUrl={articleUrl}
                 />
               </div>
             </div>
