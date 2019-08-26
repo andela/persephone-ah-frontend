@@ -5,6 +5,7 @@ import loginReducer from '../views/LoginPage/login.reducer';
 import singleArticleReducer from '../views/ReadArticlePage/readArticle.reducer';
 import commentReducer from '../components/CreateComment/createComment.reducer';
 import articlesReducer from '../views/AllArticlesPage/index.reducer';
+import createArticle from '../views/CreateArticle/createArticle.reducer';
 
 const rootReducer = combineReducers({
   theme: themeToggler,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   user: loginReducer,
   readArticle: singleArticleReducer,
   articleComment: commentReducer,
-  articles: articlesReducer
+  articles: articlesReducer,
+  createArticle
 });
 
 export default rootReducer;

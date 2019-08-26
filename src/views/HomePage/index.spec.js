@@ -111,6 +111,7 @@ describe('Render component', () => {
     const wrapper = shallow(<HomePage {...state} />); // 5
 
     expect(axios.get).toHaveBeenCalledTimes(1);
+
     process.nextTick(() => {
       // 6
       expect(wrapper.state()).toEqual({

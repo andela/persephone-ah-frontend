@@ -8,6 +8,7 @@ import {
   Redirect
 } from 'react-router-dom';
 import HomePage from './views/HomePage/index.jsx';
+import 'react-toastify/dist/ReactToastify.css';
 import LoginPage from './views/LoginPage/index.jsx';
 import { Provider } from 'react-redux';
 import setupStore from './store';
@@ -20,6 +21,7 @@ import ReadArticle from './views/ReadArticlePage/index.jsx';
 import VerifyUser from './views/VerifyUserPage/index.jsx';
 import AllArticlesPage from './views/AllArticlesPage/index.jsx';
 import SocialLogin from './components/Social/index.jsx';
+import CreateArticle from './views/CreateArticle/index.jsx';
 
 const store = setupStore();
 class App extends Component {
@@ -66,6 +68,7 @@ class App extends Component {
             />
             <Route path="/articles" component={AllArticlesPage} />
             <Route path="/social" component={SocialLogin} />
+            <Route path="/compose" component={CreateArticle} />
           </Switch>
           <Footer />
         </Router>
@@ -73,5 +76,4 @@ class App extends Component {
     );
   }
 }
-
 export default hot(module)(App);

@@ -14,11 +14,7 @@ import {
   createCommentOnArticleStart,
   createCommentOnArticleSuccess
 } from './createComment.action';
-import {
-  CreateComment,
-  mapDispatchToProps,
-  mapStateToProps
-} from './index.jsx';
+import { CreateComment, mapDispatchToProps } from './index.jsx';
 import {
   CREATE_COMMENT_ON_ARTICLE_START,
   CREATE_COMMENT_ON_ARTICLE_SUCCESS
