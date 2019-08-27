@@ -176,6 +176,9 @@ describe('Read Single Article Page', () => {
       article: response.data,
       lightTheme: true,
       handleLikes: jest.fn(),
+      user: {
+        followers: []
+      },
       auth: {
         user: {
           token: ''
@@ -507,6 +510,9 @@ describe('ReadArticle Page', () => {
         params: {
           slug: 'some-slug'
         }
+      },
+      user: {
+        followers: []
       },
       auth: {
         user: {

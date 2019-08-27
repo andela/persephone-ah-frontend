@@ -29,6 +29,18 @@ export const cleanUpRating = () => {
   return { type: actionTypes.CLEAN_UP_RATING, payload: {} };
 };
 
+export const followAuthor = payload => {
+  return { type: actionTypes.FOLLOW_AUTHOR, payload };
+};
+
+export const getUserFollowers = payload => {
+  return { type: actionTypes.GET_USER_FOLLOWERS, payload };
+};
+
+export const cleanUpFollow = () => {
+  return { type: actionTypes.CLEAN_UP_FOLLOW, payload: null };
+};
+
 export const getSingleArticle = slug => {
   return dispatch => {
     dispatch(getSingleArticleStart());
@@ -92,6 +104,7 @@ export const rateArticleRequest = payload => {
     }
   };
 };
+
 export const reportArticleRequest = (slug, reason, token) => {
   axios
     .post(
@@ -104,4 +117,27 @@ export const reportArticleRequest = (slug, reason, token) => {
         toast.success(`Successfully reported this article`);
       }
     });
+};
+
+export const followAuthorRequest = (userId, token) => {
+  return async dispatch => {
+    const response = await axiosUtil.post(
+      `users/follow/`,
+      { userId },
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    );
+    dispatch(followAuthor(response.data.data));
+    dispatch(cleanUpFollow());
+  };
+};
+
+export const getUserFollowersRequest = (id, token) => {
+  return async dispatch => {
+    const response = await axiosUtil.get(`users/follow/${id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    dispatch(getUserFollowers(response.data.data));
+  };
 };

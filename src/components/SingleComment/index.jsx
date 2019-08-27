@@ -31,7 +31,7 @@ const SingleComment = props => {
               </div>
               <div className="article-comment-author-info">
                 <h5>{name}</h5>
-                <span>{userComment.lastName.toLowerCase()}@gmail.com</span>
+                <span>{userComment.email}</span>
               </div>
             </div>
             <div className="article-comment-like">
@@ -62,7 +62,8 @@ SingleComment.propTypes = {
   body: PropTypes.object,
   datePublished: PropTypes.string,
   handleLike: PropTypes.func,
-  id: PropTypes.number
+  id: PropTypes.number,
+  commentLikes: PropTypes.any
 };
 
 export default SingleComment;

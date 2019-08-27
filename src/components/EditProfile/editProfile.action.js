@@ -41,10 +41,6 @@ export const updateProfile = (userData, token) => {
 
         localStorage.setItem('user', JSON.stringify(setUserData));
         dispatch(editProfileSuccess(data));
-        // dispatch(setCurrentUser(userData));
-        // setTimeout(() => {
-        //   dispatch(setCurrentUser(userData));
-        // }, 5000);
       });
   };
 };

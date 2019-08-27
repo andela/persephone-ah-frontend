@@ -23,6 +23,7 @@ import { setCurrentUser } from './views/Auth/auth.action.js';
 import DraftArticle from './views/DraftArticle/index.jsx';
 import PublishedArticle from './views/PublishedArticle/index.jsx';
 import BookmarkArticle from './views/BookmarkPage/index.jsx';
+import FollowersPage from './views/FollowersPage/index.jsx';
 
 const store = setupStore();
 if (localStorage.user) {
@@ -71,6 +72,7 @@ class App extends Component {
             <PrivateRoute path="/publication" component={PublishedArticle} />
             <PrivateRoute path="/draft" component={DraftArticle} />
             <PrivateRoute path="/bookmark" component={BookmarkArticle} />
+            <PrivateRoute path="/followers" component={FollowersPage} />
           </Switch>
           <Footer />
         </Router>

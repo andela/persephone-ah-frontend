@@ -160,7 +160,7 @@ export class ProfileNavbar extends Component {
             <p>
               {name}
               <br />
-              <small>{this.props.firstName.toLowerCase()}</small>
+              <small>{this.props.userName}</small>
             </p>
           </div>
 

@@ -6,6 +6,8 @@ const loginReducer = (state = initialState.user, action) => {
       return { ...state, user: action.payload };
     case types.LOG_IN_USER_ERROR:
       return { ...state, error: action.payload };
+    case types.GET_USER_FOLLOWERS:
+      return { ...state, followers: action.payload };
     default:
       return state;
   }
