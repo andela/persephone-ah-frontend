@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/display-name */
@@ -11,6 +12,7 @@ import './editProfile.scss';
 
 const EditProfile = React.forwardRef((props, ref) => {
   const image = props.selectedImage ? props.selectedImage : props.image;
+  const isNotifyActive = props.isNotifyActive;
   return (
     <Modal
       show={props.showEditModal}
@@ -89,6 +91,18 @@ const EditProfile = React.forwardRef((props, ref) => {
               customClassName="edit-profile-text-area"
             />
           </div>
+          <div className="display-flex edit-notification">
+            <p>Turn your notification</p>
+            {isNotifyActive ? (
+              <div className="pl-2 activate" onClick={props.notifyHandler}>
+                <p>off</p>
+              </div>
+            ) : (
+              <div className="pl-2 activate" onClick={props.notifyHandler}>
+                <p>on</p>
+              </div>
+            )}
+          </div>
           <div>
             <Button customClassName="edit-profile-submit">Submit</Button>
           </div>
@@ -108,7 +122,9 @@ EditProfile.propTypes = {
   handleShow: PropTypes.func,
   updateHandler: PropTypes.func,
   imageHandler: PropTypes.func,
-  handleChange: PropTypes.func
+  handleChange: PropTypes.func,
+  isNotifyActive: PropTypes.bool,
+  notifyHandler: PropTypes.func
 };
 
 export default EditProfile;

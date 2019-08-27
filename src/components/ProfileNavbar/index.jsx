@@ -26,9 +26,11 @@ export class ProfileNavbar extends Component {
       bio: {
         value: ''
       }
-    }
+    },
+    isNotifyActive: true
   };
   componentDidMount() {
+    this.setState({ isNotifyActive: this.props.auth.user.isNotifyActive });
     if (!this.props.auth.user.userName) {
       this.setState({
         showEditModal: true
@@ -101,6 +103,12 @@ export class ProfileNavbar extends Component {
     this.setState({ userData: updatedUserData });
   };
 
+  handleNotify = () => {
+    this.state.isNotifyActive === true
+      ? this.setState({ isNotifyActive: false })
+      : this.setState({ isNotifyActive: true });
+  };
+
   updateHandler = async e => {
     e.preventDefault();
     const formData = new FormData();
@@ -117,6 +125,7 @@ export class ProfileNavbar extends Component {
       'userName',
       this.state.userData.userName.value || this.props.userName
     );
+    formData.append('isNotifyActive', this.state.isNotifyActive);
     formData.append('bio', this.state.userData.bio.value || this.props.bio);
     formData.append('image', this.state.image);
 
@@ -205,6 +214,8 @@ export class ProfileNavbar extends Component {
           imageHandler={this.imageHandler}
           selectedImage={this.state.selectedImage}
           userNameRequired={!!this.props.auth.user.userName}
+          isNotifyActive={this.state.isNotifyActive}
+          notifyHandler={this.handleNotify}
           image={
             this.props.image ||
             'https://res.cloudinary.com/fxola/image/upload/v1562711912/ezkc4mj7pktwzqhmrbpt.png'
@@ -229,7 +240,8 @@ ProfileNavbar.propTypes = {
   image: PropTypes.string,
   selectedImage: PropTypes.string,
   userName: PropTypes.string,
-  bio: PropTypes.string
+  bio: PropTypes.string,
+  isNotifyActive: PropTypes.bool
 };
 export const mapStateToProps = state => {
   return {

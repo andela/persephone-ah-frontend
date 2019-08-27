@@ -9,6 +9,7 @@ const Input = ({
   handleBlur,
   handleChange,
   name,
+  type,
   ...customProps
 }) => {
   const themeColorClass = lightTheme
@@ -19,6 +20,7 @@ const Input = ({
       {...customProps}
       placeholder={placeholder}
       onChange={handleChange}
+      type={type}
       onBlur={handleBlur}
       className={`input ${themeColorClass} ${customClassName}`}
       name={name}
@@ -32,6 +34,8 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   handleChange: PropTypes.func,
-  handleBlur: PropTypes.func
+  handleBlur: PropTypes.func,
+  attribute: PropTypes.string,
+  type: PropTypes.string
 };
 export default Input;
