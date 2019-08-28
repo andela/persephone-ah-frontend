@@ -41,7 +41,7 @@ export const getDraftArticles = token => {
       )
       .then(response => {
         const { data } = response.data;
-        dispatch(getDraftArticlesSuccess(data));
+        dispatch(getDraftArticlesSuccess(data.reverse()));
       })
       .catch(error => {
         dispatch(errorResponse(error.response.data));

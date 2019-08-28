@@ -54,7 +54,9 @@ const AuthorCard = props => {
               25 <Link to="/#">Likes</Link>
             </span>
             <span>
-              <Link to="#" onClick={handleCreateBookmark}> Bookmark
+              <Link to="#" onClick={handleCreateBookmark}>
+                {' '}
+                Bookmark
               </Link>
             </span>
           </div>

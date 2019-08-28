@@ -170,7 +170,8 @@ describe('ReadArticle Page', () => {
       theme: {
         theme: 'dark-theme'
       },
-      auth: { user: {} }
+      auth: { user: {} },
+      commentOnArticle: {}
     };
     expect(mapStateToProps(initialState).article).toEqual(null);
     expect(mapStateToProps(initialState).loading).toEqual(false);

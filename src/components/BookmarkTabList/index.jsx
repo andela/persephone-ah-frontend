@@ -4,7 +4,22 @@ import PropTypes from 'prop-types';
 import IconComponent from '../IconComponent/index.jsx';
 import TablistContainer from '../TablistContainer/index.jsx';
 import './ArticleTabList.scss';
+import PublishModal from '../../components/Modal/index.jsx';
 
+/**
+ *  Sample Usage
+ *  
+ * const props = {
+  lightTheme: true,
+  articleTitle: 'Understanding redux and react',
+  articleDescription: 'Redux the best storage system',
+  publishedAt: 'July 28',
+  readTime: '6 mins',
+  numberLikes: 120,
+  numberComment: 70
+};
+ *  <ArticleTabList {...props} />
+ */
 const articleCardList = props => {
   const URL = `articles/${props.slug}`;
   return (
@@ -61,10 +76,6 @@ const articleCardList = props => {
                   onClick={() => props.handleShow(props.slug)}
                   value={props.actionButton}
                 />
-                <Link to="#" className="article-tab-list-action-edit">
-                  Edit
-                </Link>
-                <Link to="#">Trash</Link>
               </div>
             </div>
           </div>

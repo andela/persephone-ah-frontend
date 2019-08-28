@@ -22,6 +22,7 @@ import PrivateRoute from './views/AppRouter/PrivateRoute.js';
 import { setCurrentUser } from './views/Auth/auth.action.js';
 import DraftArticle from './views/DraftArticle/index.jsx';
 import PublishedArticle from './views/PublishedArticle/index.jsx';
+import BookmarkArticle from './views/BookmarkPage/index.jsx';
 
 const store = setupStore();
 if (localStorage.user) {
@@ -53,6 +54,7 @@ class App extends Component {
             transition={Slide}
             position="top-center"
           />
+
           <Switch>
             <PrivateRoute path="/verify" component={VerifyUser} />
             <PrivateRoute path="/compose" component={CreateArticle} />
@@ -61,15 +63,14 @@ class App extends Component {
             <Route path="/signup" component={SignupPage} />
             <Route
               path="/articles/:slug"
-              render={props => (
-                <ReadArticle {...props} />
-              )}
+              render={props => <ReadArticle {...props} />}
             />
             <Route path="/articles" component={AllArticlesPage} />
             <Route path="/social" component={SocialLogin} />
             <Route path="/articles/:slug" component={ReadArticle} />
             <PrivateRoute path="/publication" component={PublishedArticle} />
             <PrivateRoute path="/draft" component={DraftArticle} />
+            <PrivateRoute path="/bookmark" component={BookmarkArticle} />
           </Switch>
           <Footer />
         </Router>
