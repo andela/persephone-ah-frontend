@@ -18,6 +18,7 @@ export class Header extends Component {
       openNav: 'hidden'
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleHamburger = this.handleHamburger.bind(this);
     this.app_theme = localStorage.getItem('app_theme');
   }
 
@@ -40,6 +41,12 @@ export class Header extends Component {
   handleLogOut(e) {
     e.preventDefault();
     this.props.logout(this.props.history);
+  }
+
+  handleHamburger() {
+    this.state.openNav === 'hidden'
+      ? this.setState({ openNav: 'show' })
+      : this.setState({ openNav: 'hidden' });
   }
 
   handleClick() {
@@ -80,9 +87,9 @@ export class Header extends Component {
               aria-controls="navbarSupportedContent"
               aria-expanded="false"
               aria-label="Toggle navigation"
-              onClick={() => this.setState({ openNav: 'show' })}
+              onClick={this.handleHamburger}
             >
-              <span className={`${theme} navbar-toggler`}>
+              <span className={` navbar-toggler`}>
                 <div className={`${theme}`}></div>
                 <div className={`${theme}`}></div>
                 <div className={`${theme}`}></div>
@@ -93,8 +100,9 @@ export class Header extends Component {
               className={`${openNav} collapse navbar-collapse`}
               id="navbarSupportedContent"
             >
+              <hr className="border-1" />
               <div className="navbar-nav ml-auto">
-                <div className="mr-4 mt-1 display-flex ">
+                <div className="mr-4 mt-1 display-flex  m-all">
                   <div className="mr-1">
                     {theme === 'light-theme' ? (
                       <IconComponent
@@ -123,19 +131,19 @@ export class Header extends Component {
                     )}
                   </div>
                 </div>
-                <hr className="border-1" />
+
                 {isAuthenticated === false ? (
                   <React.Fragment>
                     <Link
                       to="/signup"
-                      className="button  navbtn_signup button-normal border-0 pr-3 pl-3  pb-1 mr-4"
+                      className="button  navbtn_signup button-normal border-0 pr-3 pl-3  pb-1 mr-4 m-all"
                     >
                       Sign Up
                     </Link>
 
                     <Link
                       to="/login"
-                      className="button  navbtn_login button-inverse pr-3 pl-3   pb-1  mr-4"
+                      className="button  navbtn_login button-inverse pr-3 pl-3   pb-1  mr-4 m-all"
                     >
                       Login
                     </Link>
@@ -144,7 +152,7 @@ export class Header extends Component {
                   <React.Fragment>
                     <Link
                       to="/compose"
-                      className="button compose-btn  navbtn_signup button-normal border-0 pr-3 pl-3  pb-1 mr-4"
+                      className="button compose-btn  navbtn_signup button-normal border-0 pr-3 pl-3  pb-1 mr-4 m-all"
                     >
                       Compose
                     </Link>
@@ -166,7 +174,7 @@ export class Header extends Component {
                         <Link
                           onClick={this.handleLogOut.bind(this)}
                           to="/"
-                          className="logout"
+                          className="logout m-all"
                         >
                           <i className="ion-log-out dropdown_icon pr-2"></i>Log
                           Out

@@ -84,7 +84,8 @@ export class ReadArticle extends Component {
         title,
         // slug,
         image,
-        createdAt
+        createdAt,
+        Tags
       } = this.props.article;
 
       const authorName = `${author.firstName} ${author.lastName}`;
@@ -93,9 +94,13 @@ export class ReadArticle extends Component {
       singleArticle = singleArticle = (
         <div className="container">
           <div className="row read-article-section">
-            <div className="col-sm-12 col-md-9 article-details">
+            <div className="col-sm-12 col-lg-9 article-details">
               <div className="article-image">
-                <IconComponent src={imageObj[0]} alt={'image asset'} />
+                <IconComponent
+                  src={imageObj[0]}
+                  alt={'image asset'}
+                  className="object-fit"
+                />
               </div>
               <div className="col-sm-12 article-title">
                 <div className="row">
@@ -127,8 +132,20 @@ export class ReadArticle extends Component {
                   </div>
                 </div>
               </div>
+
               <div className="article-body">
                 {reactHtmlParser(body)}
+                <div className="mt-3 mb-3">
+                  {Tags
+                    ? Tags.map((tag, i) => {
+                        return (
+                          <span className="tag" key={i}>
+                            {tag.name}
+                          </span>
+                        );
+                      })
+                    : ''}
+                </div>
                 {this.props.auth.user.token ? (
                   <div className="rating">
                     <span>Rate this post</span>
@@ -144,7 +161,7 @@ export class ReadArticle extends Component {
               </div>
             </div>
 
-            <div className="col-sm-12 col-md-3 article-details-second">
+            <div className="col-sm-12 col-lg-3 article-details-second">
               <div className="read-article-author-card">
                 <Authorcard
                   image="./../src/assets/images/avatar.png"
