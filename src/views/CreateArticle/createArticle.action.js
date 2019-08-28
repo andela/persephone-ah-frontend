@@ -74,7 +74,6 @@ export const publishArticle = (slug, tokenId, history) => {
     .then(res => {
       /* istanbul ignore next */
       toast.success('Your article has been successfully published');
-      console.log(res.data.data);
       setTimeout(() => {
         /* istanbul ignore next */
         history.push(`/articles/${slug}`);

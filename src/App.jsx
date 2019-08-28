@@ -25,7 +25,6 @@ const store = setupStore();
 if (localStorage.user) {
   // get user object
   const user = JSON.parse(localStorage.user);
-  console.log(user);
   // set current user
   store.dispatch(setCurrentUser(user));
   // for expired token
@@ -61,7 +60,7 @@ class App extends Component {
             <Route
               path="/articles/:slug"
               render={props => (
-                <ReadArticle {...props} token={this.state.userToken} />
+                <ReadArticle {...props} />
               )}
             />
             <Route path="/articles" component={AllArticlesPage} />
