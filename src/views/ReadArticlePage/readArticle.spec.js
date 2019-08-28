@@ -466,6 +466,7 @@ describe('ReadArticle Page', () => {
         params: 'product'
       },
       auth: {
+        isAthenticated: false,
         user: {
           token: 'kdnfm'
         }
@@ -534,6 +535,7 @@ describe('ReadArticle Page', () => {
         allComment: result.data
       },
       auth: {
+        isAuthenticated: true,
         user: {
           token: 'some-token'
         }
@@ -598,6 +600,32 @@ describe('ReadArticle Page', () => {
     const dispatch = jest.fn();
     mapDispatchToProps(dispatch).likeArticle();
     expect(typeof dispatch.mock.calls[0][0]).toEqual('function');
+    done();
+  });
+});
+
+describe('Report article action', () => {
+  beforeEach(() => moxios.install());
+  afterEach(() => {
+    moxios.uninstall();
+    store.clearActions();
+  });
+
+  const token = 'some token';
+  const reason = { reason: 'some reason' };
+  const slug = 'some slug';
+
+  it('should trigger report article action', done => {
+    moxios.stubRequest(
+      `https://persephone-backend-staging.herokuapp.com/api/v1/articles/${slug}/reports`,
+      {
+        status: 201,
+        response: {}
+      }
+    );
+
+    const dispatch = jest.fn();
+    mapDispatchToProps(dispatch).reportArticleRequest(token, reason, slug);
     done();
   });
 });

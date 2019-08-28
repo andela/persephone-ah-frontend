@@ -76,7 +76,13 @@ p > img {
 
 .read-article-image {
   width: 100%;
+  transform: scale(1.5);
 }
+
+.read-article-image:hover {
+  cursor: pointer;
+}
+
 .create-comment-section {
   margin: 0px auto;
   padding: 0px;
@@ -154,4 +160,8 @@ p > img {
 }
 
 @media (min-width: 1200px) and (max-width: 1392) {
+}
+
+.report-info {
+  background-color: rgb(177, 68, 68) !important;
 }

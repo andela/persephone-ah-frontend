@@ -92,3 +92,16 @@ export const rateArticleRequest = payload => {
     }
   };
 };
+export const reportArticleRequest = (slug, reason, token) => {
+  axios
+    .post(
+      `https://persephone-backend-staging.herokuapp.com/api/v1/articles/${slug}/reports`,
+      reason,
+      { headers: { authorization: `Bearer ${token}` } }
+    )
+    .then(response => {
+      if (response.status === 201) {
+        toast.success(`Successfully reported this article`);
+      }
+    });
+};

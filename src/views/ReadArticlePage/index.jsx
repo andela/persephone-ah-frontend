@@ -6,7 +6,8 @@ import {
   getSingleArticle,
   rateArticleRequest,
   cleanUpRating,
-  articleLike
+  articleLike,
+  reportArticleRequest
 } from './readArticle.action';
 import PropTypes from 'prop-types';
 import IconComponent from '../../components/IconComponent/index.jsx';
@@ -15,13 +16,18 @@ import StarRatingComponent from 'react-star-rating-component';
 import CreateComment from '../../components/CreateComment/index.jsx';
 import Authorcard from '../../components/AuthorCard/index.jsx';
 import Loading from '../../components/LoadingIndicator/index.jsx';
+
+import ReportArticleForm from '../../components/ReportArticle/index.jsx';
+import ReportModal from '../../components/Modal/index.jsx';
 import reactHtmlParser from 'react-html-parser';
 import { createBookmark } from '../../views/BookmarkPage/bookmark.action';
+import ToolTip from 'react-tooltip';
 
 export class ReadArticle extends Component {
   state = {
     user: {},
-    slug: ''
+    slug: '',
+    show: false
   };
 
   componentDidMount() {
@@ -44,6 +50,14 @@ export class ReadArticle extends Component {
       articleId: name
     };
     rateArticleRequest(payload);
+  };
+
+  handleModalOpen = () => {
+    this.setState({ show: true });
+  };
+
+  handleModalClose = () => {
+    this.setState({ show: false });
   };
 
   componentDidUpdate() {
@@ -70,6 +84,8 @@ export class ReadArticle extends Component {
   };
 
   render() {
+    const { slug } = this.props.match.params;
+    const { auth } = this.props;
     let singleArticle = <Loading />;
     const articleUrl = window.location.href;
 
@@ -122,14 +138,23 @@ export class ReadArticle extends Component {
                       />
                     </div>
                   </div>
-                  <div className="read-article-bookmark">
-                    {' '}
-                    <IconComponent
-                      src={'../../../src/assets/images/report.svg'}
-                      alt={'image asset'}
-                      className={'read-article-image'}
-                    />
-                  </div>
+                  {auth.isAuthenticated ? (
+                    <div
+                      data-tip="Click here to report this article"
+                      data-class="report-info"
+                      className="read-article-bookmark"
+                    >
+                      {' '}
+                      <IconComponent
+                        handleclick={this.handleModalOpen}
+                        src={'../../../src/assets/images/report.svg'}
+                        alt={'image asset'}
+                        className={'read-article-image'}
+                      />
+                    </div>
+                  ) : (
+                    ''
+                  )}
                 </div>
               </div>
 
@@ -168,7 +193,7 @@ export class ReadArticle extends Component {
                   fullname={authorName}
                   handle={author.firstName}
                   bio="This would be a short summary of the users bio, for little interest
-    display for readers"
+display for readers"
                   isFollowing={false}
                   lightTheme={this.props.lightTheme}
                   articleUrl={articleUrl}
@@ -185,6 +210,20 @@ export class ReadArticle extends Component {
               <CreateComment {...this.props.match} />
             </div>
           </div>
+          <ReportModal
+            show={this.state.show}
+            lightTheme={this.props.lightTheme}
+            handleShow={this.handleModalShow}
+            handleClose={this.handleModalClose}
+          >
+            <ReportArticleForm
+              handleClose={this.handleModalClose}
+              reportArticleRequest={reportArticleRequest}
+              slug={slug}
+              token={auth.user.token}
+            ></ReportArticleForm>
+          </ReportModal>
+          <ToolTip />
         </div>
       );
     }
@@ -196,6 +235,7 @@ ReadArticle.propTypes = {
   id: PropTypes.number,
   slug: PropTypes.string,
   token: PropTypes.string,
+  auth: PropTypes.object,
   lightTheme: PropTypes.bool,
   loading: PropTypes.bool,
   match: PropTypes.object,
@@ -206,13 +246,13 @@ ReadArticle.propTypes = {
   getAllUserBookmarks: PropTypes.func,
   bookmark: PropTypes.any,
   createBookmark: PropTypes.func,
-  auth: PropTypes.object,
   rateArticleRequest: PropTypes.func,
   cleanUpRating: PropTypes.func,
   fetchArticleComment: PropTypes.func,
   likeArticle: PropTypes.func,
   likesCount: PropTypes.number,
-  user: PropTypes.object
+  user: PropTypes.object,
+  reportArticleRequest: PropTypes.func
 };
 export const mapStateToProps = state => {
   return {
@@ -232,7 +272,9 @@ export const mapDispatchToProps = dispatch => {
       dispatch(rateArticleRequest(payload, token));
     },
     cleanUpRating: () => dispatch(cleanUpRating()),
-    likeArticle: (id, slug, token) => dispatch(articleLike(id, slug, token))
+    likeArticle: (id, slug, token) => dispatch(articleLike(id, slug, token)),
+    reportArticleRequest: (slug, reason, token) =>
+      dispatch(reportArticleRequest(slug, reason, token))
   };
 };
 export default connect(
