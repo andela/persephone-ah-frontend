@@ -13,7 +13,15 @@ const articleCard = props => {
   const URL = `articles/${props.slug}`;
   return (
     <div className={`card articleCard ${props.theme}`}>
-      <img className="card-img-top" src={articleImage[0]} alt="article" />
+      <img
+        className="card-img-top"
+        src={
+          articleImage[0]
+            ? articleImage[0]
+            : 'http://www.wi65.org/wp-content/themes/joyn/images/default-thumb.png'
+        }
+        alt="article"
+      />
       <div className={`card-body ${props.theme}`}>
         <h5 className="card-title">
           <Link to={URL} className="stretched-link">

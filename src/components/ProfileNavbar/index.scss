@@ -1,5 +1,4 @@
 .navbar-container {
-  width: 87vw;
   margin: 0px auto;
   padding: 0px 60px;
   .row.profile-navbar {
@@ -7,6 +6,12 @@
     margin: 0px;
     .profile-navbar-button {
       align-self: center;
+      button {
+        border-radius: 25px;
+        span {
+          padding: 20px;
+        }
+      }
     }
     .profile {
       display: flex;
@@ -42,6 +47,11 @@
     li {
       list-style: none;
       cursor: pointer;
+      padding: 0px 20px;
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
     }
   }
 }

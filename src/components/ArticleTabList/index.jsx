@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import IconComponent from '../IconComponent/index.jsx';
 import TablistContainer from '../TablistContainer/index.jsx';
 import './ArticleTabList.scss';
+import PublishModal from '../../components/Modal/index.jsx';
 
 /**
  *  Sample Usage
@@ -20,24 +21,31 @@ import './ArticleTabList.scss';
  *  <ArticleTabList {...props} />
  */
 const articleCardList = props => {
+  const URL = `articles/${props.slug}`;
   return (
     <TablistContainer lightTheme={props.lightTheme}>
-      <div className="row article-tab-list">
-        <div className=" col-md-3 col-sm-4 article-tab-list-image">
+      <div className="row article-tab-list" id={props.slug}>
+        <div className="col-md-4 col-sm-12 article-tab-list-image">
           <img
-            src="../src/assets/images/20190731_095440.jpg"
+            src={
+              props.imageObj[0]
+                ? props.imageObj[0]
+                : 'http://www.wi65.org/wp-content/themes/joyn/images/default-thumb.png'
+            }
             className="image-fluid"
             alt="article"
           />
         </div>
-        <div className="col-md-1"></div>
+
         <div className="col-md-8 col-sm-6 article-tab-list-main-body">
           <div className="row body-cover">
             <div className="col-md-12 col-sm-12 article-tab-list-body">
-              <h3>{props.articleTitle}</h3>
-              <h5>{props.articleDescription}</h5>
+              <h3>
+                <Link to={URL}>{props.title}</Link>
+              </h3>
+              <h5>{props.description}</h5>
               <small>
-                {props.publishedAt} - {props.readTime} read
+                {props.datePublished} - {props.readTime} read
               </small>
             </div>
 
@@ -49,7 +57,7 @@ const articleCardList = props => {
                     alt={'image asset'}
                     className={'icon-small'}
                   />
-                  <span>{props.numberLikes}</span>
+                  <span>28</span>
                 </div>
 
                 <div className="article-tab-list-comment">
@@ -58,12 +66,16 @@ const articleCardList = props => {
                     alt={'image asset'}
                     className={'icon-small'}
                   />
-                  <span>{props.numberComment}</span>
+                  <span>65</span>
                 </div>
               </div>
-              <div className="col-md-5"></div>
-              <div className="col-md-3 article-tab-list-action">
-                <Link to="#">Unpublish</Link>
+              <div className="col-md-4"></div>
+              <div className="col-md-4 article-tab-list-action">
+                <input
+                  type="submit"
+                  onClick={() => props.handleShow(props.slug)}
+                  value={props.actionButton}
+                />
                 <Link to="#" className="article-tab-list-action-edit">
                   Edit
                 </Link>
@@ -78,13 +90,18 @@ const articleCardList = props => {
 };
 
 articleCardList.propTypes = {
-  articleTitle: PropTypes.string.isRequired,
-  lightTheme: PropTypes.bool.isRequired,
+  title: PropTypes.string,
+  slug: PropTypes.string,
+  lightTheme: PropTypes.bool,
   numberComment: PropTypes.number,
-  numberLikes: PropTypes.number.isRequired,
-  publishedAt: PropTypes.string.isRequired,
-  readTime: PropTypes.string.isRequired,
-  articleDescription: PropTypes.string.isRequired
+  numberLikes: PropTypes.number,
+  datePublished: PropTypes.string,
+  readTime: PropTypes.string,
+  description: PropTypes.string,
+  actionButton: PropTypes.string,
+  unpublishArticle: PropTypes.func,
+  toggleModal: PropTypes.func,
+  handleShow: PropTypes.func
 };
 
 export default articleCardList;
