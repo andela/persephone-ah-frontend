@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import {
@@ -13,7 +14,6 @@ import StarRatingComponent from 'react-star-rating-component';
 import CreateComment from '../../components/CreateComment/index.jsx';
 import Authorcard from '../../components/AuthorCard/index.jsx';
 import Loading from '../../components/LoadingIndicator/index.jsx';
-import moment from 'moment';
 import reactHtmlParser from 'react-html-parser';
 import { createBookmark } from '../../views/BookmarkPage/bookmark.action';
 
@@ -149,7 +149,7 @@ export class ReadArticle extends Component {
           </div>
           <div className="row create-comment-section">
             <div className="col-sm-12 col-md-12 create-comment-container">
-              <CreateComment token={this.props.token} />
+              <CreateComment {...this.props.match} />
             </div>
           </div>
         </div>
@@ -174,14 +174,17 @@ ReadArticle.propTypes = {
   createBookmark: PropTypes.func,
   auth: PropTypes.object,
   rateArticleRequest: PropTypes.func,
-  cleanUpRating: PropTypes.func
+  cleanUpRating: PropTypes.func,
+  fetchArticleComment: PropTypes.func,
+  article: PropTypes.object
 };
 export const mapStateToProps = state => {
   return {
     lightTheme: state.theme.theme === 'light-theme',
     article: state.readArticle.article,
     loading: state.readArticle.loading,
-    auth: state.auth
+    auth: state.auth,
+    allComment: state.commentOnArticle.allComment
   };
 };
 

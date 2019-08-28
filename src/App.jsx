@@ -53,6 +53,7 @@ class App extends Component {
             transition={Slide}
             position="top-center"
           />
+
           <Switch>
             <PrivateRoute path="/verify" component={VerifyUser} />
             <PrivateRoute path="/compose" component={CreateArticle} />
