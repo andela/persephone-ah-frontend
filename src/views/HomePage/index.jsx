@@ -42,11 +42,13 @@ export class HomePage extends Component {
       `${process.env.BASE_URL}search?tag=product`
     );
     this.setState({
-      technologyArticles: responseTechnology.data.data.searchResult
+      technologyArticles: responseTechnology.data.data.searchResult.reverse()
     });
-    this.setState({ startupArticles: responseStartup.data.data.searchResult });
     this.setState({
-      productDesignArticles: responseProductDesign.data.data.searchResult
+      startupArticles: responseStartup.data.data.searchResult.reverse()
+    });
+    this.setState({
+      productDesignArticles: responseProductDesign.data.data.searchResult.reverse()
     });
     this.setState({ isLoading: false });
   };
