@@ -95,6 +95,11 @@
   position: relative;
   top: 2px;
 }
+.notification {
+   font-size: 24px;
+  padding: 0px 10px;
+  cursor: pointer;
+}
 
 .navbar-toggler > div {
   width: 25px;
@@ -106,6 +111,15 @@
   &.light-theme {
     background: #272727;
   }
+}
+
+.notification-badge {
+  border-radius: 50%;
+  font-size: 7px;
+  padding: 3px;
+  position: relative;
+  top: -14px;
+  left: -14px;
 }
 
 .navbar-light .navbar-toggler {

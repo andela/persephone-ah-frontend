@@ -7,6 +7,7 @@ import { logout } from '../../views/Auth/auth.action';
 import Toggle from '../../components/Toggle/index.jsx';
 import './Header.scss';
 import IconComponent from '../IconComponent/index.jsx';
+import Notification from '../Notifications/index.jsx';
 
 export class Header extends Component {
   constructor() {
@@ -189,6 +190,14 @@ export class Header extends Component {
                           Out
                         </Link>
                       </div>
+                    </div>
+                      <div className="notification dropdown">
+                         
+                          <i className="ion-ios-bell-outline pr-2"></i>
+                          <span className="badge notification-badge badge-danger">12</span>
+                        <div className="drop dropdown-fill">
+                          <Notification {...{message: 'hello'}} />
+                        </div>
                     </div>
                   </React.Fragment>
                 )}
