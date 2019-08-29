@@ -70,7 +70,7 @@ const AuthorCard = props => {
           <div className="container-fluid read-article-social">
             <FacebookShareButton
               className="share-icon"
-              title={shareText}
+              quote={shareText}
               url={articleUrl}
             >
               <FacebookIcon size={24} />
@@ -78,7 +78,7 @@ const AuthorCard = props => {
 
             <TwitterShareButton
               className="share-icon"
-              title={shareText}
+              quote={shareText}
               url={articleUrl}
             >
               <TwitterIcon size={24} />
@@ -86,7 +86,7 @@ const AuthorCard = props => {
 
             <EmailShareButton
               className="share-icon"
-              title={shareText}
+              quote={shareText}
               url={articleUrl}
             >
               <EmailIcon size={24} />
