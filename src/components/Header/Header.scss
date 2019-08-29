@@ -115,6 +115,7 @@
 .navbar-light .navbar-toggler {
   border-color: rgba(0, 0, 0, 0);
   color: transparent;
+  outline: unset;
 }
 button .navbar-light .navbar-toggler {
   border-color: rgba(0, 0, 0, 0);
@@ -122,6 +123,9 @@ button .navbar-light .navbar-toggler {
 }
 
 @media (max-width: 991px) {
+  .m-all {
+    margin: 15px 5px;
+  }
   .navbar-nav {
     display: flex;
     flex-direction: column;
