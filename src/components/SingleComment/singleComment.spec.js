@@ -13,7 +13,8 @@ import {
   getCommentOnArticleStart,
   getCommentOnArticleSuccess,
   getCommentOnArticles,
-  likeComment
+  likeComment,
+  likeCommentSuccess
 } from './singleComment.action';
 import SingleComment from './index.jsx';
 import {
@@ -103,6 +104,36 @@ const allCommentResponse = {
   }
 };
 
+const likesCountResponse = {
+  status: 'success',
+  data: {
+    likeCount: {
+      count: 2,
+      rows: [
+        {
+          id: 76,
+          userId: 36,
+          email: 'oluwafemi.medale@andela.com',
+          commentId: 11,
+          createdAt: '2019-08-23T11:22:55.228Z',
+          updatedAt: '2019-08-23T11:22:55.228Z'
+        },
+        {
+          id: 100,
+          userId: 23,
+          email: 'samuelpinheiro40@yahoo.com',
+          commentId: 11,
+          createdAt: '2019-08-28T12:30:58.554Z',
+          updatedAt: '2019-08-28T12:30:58.554Z'
+        }
+      ]
+    },
+    message: 'you have successfully unliked this comment',
+    commentId: '11',
+    userId: 7
+  }
+};
+
 describe('Signle Comment Test', () => {
   describe('Single Comment Actions', () => {
     beforeEach(() => moxios.install());
@@ -183,6 +214,20 @@ describe('Signle Comment Test', () => {
       ];
 
       store.dispatch(likeComment(slug, commentId, token));
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
+
+    it('dispatches likeComment action', done => {
+      store.clearActions();
+      const expectedActions = [
+        {
+          type: 'LIKE_COMMENT_ON_ARTICLE_SUCCESS',
+          comment: likesCountResponse.data
+        }
+      ];
+
+      store.dispatch(likeCommentSuccess(likesCountResponse.data));
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });

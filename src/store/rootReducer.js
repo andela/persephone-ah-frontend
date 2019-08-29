@@ -11,6 +11,7 @@ import bookmarkReducer from '../views/BookmarkPage/bookmark.reducer';
 import publishedReducer from '../views/PublishedArticle/publishedArticle.reducer';
 import draftReducer from '../views/DraftArticle/DraftArticle.reducer';
 import allCommentsOnArticle from '../components/SingleComment/singleComment.reducer';
+import editProfileReducer from '../components/EditProfile/editProfile.reducer';
 
 const rootReducer = combineReducers({
   theme: themeToggler,
@@ -24,7 +25,10 @@ const rootReducer = combineReducers({
   bookmark: bookmarkReducer,
   publications: publishedReducer,
   draftArticles: draftReducer,
-  commentOnArticle: allCommentsOnArticle
+  commentOnArticle: allCommentsOnArticle,
+  publications: publishedReducer,
+  draftArticles: draftReducer,
+  editProfile: editProfileReducer
 });
 
 export default rootReducer;

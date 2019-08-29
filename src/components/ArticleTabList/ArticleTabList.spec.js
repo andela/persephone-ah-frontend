@@ -26,7 +26,7 @@ describe('Render light component TablistContainer', () => {
       readTime: '6 mins',
       numberLikes: 120,
       numberComment: 70,
-      imageObj: { 0: 'some-image' }
+      imageObj: { 0: '' }
     };
     shallow(<ArticleTabList {...darkArticleCard} />);
   });

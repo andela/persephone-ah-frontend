@@ -3,6 +3,7 @@ import React from 'react';
 import '@babel/polyfill';
 import moxios from 'moxios';
 import { mount, configure } from 'enzyme';
+import { Provider } from 'react-redux';
 import draftArticleReducer from './draftArticle.reducer';
 import Adapter from 'enzyme-adapter-react-16';
 import configureStore from 'redux-mock-store';
@@ -372,11 +373,23 @@ describe('PublishedArticle page', () => {
           }
         }
       };
-      store = mockStore();
-      mount(
-        <BrowserRouter>
-          <DraftArticle {...props} handleChange={jest.fn()} />
-        </BrowserRouter>
+      store = mockStore({
+        theme: {
+          theme: {}
+        },
+        auth: {
+          user: {
+            firstName: 'damilola',
+            userName: ''
+          }
+        }
+      });
+      const publishArticle = mount(
+        <Provider store={store}>
+          <BrowserRouter>
+            <DraftArticle {...props} handleChange={jest.fn()} />
+          </BrowserRouter>
+        </Provider>
       );
       const dispatch = jest.fn();
       mapDispatchToProps(dispatch).fetchUnPublishedArticles();
@@ -396,11 +409,23 @@ describe('PublishedArticle page', () => {
           }
         }
       };
-      store = mockStore();
+      store = mockStore({
+        theme: {
+          theme: {}
+        },
+        auth: {
+          user: {
+            firstName: 'damilola',
+            userName: 'dami'
+          }
+        }
+      });
       const publishArticle = mount(
-        <BrowserRouter>
-          <DraftArticle {...props} handleChange={jest.fn()} />
-        </BrowserRouter>
+        <Provider store={store}>
+          <BrowserRouter>
+            <DraftArticle {...props} handleChange={jest.fn()} />
+          </BrowserRouter>
+        </Provider>
       );
       const publish = publishArticle.find(
         '#how-to-build-high-performance-teams input'
@@ -428,11 +453,23 @@ describe('PublishedArticle page', () => {
           }
         }
       };
-      store = mockStore();
+      store = mockStore({
+        theme: {
+          theme: {}
+        },
+        auth: {
+          user: {
+            firstName: 'damilola',
+            userName: 'dami'
+          }
+        }
+      });
       const publishArticle = mount(
-        <BrowserRouter>
-          <DraftArticle {...props} handleChange={jest.fn()} />
-        </BrowserRouter>
+        <Provider store={store}>
+          <BrowserRouter>
+            <DraftArticle {...props} handleChange={jest.fn()} />
+          </BrowserRouter>
+        </Provider>
       );
       const noArticles = publishArticle.find('.no-draft-text');
       expect(noArticles.text()).toEqual('You have no Drafted Articles');
@@ -446,15 +483,28 @@ describe('PublishedArticle page', () => {
         show: false,
         auth: {
           user: {
-            firstName: 'damilola'
+            firstName: 'damilola',
+            userName: 'dami'
           }
         }
       };
-      store = mockStore();
+      store = mockStore({
+        theme: {
+          theme: {}
+        },
+        auth: {
+          user: {
+            firstName: 'damilola',
+            userName: 'dami'
+          }
+        }
+      });
       mount(
-        <BrowserRouter>
-          <DraftArticle {...props} handleChange={jest.fn()} />
-        </BrowserRouter>
+        <Provider store={store}>
+          <BrowserRouter>
+            <DraftArticle {...props} handleChange={jest.fn()} />
+          </BrowserRouter>
+        </Provider>
       );
       const dispatch = jest.fn();
       mapDispatchToProps(dispatch).fetchUnPublishedArticles();

@@ -3,6 +3,7 @@ import React from 'react';
 import '@babel/polyfill';
 import moxios from 'moxios';
 import { mount, configure } from 'enzyme';
+import { Provider } from 'react-redux';
 import publishArticleReducer from './publishedArticle.reducer';
 import Adapter from 'enzyme-adapter-react-16';
 import configureStore from 'redux-mock-store';
@@ -372,11 +373,23 @@ describe('PublishedArticle page', () => {
           }
         }
       };
-      store = mockStore();
+      store = mockStore({
+        theme: {
+          theme: {}
+        },
+        auth: {
+          user: {
+            firstName: 'damilola',
+            userName: 'dami'
+          }
+        }
+      });
       mount(
-        <BrowserRouter>
-          <PublishedArticle {...props} handleChange={jest.fn()} />
-        </BrowserRouter>
+        <Provider store={store}>
+          <BrowserRouter>
+            <PublishedArticle {...props} handleChange={jest.fn()} />
+          </BrowserRouter>
+        </Provider>
       );
       const dispatch = jest.fn();
       mapDispatchToProps(dispatch).fetchPublishedArticles();
@@ -396,11 +409,23 @@ describe('PublishedArticle page', () => {
           }
         }
       };
-      store = mockStore();
+      store = mockStore({
+        theme: {
+          theme: {}
+        },
+        auth: {
+          user: {
+            firstName: 'damilola',
+            userName: 'dami'
+          }
+        }
+      });
       const publishArticle = mount(
-        <BrowserRouter>
-          <PublishedArticle {...props} handleChange={jest.fn()} />
-        </BrowserRouter>
+        <Provider store={store}>
+          <BrowserRouter>
+            <PublishedArticle {...props} handleChange={jest.fn()} />
+          </BrowserRouter>
+        </Provider>
       );
       const unpublish = publishArticle.find(
         '#how-to-build-high-performance-teams input'
@@ -428,11 +453,23 @@ describe('PublishedArticle page', () => {
           }
         }
       };
-      store = mockStore();
+      store = mockStore({
+        theme: {
+          theme: {}
+        },
+        auth: {
+          user: {
+            firstName: 'damilola',
+            userName: 'dami'
+          }
+        }
+      });
       const publishArticle = mount(
-        <BrowserRouter>
-          <PublishedArticle {...props} handleChange={jest.fn()} />
-        </BrowserRouter>
+        <Provider store={store}>
+          <BrowserRouter>
+            <PublishedArticle {...props} handleChange={jest.fn()} />
+          </BrowserRouter>
+        </Provider>
       );
       const noArticles = publishArticle.find('.no-article-container h3');
       expect(noArticles.text()).toEqual(
@@ -452,11 +489,23 @@ describe('PublishedArticle page', () => {
           }
         }
       };
-      store = mockStore();
+      store = mockStore({
+        theme: {
+          theme: {}
+        },
+        auth: {
+          user: {
+            firstName: 'damilola',
+            userName: 'dami'
+          }
+        }
+      });
       mount(
-        <BrowserRouter>
-          <PublishedArticle {...props} handleChange={jest.fn()} />
-        </BrowserRouter>
+        <Provider store={store}>
+          <BrowserRouter>
+            <PublishedArticle {...props} handleChange={jest.fn()} />
+          </BrowserRouter>
+        </Provider>
       );
       const dispatch = jest.fn();
       mapDispatchToProps(dispatch).fetchPublishedArticles();

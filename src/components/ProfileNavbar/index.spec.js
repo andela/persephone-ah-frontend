@@ -1,9 +1,20 @@
+import { ProfileNavbar, mapDispatchToProps } from './index';
+jest.unmock('axios');
 import React from 'react';
-import { shallow, configure } from 'enzyme';
+import '@babel/polyfill';
+import { mount, configure, shallow } from 'enzyme';
+import { Provider } from 'react-redux';
 import Adapter from 'enzyme-adapter-react-16';
-import ProfileNavbar from './index';
+import configureStore from 'redux-mock-store';
+import { BrowserRouter } from 'react-router-dom';
+import thunk from 'redux-thunk';
 
 configure({ adapter: new Adapter() });
+
+const middlewares = [thunk]; // add your middlewares like `redux-thunk`
+const mockStore = configureStore(middlewares);
+
+let store = mockStore({});
 
 describe('<ProfileNavbar />', () => {
   it('should render light theme ArticleCard', () => {
@@ -11,9 +22,65 @@ describe('<ProfileNavbar />', () => {
       lightTheme: true,
       active: 'published',
       firstName: 'Damilola',
-      lastName: 'Adekoya'
+      lastName: 'Adekoya',
+      handleClose: jest.fn(),
+      auth: {
+        user: {
+          firstName: 'damilola',
+          userName: 'dami'
+        }
+      }
     };
-    shallow(<ProfileNavbar {...props} />);
+    store = mockStore({
+      theme: {
+        theme: {}
+      },
+      editProfile: {
+        userData: {
+          firstName: 'Funmilayo',
+          lastName: 'Adekoya',
+          bio: 'dhdkala',
+          userName: 'djjkslka',
+          twitterHandle: null,
+          facebookHandle: null,
+          image:
+            'https://res.cloudinary.com/fxola/image/upload/v1566997038/avatar/mypic.jpeg.jpg'
+        }
+      },
+      auth: {
+        user: {
+          firstName: 'damilola',
+          userName: 'dami'
+        }
+      }
+    });
+    const profileNav = mount(
+      <Provider store={store}>
+        <BrowserRouter>
+          <ProfileNavbar {...props} />
+        </BrowserRouter>
+      </Provider>
+    );
+    const editButton = profileNav.find('.btn-navbar').simulate('click');
+
+    profileNav.find('.edit-first-name').simulate('change', {
+      target: { name: 'firstName', value: 'Damilola' }
+    });
+
+    profileNav.find('.edit-last-name').simulate('change', {
+      target: { name: 'lastName', value: 'Solomon' }
+    });
+
+    profileNav.find('.edit-user-name').simulate('change', {
+      target: { name: 'userName', value: 'dharmykoya' }
+    });
+
+    profileNav.find('.edit-profile-text-area').simulate('change', {
+      target: { name: 'bio', value: 'I want to be a world class developer' }
+    });
+    const dispatch = jest.fn();
+    profileNav.find('form').simulate('submit', { preventDefault() {} }); // test to see arguments used after its been submitted
+    mapDispatchToProps(dispatch).updateUserProfile();
   });
 
   it('should render dark theme ArticleCard', () => {
@@ -21,7 +88,13 @@ describe('<ProfileNavbar />', () => {
       lightTheme: false,
       active: 'draft',
       firstName: 'Damilola',
-      lastName: 'Adekoya'
+      lastName: 'Adekoya',
+      auth: {
+        user: {
+          firstName: 'damilola',
+          userName: 'dami'
+        }
+      }
     };
     shallow(<ProfileNavbar {...prop} />);
   });
@@ -31,7 +104,13 @@ describe('<ProfileNavbar />', () => {
       lightTheme: false,
       active: 'bookmark',
       firstName: 'Damilola',
-      lastName: 'Adekoya'
+      lastName: 'Adekoya',
+      auth: {
+        user: {
+          firstName: 'damilola',
+          userName: null
+        }
+      }
     };
     shallow(<ProfileNavbar {...prop} />);
   });
@@ -41,7 +120,13 @@ describe('<ProfileNavbar />', () => {
       lightTheme: false,
       active: 'followers',
       firstName: 'Damilola',
-      lastName: 'Adekoya'
+      lastName: 'Adekoya',
+      auth: {
+        user: {
+          firstName: 'damilola',
+          userName: ''
+        }
+      }
     };
     shallow(<ProfileNavbar {...prop} />);
   });
@@ -51,7 +136,13 @@ describe('<ProfileNavbar />', () => {
       lightTheme: false,
       active: 'following',
       firstName: 'Damilola',
-      lastName: 'Adekoya'
+      lastName: 'Adekoya',
+      auth: {
+        user: {
+          firstName: 'damilola',
+          userName: 'dami'
+        }
+      }
     };
     shallow(<ProfileNavbar {...prop} />);
   });
