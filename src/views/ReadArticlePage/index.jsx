@@ -5,7 +5,8 @@ import { toast } from 'react-toastify';
 import {
   getSingleArticle,
   rateArticleRequest,
-  cleanUpRating
+  cleanUpRating,
+  articleLike
 } from './readArticle.action';
 import PropTypes from 'prop-types';
 import IconComponent from '../../components/IconComponent/index.jsx';
@@ -58,21 +59,34 @@ export class ReadArticle extends Component {
         );
     }
   }
-  componentWillUnmount;
+
+  handleArticleLike = async () => {
+    const { slug } = this.props.match.params;
+    await this.props.likeArticle(
+      this.props.article.id,
+      slug,
+      this.props.auth.user.token
+    );
+  };
+
   render() {
     let singleArticle = <Loading />;
     const articleUrl = window.location.href;
+
     if (!this.props.loading && this.props.article) {
       const {
         id,
         body,
         author,
+        likesCount,
         readTime,
         rating,
         title,
+        // slug,
         image,
         createdAt
       } = this.props.article;
+
       const authorName = `${author.firstName} ${author.lastName}`;
       const imageObj = JSON.parse(image);
       const datePublished = moment(createdAt).format('MMMM Do, YYYY');
@@ -143,6 +157,8 @@ export class ReadArticle extends Component {
                   articleUrl={articleUrl}
                   handleCreateBookmark={this.handleCreateBookmark}
                   slug={this.slug}
+                  articleLikesCount={likesCount}
+                  handleArticleLike={this.handleArticleLike}
                 />
               </div>
             </div>
@@ -160,6 +176,7 @@ export class ReadArticle extends Component {
 }
 
 ReadArticle.propTypes = {
+  id: PropTypes.number,
   slug: PropTypes.string,
   token: PropTypes.string,
   lightTheme: PropTypes.bool,
@@ -176,7 +193,9 @@ ReadArticle.propTypes = {
   rateArticleRequest: PropTypes.func,
   cleanUpRating: PropTypes.func,
   fetchArticleComment: PropTypes.func,
-  article: PropTypes.object
+  likeArticle: PropTypes.func,
+  likesCount: PropTypes.number,
+  user: PropTypes.object
 };
 export const mapStateToProps = state => {
   return {
@@ -195,7 +214,8 @@ export const mapDispatchToProps = dispatch => {
     rateArticleRequest: (payload, token) => {
       dispatch(rateArticleRequest(payload, token));
     },
-    cleanUpRating: () => dispatch(cleanUpRating())
+    cleanUpRating: () => dispatch(cleanUpRating()),
+    likeArticle: (id, slug, token) => dispatch(articleLike(id, slug, token))
   };
 };
 export default connect(

@@ -1,6 +1,5 @@
 import React from 'react';
-import FollowersTablist from '../../components/FollowersTablist/index.jsx'
-
+import FollowersTablist from '../../components/FollowersTablist/index.jsx';
 
 const landingPage = () => (
   <div>
@@ -9,7 +8,7 @@ const landingPage = () => (
       <div className="perse-phone">Team Perse-phone is the Best!!!</div>
     </div>
     <h1>This is a demo Landing tunde page</h1>
-    <FollowersTablist/>
+    <FollowersTablist />
   </div>
 );
 

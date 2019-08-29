@@ -9,7 +9,7 @@ export const setCurrentUser = decoded => {
 
 export const logout = history => dispatch => {
   // remove token
-  localStorage.removeItem('token');
+  localStorage.removeItem('user');
   dispatch(setCurrentUser({}));
   history.push('/');
 };

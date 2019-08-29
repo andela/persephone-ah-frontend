@@ -22,7 +22,6 @@ export const likeCommentSuccess = comment => {
 };
 
 export const getCommentOnArticles = slug => {
-  
   return dispatch => {
     dispatch(getCommentOnArticleStart());
     return axios

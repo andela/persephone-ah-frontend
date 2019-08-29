@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import './index.scss';
 import { Link } from 'react-router-dom';
@@ -21,7 +23,9 @@ const AuthorCard = props => {
     isFollowing,
     lightTheme,
     articleUrl,
-    handleCreateBookmark
+    handleCreateBookmark,
+    articleLikesCount,
+    handleArticleLike
   } = props;
 
   const shareText = "Checkout this awesome article on author's haven below:";
@@ -51,10 +55,15 @@ const AuthorCard = props => {
           </div>
           <div className="container-fluid read-artile-like-stat">
             <span>
-              25 <Link to="/#">Likes</Link>
+              {articleLikesCount}
+              <span onClick={handleArticleLike} className="pl-1 like-button">
+                Likes
+              </span>
             </span>
             <span>
-              <Link to="#" onClick={handleCreateBookmark}> Bookmark
+              <Link to="#" onClick={handleCreateBookmark}>
+                {' '}
+                Bookmark
               </Link>
             </span>
           </div>
@@ -107,7 +116,9 @@ AuthorCard.propTypes = {
   articleUrl: PropTypes.string,
   slug: PropTypes.string,
   bookmark: PropTypes.bool,
-  handleCreateBookmark: PropTypes.func
+  handleCreateBookmark: PropTypes.func,
+  articleLikesCount: PropTypes.number,
+  handleArticleLike: PropTypes.func
 };
 
 export default AuthorCard;

@@ -2,6 +2,7 @@ import axiosUtil from '../../utils/axiosConfig';
 import axios from 'axios';
 import * as actionTypes from '../../actionTypes/index';
 import { checkAuth } from '../../utils/checkAuth';
+import { toast } from 'react-toastify';
 
 export const getSingleArticleStart = () => {
   return {
@@ -36,8 +37,32 @@ export const getSingleArticle = slug => {
         `https://persephone-backend-staging.herokuapp.com/api/v1/articles/${slug}`
       )
       .then(response => {
-        const { data } = response.data;
-        dispatch(getSingleArticleSuccess(data));
+        dispatch(getSingleArticleSuccess(response.data.data));
+      });
+  };
+};
+
+export const articleLike = (id, slug, token) => {
+  return dispatch => {
+    return axios
+      .get(`${process.env.BASE_URL}articles/${id}/reactions`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(() => {
+        /* istanbul ignore next */
+        axios
+          .get(
+            `https://persephone-backend-staging.herokuapp.com/api/v1/articles/${slug}`
+          )
+          .then(response => {
+            const { data } = response.data;
+            dispatch(getSingleArticleSuccess(data));
+          });
+      })
+      .catch(() => {
+        toast.error('You need an account to like this article');
       });
   };
 };

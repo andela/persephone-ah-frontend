@@ -36,7 +36,7 @@ if (localStorage.user) {
   if (decoded.exp < currentTime) {
     // logout current user
     // remove token
-    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     store.dispatch(setCurrentUser({}));
   }
 }
@@ -62,9 +62,7 @@ class App extends Component {
             <Route path="/signup" component={SignupPage} />
             <Route
               path="/articles/:slug"
-              render={props => (
-                <ReadArticle {...props} />
-              )}
+              render={props => <ReadArticle {...props} />}
             />
             <Route path="/articles" component={AllArticlesPage} />
             <Route path="/social" component={SocialLogin} />

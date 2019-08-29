@@ -3,8 +3,7 @@ import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import {
-  createBookmark } from '../BookmarkPage/bookmark.action';
+import { createBookmark } from '../BookmarkPage/bookmark.action';
 import bookmarkReducer from '../BookmarkPage/bookmark.reducer';
 import {
   CREATE_BOOKMARK_SUCCESS,
@@ -100,25 +99,27 @@ describe('Bookmarks Action Tests', () => {
   afterEach(() => {
     store.clearActions();
   });
-  
+
   it('Should Trigger the CREATE_BOOKMARK_SUCCESS dispatch function', async () => {
     const response = {
       status: 201,
       data: {
         data: {
-          message:
-       'Successful'
+          message: 'Successful'
         }
       }
     };
 
     axios.post.mockResolvedValueOnce(response);
 
-    const expectedActions = [ { type: 'CREATE_BOOKMARK_SUCCESS', payload: 'Successful' } ];
-    store.dispatch(createBookmark(bookmarkParams.slug, bookmarkParams.token)).then(() => {
-
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    const expectedActions = [
+      { type: 'CREATE_BOOKMARK_SUCCESS', payload: 'Successful' }
+    ];
+    store
+      .dispatch(createBookmark(bookmarkParams.slug, bookmarkParams.token))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   it('Should Trigger the CREATE_BOOKMARK_FAIL dispatch function', async () => {
@@ -127,18 +128,19 @@ describe('Bookmarks Action Tests', () => {
         status: 400,
         data: {
           data: {
-            message:
-         'fail'
+            message: 'fail'
           }
         }
       }
-    }
+    };
 
     axios.post.mockRejectedValueOnce(error);
 
-    const expectedActions = [ { type: 'CREATE_BOOKMARK_FAIL', payload: 'fail' } ]
-    store.dispatch(createBookmark(bookmarkParams.slug, bookmarkParams.token)).then(() => {      
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    const expectedActions = [{ type: 'CREATE_BOOKMARK_FAIL', payload: 'fail' }];
+    store
+      .dispatch(createBookmark(bookmarkParams.slug, bookmarkParams.token))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 });

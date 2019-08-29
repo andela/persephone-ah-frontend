@@ -71,7 +71,7 @@ export const publishArticle = (slug, tokenId, history) => {
     .put(`${process.env.BASE_URL}articles/publish/${slug}`, null, {
       headers: { authorization: `Bearer ${tokenId}` }
     })
-    .then(res => {
+    .then(() => {
       /* istanbul ignore next */
       toast.success('Your article has been successfully published');
       setTimeout(() => {
