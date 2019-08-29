@@ -16,6 +16,10 @@ const defaultProps = {
       image: '',
       firstName: ''
     }
+  },
+  getAllNotifications: jest.fn(),
+  Notifications: {
+    notifications: [{}]
   }
 };
 
@@ -84,6 +88,10 @@ describe('Render component', () => {
                 image: '',
                 firstName: ''
               }
+            },
+            getAllNotifications: jest.fn(),
+            Notifications: {
+              notifications: [{}]
             }
           }}
         />
@@ -109,6 +117,11 @@ describe('Render component', () => {
                 image: '',
                 firstName: ''
               }
+            },
+
+            getAllNotifications: jest.fn(),
+            Notifications: {
+              notifications: [{}]
             }
           }}
         />
@@ -137,6 +150,11 @@ describe('Render component', () => {
                 image: 'sam.jpg',
                 firstName: ''
               }
+            },
+
+            getAllNotifications: jest.fn(),
+            Notifications: {
+              notifications: [{}]
             }
           }}
         />
@@ -165,6 +183,10 @@ describe('Render component', () => {
                 image: 'sam.jpg',
                 firstName: ''
               }
+            },
+            getAllNotifications: jest.fn(),
+            Notifications: {
+              notifications: [{}]
             }
           }}
         />

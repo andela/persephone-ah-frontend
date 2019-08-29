@@ -61,7 +61,6 @@ describe('<ProfileNavbar />', () => {
         </BrowserRouter>
       </Provider>
     );
-    const editButton = profileNav.find('.btn-navbar').simulate('click');
 
     profileNav.find('.edit-first-name').simulate('change', {
       target: { name: 'firstName', value: 'Damilola' }
