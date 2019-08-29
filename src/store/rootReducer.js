@@ -22,12 +22,10 @@ const rootReducer = combineReducers({
   articleComment: commentReducer,
   articles: articlesReducer,
   createArticle,
-  bookmark: bookmarkReducer,
+  bookmarks: bookmarkReducer,
   publications: publishedReducer,
   draftArticles: draftReducer,
   commentOnArticle: allCommentsOnArticle,
-  publications: publishedReducer,
-  draftArticles: draftReducer,
   editProfile: editProfileReducer
 });
 

@@ -30,6 +30,7 @@ export const getCommentOnArticles = slug => {
       )
       .then(response => {
         const { data } = response.data;
+        data.comments.reverse()
         dispatch(getCommentOnArticleSuccess(data));
       });
   };

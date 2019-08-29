@@ -22,6 +22,7 @@ import PrivateRoute from './views/AppRouter/PrivateRoute.js';
 import { setCurrentUser } from './views/Auth/auth.action.js';
 import DraftArticle from './views/DraftArticle/index.jsx';
 import PublishedArticle from './views/PublishedArticle/index.jsx';
+import BookmarkArticle from './views/BookmarkPage/index.jsx';
 
 const store = setupStore();
 if (localStorage.user) {
@@ -69,6 +70,7 @@ class App extends Component {
             <Route path="/articles/:slug" component={ReadArticle} />
             <PrivateRoute path="/publication" component={PublishedArticle} />
             <PrivateRoute path="/draft" component={DraftArticle} />
+            <PrivateRoute path="/bookmark" component={BookmarkArticle} />
           </Switch>
           <Footer />
         </Router>
