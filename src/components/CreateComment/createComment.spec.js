@@ -280,7 +280,6 @@ describe('Create Comment Page', () => {
     it('should fill the form and simulate a click on postcomment', done => {
       const props = {
         lightTheme: false,
-
         article: {
           slug: 'some-slug'
         },

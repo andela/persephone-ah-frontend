@@ -29,7 +29,7 @@ const followersTablist = props => {
         <div className="row follower-info">
           <img
             className="row"
-            src="../../src/assets/images/20190731_095437.jpg"
+            src={props.image}
             alt="profileImage of the user"
           />
           <h5>
@@ -38,22 +38,18 @@ const followersTablist = props => {
             <small>{props.email}</small>
           </h5>
         </div>
-        <div>
-          <Button customClassName={customClassName} isInverse={isIn}>
-            {buttonText}
-          </Button>
-        </div>
       </div>
     </TablistContainer>
   );
 };
 
 followersTablist.propTypes = {
-  isFollowing: PropTypes.bool.isRequired,
+  isFollowing: PropTypes.bool,
   lightTheme: PropTypes.bool.isRequired,
   isIn: PropTypes.bool,
   name: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired
+  email: PropTypes.string.isRequired,
+  image: PropTypes.string
 };
 
 export default followersTablist;

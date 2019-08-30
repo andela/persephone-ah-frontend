@@ -3,7 +3,9 @@ import {
   GET_SINGLE_ARTICLE_START,
   RATE_ARTICLE,
   RATE_ARTICLE_ERROR,
-  CLEAN_UP_RATING
+  CLEAN_UP_RATING,
+  FOLLOW_AUTHOR,
+  CLEAN_UP_FOLLOW
 } from '../../actionTypes/index';
 
 import { updateObject } from '../../utils/helper';
@@ -62,6 +64,28 @@ export default (state = initialState, action) => {
           ...state.article,
           rating: {
             ratingResponse: action.payload
+          }
+        }
+      };
+    case FOLLOW_AUTHOR:
+      return {
+        ...state,
+        article: {
+          ...state.article,
+          follow: {
+            ...state.article.follow,
+            followResponse: action.payload
+          }
+        }
+      };
+    case CLEAN_UP_FOLLOW:
+      return {
+        ...state,
+        article: {
+          ...state.article,
+          follow: {
+            ...state.article.follow,
+            followResponse: action.payload
           }
         }
       };

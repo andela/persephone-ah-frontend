@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import AuthorCard from './';
-import { Link } from 'react-router-dom';
 
 describe('Render component', () => {
   it('renders The Author card component in dark mode when user is not following author', () => {
@@ -23,18 +22,6 @@ describe('Render component', () => {
           This would be a short summary of the users bio, for little interest
           display for readers
         </p>
-      )
-    ).toBeTruthy();
-    expect(
-      component.contains(
-        <div className="author-card-follow-button-container">
-          <Link
-            to="#"
-            className="follow-author button author-card-follow-button isNotFollowing"
-          >
-            Follow
-          </Link>
-        </div>
       )
     ).toBeTruthy();
   });
@@ -59,16 +46,6 @@ describe('Render component', () => {
         </p>
       )
     ).toBeTruthy();
-    expect(
-      component.contains(
-        <Link
-          to="#"
-          className="follow-author button author-card-follow-button isFollowing"
-        >
-          Following
-        </Link>
-      )
-    ).toBeTruthy();
   });
   it('renders The Author card component in light mode when user is following author', () => {
     const component = shallow(
@@ -88,18 +65,6 @@ describe('Render component', () => {
           This would be a short summary of the users bio, for little interest
           display for readers
         </p>
-      )
-    ).toBeTruthy();
-    expect(
-      component.contains(
-        <div className="author-card-follow-button-container">
-          <Link
-            to="#"
-            className="follow-author button author-card-follow-button isFollowing"
-          >
-            Following
-          </Link>
-        </div>
       )
     ).toBeTruthy();
   });

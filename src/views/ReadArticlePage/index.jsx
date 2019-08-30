@@ -7,7 +7,9 @@ import {
   rateArticleRequest,
   cleanUpRating,
   articleLike,
-  reportArticleRequest
+  reportArticleRequest,
+  followAuthorRequest,
+  getUserFollowersRequest
 } from './readArticle.action';
 import PropTypes from 'prop-types';
 import IconComponent from '../../components/IconComponent/index.jsx';
@@ -30,11 +32,16 @@ export class ReadArticle extends Component {
     show: false
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const user = JSON.parse(localStorage.getItem('user'));
     const { slug } = this.props.match.params;
     this.setState({ user, slug });
     this.props.fetchSingleArticle(slug);
+    const { id } = this.props.article.author;
+    const {
+      user: { token }
+    } = this.props.auth;
+    await this.props.getUserFollowersRequest(id, token);
   }
 
   handleCreateBookmark = async () => {
@@ -50,6 +57,28 @@ export class ReadArticle extends Component {
       articleId: name
     };
     rateArticleRequest(payload);
+  };
+
+  checkIsFollowing = () => {
+    if (Array.isArray(this.props.user.followers)) {
+      const ids = this.props.user.followers.reduce((total, user) => {
+        return total.concat(user.follower.id);
+      }, []);
+      return ids.includes(this.props.auth.user.id);
+    }
+    return false;
+  };
+
+  handleFollow = async () => {
+    const { followAuthorRequest, article, auth } = this.props;
+    const {
+      author: { id }
+    } = article;
+    const {
+      user: { token }
+    } = auth;
+    await followAuthorRequest(id, token);
+    this.props.getUserFollowersRequest(id, token);
   };
 
   handleModalOpen = () => {
@@ -71,6 +100,12 @@ export class ReadArticle extends Component {
         toast.success(
           `You rated this article ${this.props.article.rating.ratingResponse.data.rating} stars`
         );
+    }
+
+    if (this.props.article && this.props.article.follow) {
+      if (this.props.article.follow.followResponse) {
+        toast.success(this.props.article.follow.followResponse);
+      }
     }
   }
 
@@ -191,16 +226,17 @@ export class ReadArticle extends Component {
                 <Authorcard
                   image="./../src/assets/images/avatar.png"
                   fullname={authorName}
-                  handle={author.firstName}
-                  bio="This would be a short summary of the users bio, for little interest
-display for readers"
-                  isFollowing={false}
+                  handle={author.userName}
+                  bio={author.bio}
+                  isFollowing={this.checkIsFollowing()}
                   lightTheme={this.props.lightTheme}
                   articleUrl={articleUrl}
                   handleCreateBookmark={this.handleCreateBookmark}
                   slug={this.slug}
                   articleLikesCount={likesCount}
                   handleArticleLike={this.handleArticleLike}
+                  handleFollow={this.handleFollow}
+                  isAuthenticated={this.props.auth.user.token}
                 />
               </div>
             </div>
@@ -239,6 +275,7 @@ ReadArticle.propTypes = {
   lightTheme: PropTypes.bool,
   loading: PropTypes.bool,
   match: PropTypes.object,
+  user: PropTypes.object,
   params: PropTypes.object,
   error: PropTypes.object,
   fetchSingleArticle: PropTypes.func,
@@ -251,8 +288,9 @@ ReadArticle.propTypes = {
   fetchArticleComment: PropTypes.func,
   likeArticle: PropTypes.func,
   likesCount: PropTypes.number,
-  user: PropTypes.object,
-  reportArticleRequest: PropTypes.func
+  reportArticleRequest: PropTypes.func,
+  followAuthorRequest: PropTypes.func,
+  getUserFollowersRequest: PropTypes.func
 };
 export const mapStateToProps = state => {
   return {
@@ -260,7 +298,8 @@ export const mapStateToProps = state => {
     article: state.readArticle.article,
     loading: state.readArticle.loading,
     auth: state.auth,
-    allComment: state.commentOnArticle.allComment
+    allComment: state.commentOnArticle.allComment,
+    user: state.user
   };
 };
 
@@ -274,7 +313,12 @@ export const mapDispatchToProps = dispatch => {
     cleanUpRating: () => dispatch(cleanUpRating()),
     likeArticle: (id, slug, token) => dispatch(articleLike(id, slug, token)),
     reportArticleRequest: (slug, reason, token) =>
-      dispatch(reportArticleRequest(slug, reason, token))
+      dispatch(reportArticleRequest(slug, reason, token)),
+    followAuthorRequest: async (authorId, token) =>
+      dispatch(await followAuthorRequest(authorId, token)),
+    getUserFollowersRequest: async (userId, token) => {
+      dispatch(await getUserFollowersRequest(userId, token));
+    }
   };
 };
 export default connect(

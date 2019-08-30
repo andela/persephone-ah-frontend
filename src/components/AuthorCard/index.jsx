@@ -25,9 +25,10 @@ const AuthorCard = props => {
     articleUrl,
     handleCreateBookmark,
     articleLikesCount,
-    handleArticleLike
+    handleArticleLike,
+    isAuthenticated,
+    handleFollow
   } = props;
-
   const shareText = "Checkout this awesome article on author's haven below:";
 
   const followText = isFollowing ? 'Following' : 'Follow';
@@ -97,11 +98,18 @@ const AuthorCard = props => {
 
       <hr />
       <p className="container-fluid author-bio small-text">{bio}</p>
-      <div className="author-card-follow-button-container">
-        <Link to="#" className={followButtonClass}>
-          {followText}
-        </Link>
-      </div>
+      {isAuthenticated ? (
+        <div
+          onClick={handleFollow}
+          className="author-card-follow-button-container"
+        >
+          <Link to="#" className={followButtonClass}>
+            {followText}
+          </Link>
+        </div>
+      ) : (
+        ''
+      )}
     </div>
   );
 };
@@ -109,8 +117,8 @@ const AuthorCard = props => {
 AuthorCard.propTypes = {
   image: PropTypes.string.isRequired,
   fullname: PropTypes.string.isRequired,
-  handle: PropTypes.string.isRequired,
-  bio: PropTypes.string.isRequired,
+  handle: PropTypes.string,
+  bio: PropTypes.string,
   isFollowing: PropTypes.bool.isRequired,
   lightTheme: PropTypes.bool.isRequired,
   articleUrl: PropTypes.string,
@@ -118,7 +126,9 @@ AuthorCard.propTypes = {
   bookmark: PropTypes.bool,
   handleCreateBookmark: PropTypes.func,
   articleLikesCount: PropTypes.number,
-  handleArticleLike: PropTypes.func
+  handleArticleLike: PropTypes.func,
+  isAuthenticated: PropTypes.string,
+  handleFollow: PropTypes.func
 };
 
 export default AuthorCard;
