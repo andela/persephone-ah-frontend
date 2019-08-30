@@ -97,7 +97,9 @@ const AuthorCard = props => {
       </div>
 
       <hr />
-      <p className="container-fluid author-bio small-text">{bio}</p>
+      <p className="container-fluid author-bio small-text">
+        {bio === 'null' || !bio ? '' : bio}
+      </p>
       {isAuthenticated ? (
         <div
           onClick={handleFollow}

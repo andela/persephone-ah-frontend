@@ -36,14 +36,14 @@ export const authSignup = (userDetails, history) => {
       .then(response => {
         const { token } = response.data.data;
         const { data } = response.data;
-        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(data));
 
         toast.success('Registration Successful');
 
         setTimeout(() => {
-          history.push('/article');
           // dispatch set auth
           dispatch(setCurrentUser(data));
+          history.push('/publication');
         }, 3000);
 
         dispatch(userSignupSuccess(token, data));

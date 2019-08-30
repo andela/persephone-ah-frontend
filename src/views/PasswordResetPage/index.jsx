@@ -46,9 +46,13 @@ export class PasswordResetPage extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     this.setState({ isLoading: true });
-    await this.props.passwordResetRequest(this.props.location.search, {
-      password: this.state.password
-    });
+    await this.props.passwordResetRequest(
+      this.props.location.search,
+      this.props.history,
+      {
+        password: this.state.password
+      }
+    );
     this.setState({ isLoading: false });
   };
 
@@ -105,13 +109,16 @@ export class PasswordResetPage extends Component {
 PasswordResetPage.propTypes = {
   theme: PropTypes.object,
   passwordResetRequest: PropTypes.func,
-  location: PropTypes.object
+  location: PropTypes.object,
+  history: PropTypes.object
 };
 
 export const mapDispatchToProps = dispatch => {
   return {
-    passwordResetRequest: async (location, newPassword) => {
-      return dispatch(await passwordResetRequest(location, newPassword));
+    passwordResetRequest: async (location, history, newPassword) => {
+      return dispatch(
+        await passwordResetRequest(location, history, newPassword)
+      );
     }
   };
 };

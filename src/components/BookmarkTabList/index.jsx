@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import IconComponent from '../IconComponent/index.jsx';
 import TablistContainer from '../TablistContainer/index.jsx';
 import './ArticleTabList.scss';
-import PublishModal from '../../components/Modal/index.jsx';
 
 /**
  *  Sample Usage
@@ -73,6 +72,7 @@ const articleCardList = props => {
               <div className="col-md-4 article-tab-list-action">
                 <input
                   type="submit"
+                  /* istanbul ignore next */
                   onClick={() => props.handleShow(props.slug)}
                   value={props.actionButton}
                 />
@@ -97,7 +97,8 @@ articleCardList.propTypes = {
   actionButton: PropTypes.string,
   unpublishArticle: PropTypes.func,
   toggleModal: PropTypes.func,
-  handleShow: PropTypes.func
+  handleShow: PropTypes.func,
+  imageObj: PropTypes.object
 };
 
 export default articleCardList;

@@ -146,6 +146,53 @@ describe('Edit Profile', () => {
 
       done();
     });
+
+    it('dispatches updateProfile action to fail', done => {
+      const userData = {
+        firstName: 'damilola'
+      };
+      const token = 'some-token';
+      const expectedActions = [
+        { type: 'EDIT_PROFILE_START' },
+        {
+          type: 'EDIT_PROFILE_SUCCESS',
+          userData: {
+            firstName: 'Funmilayo',
+            lastName: 'Adekoya',
+            bio: 'dhdkala',
+            userName: 'djjkslka',
+            twitterHandle: null,
+            facebookHandle: null,
+            image:
+              'https://res.cloudinary.com/fxola/image/upload/v1566997038/avatar/mypic.jpeg.jpg'
+          }
+        },
+        { type: 'EDIT_PROFILE_FAIL', error: 'lastName cannot be empty' },
+        { type: 'EDIT_PROFILE_START' },
+        { type: 'EDIT_PROFILE_SUCCESS', userData: undefined },
+        { type: 'EDIT_PROFILE_START' }
+      ];
+
+      const result = {
+        data: {
+          data: {
+            message: 'something went wrong'
+          }
+        }
+      };
+      moxios.stubRequest(
+        'http://persephone-backend-staging.herokuapp.com/api/v1/users',
+        {
+          status: 400,
+          response: result.data
+        }
+      );
+
+      store.dispatch(updateProfile(userData, token));
+      expect(store.getActions()).toEqual(expectedActions);
+
+      done();
+    });
   });
 
   describe('Edit Profile reducers', () => {

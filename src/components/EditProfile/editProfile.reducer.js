@@ -20,7 +20,8 @@ const editProfileStart = state => {
 const editProfileSuccess = (state, action) => {
   return updateObject(state, {
     userData: action.userData,
-    loading: false
+    loading: false,
+    error: null
   });
 };
 const editProfileFail = (state, action) => {
