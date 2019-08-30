@@ -283,7 +283,7 @@ describe('Edit Profile', () => {
       });
 
       editProfile.find('form').simulate('submit', { preventDefault() {} }); // test to see arguments used after its been submitted
-    
+
       done();
     });
   });

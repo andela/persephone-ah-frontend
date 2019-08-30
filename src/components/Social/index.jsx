@@ -19,7 +19,7 @@ class Social extends Component {
     try {
       this.props.logInUser(user);
       localStorage.setItem('user', JSON.stringify(user));
-      history.push('/article');
+      history.push('/articles');
     } catch (error) {
       return error.message;
     }

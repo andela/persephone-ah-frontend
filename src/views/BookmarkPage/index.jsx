@@ -100,8 +100,7 @@ export class BookmarkedArticle extends Component {
         </PublishModal>
 
         <div className="col-md-12 publication-container">
-          {this.props.bookmarks !== null &&
-          this.props.bookmarks.length === 0 ? (
+          {this.props.bookmarks === null ? (
             <h5 className="no-draft-text pt-5 text-center">
               You have not bookmarked any articles
             </h5>

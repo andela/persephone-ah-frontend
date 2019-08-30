@@ -126,6 +126,7 @@ export class LoginPage extends Component {
                 <span className="">Sign In With Google</span>
               </button>
             </div>
+            <Link to="/forgot-password">Forgotten your Password?</Link>
           </form>
         </div>
       </div>
