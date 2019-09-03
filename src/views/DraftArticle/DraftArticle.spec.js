@@ -362,17 +362,6 @@ describe('PublishedArticle page', () => {
       store = mockStore();
     });
     it('should render Draft Article Page', () => {
-      const props = {
-        lightTheme: false,
-        drafts: response.data,
-        fetchUnPublishedArticles: jest.fn(),
-        show: false,
-        auth: {
-          user: {
-            firstName: 'damilola'
-          }
-        }
-      };
       store = mockStore({
         theme: {
           theme: {}
@@ -384,13 +373,7 @@ describe('PublishedArticle page', () => {
           }
         }
       });
-      const publishArticle = mount(
-        <Provider store={store}>
-          <BrowserRouter>
-            <DraftArticle {...props} handleChange={jest.fn()} />
-          </BrowserRouter>
-        </Provider>
-      );
+
       const dispatch = jest.fn();
       mapDispatchToProps(dispatch).fetchUnPublishedArticles();
     });

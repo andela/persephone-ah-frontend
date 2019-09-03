@@ -1,11 +1,10 @@
 import React from 'react';
 import '@babel/polyfill';
 import mockAxios from 'axios';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import readArticleReducer from './readArticle.reducer';
 import loginReducer from '../LoginPage/login.reducer';
 import configureStore from 'redux-mock-store';
-import { BrowserRouter } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import {
   followAuthorRequest,

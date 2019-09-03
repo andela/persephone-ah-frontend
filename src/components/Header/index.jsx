@@ -7,6 +7,11 @@ import { logout } from '../../views/Auth/auth.action';
 import Toggle from '../../components/Toggle/index.jsx';
 import './Header.scss';
 import IconComponent from '../IconComponent/index.jsx';
+import Notification from '../Notifications/index.jsx';
+import {
+  getAllNotifications,
+  updateNotification
+} from '../Notifications/notification.action';
 
 export class Header extends Component {
   constructor() {
@@ -15,14 +20,19 @@ export class Header extends Component {
       toggle: 'switch',
       theme: 'light-theme',
       auth: {},
-      openNav: 'hidden'
+      openNav: 'hidden',
+      notifyId: ''
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleHamburger = this.handleHamburger.bind(this);
+    this.countNotify = this.countNotify.bind(this);
+    this.markNotificationRead = this.markNotificationRead.bind(this);
     this.app_theme = localStorage.getItem('app_theme');
   }
 
   componentWillMount() {
+    //dispatch the action
+    this.props.getAllNotifications();
     if (this.app_theme === null) {
       // dispatch an action
       this.props.themeToggler('dark-theme');
@@ -36,6 +46,19 @@ export class Header extends Component {
         ? this.setState({ toggle: '', theme: 'dark-theme' })
         : '';
     }
+  }
+
+  countNotify() {
+    const { notifications } = this.props.Notifications;
+    if (notifications) {
+      let initialCount = notifications.filter(item => item.isRead === false);
+      return initialCount.length;
+    }
+  }
+
+  markNotificationRead(e, id) {
+    // update notification
+    this.props.updateNotification(id);
   }
 
   handleLogOut(e) {
@@ -64,9 +87,11 @@ export class Header extends Component {
 
   render() {
     const { toggle } = this.state;
+    const { notifications } = this.props.Notifications;
     const { theme } = this.props.theme;
     const { isAuthenticated, user } = this.props.auth;
     const { image } = user;
+    const notifyCount = this.countNotify();
     const { openNav } = this.state;
     return (
       <React.Fragment>
@@ -150,6 +175,24 @@ export class Header extends Component {
                   </React.Fragment>
                 ) : (
                   <React.Fragment>
+                    <div className="notification dropdown">
+                      <i className="ion-ios-bell-outline pr-2"></i>
+
+                      {notifyCount !== 0 ? (
+                        <span className="badge notification-badge badge-danger">
+                          {' '}
+                          {notifyCount}{' '}
+                        </span>
+                      ) : (
+                        ''
+                      )}
+                      <div className={`${theme} drop dropdown-fill tray`}>
+                        <Notification
+                          notification={notifications}
+                          handleIsread={this.markNotificationRead}
+                        />
+                      </div>
+                    </div>
                     <Link
                       to="/compose"
                       className="button compose-btn  navbtn_signup button-normal border-0 pr-3 pl-3  pb-1 mr-4 m-all"
@@ -206,15 +249,19 @@ Header.propTypes = {
   theme: PropTypes.object,
   auth: PropTypes.object,
   logout: PropTypes.func,
-  history: PropTypes.object
+  history: PropTypes.object,
+  Notifications: PropTypes.object,
+  getAllNotifications: PropTypes.func,
+  updateNotification: PropTypes.func
 };
 
 const mapStateToProps = state => ({
   theme: state.theme,
-  auth: state.auth
+  auth: state.auth,
+  Notifications: state.notifications
 });
 
 export default connect(
   mapStateToProps,
-  { themeToggler, logout }
+  { themeToggler, logout, getAllNotifications, updateNotification }
 )(Header);

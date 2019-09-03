@@ -558,14 +558,6 @@ describe('ReadArticle Page', () => {
       </Provider>
     );
     const readArticlePage = readArticle.find('.article-title');
-    const instance = readArticle.instance();
-    const ratingCover = readArticle
-      .find('.article-body StarRatingComponent')
-      .simulate('click');
-    const rating = readArticle
-      .find('.article-body StarRatingComponent label')
-      .at(2)
-      .simulate('click');
     expect(readArticlePage).toBeTruthy();
     done();
   });
