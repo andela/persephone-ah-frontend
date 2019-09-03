@@ -122,7 +122,8 @@ export class ProfileNavbar extends Component {
 
     await this.props.updateUserProfile(formData, this.props.auth.user.token);
     /* istanbul ignore next */
-    if (this.props.updatedProfileData.userData !== undefined) {
+    if (this.props.updatedProfileData.error === null) {
+      console.log('releh');
       /* istanbul ignore next */
       this.setState({
         showEditModal: false,
@@ -160,7 +161,7 @@ export class ProfileNavbar extends Component {
             <p>
               {name}
               <br />
-              <small>{this.props.userName}</small>
+              <small>@{this.props.userName}</small>
             </p>
           </div>
 

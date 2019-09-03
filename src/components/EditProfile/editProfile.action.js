@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as actionTypes from '../../actionTypes/index';
+import { toast } from 'react-toastify';
 
 export const editProfileStart = () => {
   return {
@@ -41,6 +42,12 @@ export const updateProfile = (userData, token) => {
 
         localStorage.setItem('user', JSON.stringify(setUserData));
         dispatch(editProfileSuccess(data));
+      })
+      .catch(error => {
+        /* istanbul ignore next */
+        toast.error(error.response.data.data.message);
+        /* istanbul ignore next */
+        dispatch(editProfileFail(error.response.data.data.message));
       });
   };
 };

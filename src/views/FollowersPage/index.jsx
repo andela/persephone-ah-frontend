@@ -13,7 +13,6 @@ export class DraftArticle extends Component {
         user: { token, id }
       }
     } = this.props;
-    console.log(id);
     this.props.getUserFollowersRequest(id, token);
   }
 
@@ -29,7 +28,6 @@ export class DraftArticle extends Component {
     if (this.props.user && followers) {
       FollowersList = Array.isArray(followers) ? (
         followers.map(user => {
-          console.log();
           const { id, email, firstName, lastName, image } = user.follower;
 
           return (
@@ -43,7 +41,9 @@ export class DraftArticle extends Component {
           );
         })
       ) : (
-        <h5 className="text-center">You currently don't have any follower</h5>
+        <h5 className="text-center pt-5">
+          You currently don't have any follower
+        </h5>
       );
     }
     const userDetails = this.props.auth.user;
