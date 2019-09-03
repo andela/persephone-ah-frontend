@@ -5,6 +5,7 @@ import { shallow } from 'enzyme';
 import readArticleReducer from './readArticle.reducer';
 import loginReducer from '../LoginPage/login.reducer';
 import configureStore from 'redux-mock-store';
+
 import thunk from 'redux-thunk';
 import {
   followAuthorRequest,

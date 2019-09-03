@@ -61,6 +61,7 @@ describe('<ProfileNavbar />', () => {
         </BrowserRouter>
       </Provider>
     );
+  
 
     profileNav.find('.edit-first-name').simulate('change', {
       target: { name: 'firstName', value: 'Damilola' }
@@ -144,5 +145,65 @@ describe('<ProfileNavbar />', () => {
       }
     };
     shallow(<ProfileNavbar {...prop} />);
+  });
+
+  it('should render handleNotify method', () => {
+    const prop = {
+      lightTheme: false,
+      active: 'followers',
+      firstName: 'Damilola',
+      lastName: 'Adekoya',
+      auth: {
+        user: {
+          firstName: 'damilola',
+          userName: ''
+        }
+      }
+    };
+    const component = shallow(<ProfileNavbar {...prop} />);
+    const instance = component.instance();
+    jest.spyOn(instance, 'handleNotify');
+    instance.handleNotify('new');
+    expect(instance.handleNotify).toHaveBeenCalled();
+  });
+
+  it('should render handleClose method', () => {
+    const prop = {
+      lightTheme: false,
+      active: 'followers',
+      firstName: 'Damilola',
+      lastName: 'Adekoya',
+      auth: {
+        user: {
+          firstName: 'damilola',
+          userName: ''
+        }
+      }
+    };
+    const component = shallow(<ProfileNavbar {...prop} />);
+    const instance = component.instance();
+    jest.spyOn(instance, 'handleClose');
+    instance.handleClose('new');
+    expect(instance.handleClose).toHaveBeenCalled();
+  });
+
+  it('should render handleOpen method', () => {
+    const prop = {
+      lightTheme: false,
+      active: 'followers',
+      firstName: 'Damilola',
+      lastName: 'Adekoya',
+      auth: {
+        user: {
+          firstName: 'damilola',
+          userName: ''
+        }
+      }
+    };
+    const component = shallow(<ProfileNavbar {...prop} />);
+    const instance = component.instance();
+    jest.spyOn(instance, 'handleShow');
+    instance.handleShow('new');
+    expect(instance.handleShow).toHaveBeenCalled();
   });
 });

@@ -35,3 +35,21 @@
     min-width: 268px;
   }
 }
+.edit-notification {
+  p {
+    font-size: 15px;
+  }
+}
+
+.activate {
+  color: #0000ff;
+  text-decoration: underline;
+}
+
+.edit-profile-container input[type='checkbox'] {
+  min-width: 0px;
+  margin: 0px;
+  height: 15px;
+  width: 95%;
+  font-size: 10px;
+}

@@ -243,7 +243,10 @@ export class ReadArticle extends Component {
           </div>
           <div className="row create-comment-section">
             <div className="col-sm-12 col-md-12 create-comment-container">
-              <CreateComment {...this.props.match} />
+              <CreateComment
+                {...this.props.match}
+                token={this.props.auth.user.token}
+              />
             </div>
           </div>
           <ReportModal
