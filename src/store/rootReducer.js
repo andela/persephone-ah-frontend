@@ -13,6 +13,8 @@ import draftReducer from '../views/DraftArticle/DraftArticle.reducer';
 import allCommentsOnArticle from '../components/SingleComment/singleComment.reducer';
 import editProfileReducer from '../components/EditProfile/editProfile.reducer';
 import notificationReducer from '../components/Notifications/notification.reducer';
+import updatedComment from '../components/Editcomment/editCommentReducer';
+import commentEditHistory from '../components/EditCommentHistory/editCommentHistory.reducer';
 
 const rootReducer = combineReducers({
   theme: themeToggler,
@@ -28,7 +30,9 @@ const rootReducer = combineReducers({
   draftArticles: draftReducer,
   commentOnArticle: allCommentsOnArticle,
   editProfile: editProfileReducer,
-  notifications: notificationReducer
+  notifications: notificationReducer,
+  updatedComment,
+  commentEditHistory
 });
 
 export default rootReducer;

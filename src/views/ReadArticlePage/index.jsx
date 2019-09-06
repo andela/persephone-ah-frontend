@@ -11,6 +11,8 @@ import {
   followAuthorRequest,
   getUserFollowersRequest
 } from './readArticle.action';
+import { updateCommentRequest } from '../../components/Editcomment/editComment.action';
+import { getEditHistoryRequest } from '../../components/EditCommentHistory/editCommentHistory.action';
 import PropTypes from 'prop-types';
 import IconComponent from '../../components/IconComponent/index.jsx';
 import './ReadArticlePage.scss';
@@ -18,9 +20,11 @@ import StarRatingComponent from 'react-star-rating-component';
 import CreateComment from '../../components/CreateComment/index.jsx';
 import Authorcard from '../../components/AuthorCard/index.jsx';
 import Loading from '../../components/LoadingIndicator/index.jsx';
-
 import ReportArticleForm from '../../components/ReportArticle/index.jsx';
+import EditCommentForm from '../../components/Editcomment/index.jsx';
+import EditCommentHistory from '../../components/EditCommentHistory/index.jsx';
 import ReportModal from '../../components/Modal/index.jsx';
+import CommentModal from '../../components/Modal/index.jsx';
 import reactHtmlParser from 'react-html-parser';
 import { createBookmark } from '../../views/BookmarkPage/bookmark.action';
 import ToolTip from 'react-tooltip';
@@ -29,7 +33,11 @@ export class ReadArticle extends Component {
   state = {
     user: {},
     slug: '',
-    show: false
+    show: false,
+    commentModalShow: false,
+    editHistory: false,
+    clicked: false,
+    commentId: ''
   };
 
   async componentDidMount() {
@@ -89,6 +97,20 @@ export class ReadArticle extends Component {
     this.setState({ show: false });
   };
 
+  handleCommentModalOpen = (name, id) => {
+    const editHistory = name === 'edit-history';
+    this.setState({
+      commentId: id,
+      commentModalShow: true,
+      clicked: true,
+      editHistory
+    });
+  };
+
+  handleCommentModalClose = () => {
+    this.setState({ commentModalShow: false });
+  };
+
   componentDidUpdate() {
     if (
       this.props.article &&
@@ -119,11 +141,9 @@ export class ReadArticle extends Component {
   };
 
   render() {
-    const { slug } = this.props.match.params;
     const { auth } = this.props;
     let singleArticle = <Loading />;
     const articleUrl = window.location.href;
-
     if (!this.props.loading && this.props.article) {
       const {
         id,
@@ -133,12 +153,11 @@ export class ReadArticle extends Component {
         readTime,
         rating,
         title,
-        // slug,
+        slug,
         image,
         createdAt,
         Tags
       } = this.props.article;
-
       const authorName = `${author.firstName} ${author.lastName}`;
       const imageObj = JSON.parse(image);
       const datePublished = moment(createdAt).format('MMMM Do, YYYY');
@@ -246,6 +265,8 @@ export class ReadArticle extends Component {
               <CreateComment
                 {...this.props.match}
                 token={this.props.auth.user.token}
+                handleCommentModalClose={this.handleCommentModalClose}
+                handleCommentModalOpen={this.handleCommentModalOpen}
               />
             </div>
           </div>
@@ -262,6 +283,40 @@ export class ReadArticle extends Component {
               token={auth.user.token}
             ></ReportArticleForm>
           </ReportModal>
+          <CommentModal
+            show={this.state.commentModalShow}
+            lightTheme={this.props.lightTheme}
+            handleClose={this.handleCommentModalClose}
+            handleCommentModalOpen={this.handleCommentModalOpen}
+          >
+            {this.state.clicked ? (
+              this.state.editHistory ? (
+                <EditCommentHistory
+                  lightTheme={this.props.lightTheme}
+                  commentHistory={this.props.commentEditHistory}
+                  commentId={this.state.commentId}
+                  slug={slug}
+                  isLoading={
+                    !this.props.commentEditHistory
+                      ? true
+                      : this.props.commentEditHistory.isLoading
+                  }
+                  getEditHistoryRequest={this.props.getEditHistoryRequest}
+                  token={auth.user.token}
+                />
+              ) : (
+                <EditCommentForm
+                  handleClose={this.handleCommentModalClose}
+                  updateCommentRequest={this.props.updateCommentRequest}
+                  commentId={this.state.commentId}
+                  slug={slug}
+                  token={auth.user.token}
+                ></EditCommentForm>
+              )
+            ) : (
+              ''
+            )}
+          </CommentModal>
           <ToolTip />
         </div>
       );
@@ -293,7 +348,11 @@ ReadArticle.propTypes = {
   likesCount: PropTypes.number,
   reportArticleRequest: PropTypes.func,
   followAuthorRequest: PropTypes.func,
-  getUserFollowersRequest: PropTypes.func
+  getUserFollowersRequest: PropTypes.func,
+  updateCommentRequest: PropTypes.func,
+  getEditHistoryRequest: PropTypes.func,
+  updatedComment: PropTypes.any,
+  commentEditHistory: PropTypes.any
 };
 export const mapStateToProps = state => {
   return {
@@ -302,7 +361,9 @@ export const mapStateToProps = state => {
     loading: state.readArticle.loading,
     auth: state.auth,
     allComment: state.commentOnArticle.allComment,
-    user: state.user
+    user: state.user,
+    updatedComment: state.updatedComment,
+    commentEditHistory: state.commentEditHistory
   };
 };
 
@@ -321,6 +382,12 @@ export const mapDispatchToProps = dispatch => {
       dispatch(await followAuthorRequest(authorId, token)),
     getUserFollowersRequest: async (userId, token) => {
       dispatch(await getUserFollowersRequest(userId, token));
+    },
+    updateCommentRequest: (slug, comment, commentId, token) => {
+      return dispatch(updateCommentRequest(slug, comment, commentId, token));
+    },
+    getEditHistoryRequest: (slug, commentId, token) => {
+      return dispatch(getEditHistoryRequest(slug, commentId, token));
     }
   };
 };

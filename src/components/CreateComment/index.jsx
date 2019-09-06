@@ -70,6 +70,10 @@ export class CreateComment extends Component {
             {...comment}
             datePublished={datePublished}
             handleLike={this.handleLike}
+            handleCommentModalOpen={this.props.handleCommentModalOpen}
+            handleCommentModalClose={this.props.handleCommentModalClose}
+            token={this.props.auth.user.token}
+            viewerEmail={this.props.auth.user.email}
           />
         );
       });
@@ -119,7 +123,9 @@ CreateComment.propTypes = {
   token: PropTypes.string,
   slugtoken: PropTypes.string,
   allComment: PropTypes.object,
-  auth: PropTypes.object
+  auth: PropTypes.object,
+  handleCommentModalOpen: PropTypes.func,
+  handleCommentModalClose: PropTypes.func
 };
 
 export const mapStateToProps = state => {
